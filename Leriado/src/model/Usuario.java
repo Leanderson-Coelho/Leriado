@@ -6,14 +6,18 @@ package model;
  */
 public class Usuario {
 
-	private Integer id;
-	
-	private String login;
-	
-	private String senha;
-	
+	private Integer id;	
+	private String login;	
+	private String senha;	
 	private String nome;
-
+	
+	public Usuario(int id, String login, String senha, String nome) {
+		this.id = id;
+		this.login = login;
+		this.senha = senha;
+		this.nome = nome;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
