@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.CrudUsuario;
 import model.Usuario;
 import model.UsuarioDAO;
 
@@ -22,21 +23,19 @@ public class Logar implements Command {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request);
-		System.out.println("oi");
-		//request.getRequestDispatcher("login.jsp").forward(request, response);
-		/*// Instancia a classe DAO responsável por abstrair o acesso a banco (modelo)
-		UsuarioDAO usuario = new UsuarioDAO();
-		
-		// Chama o modelo para recuperar a lista de usuarios
-		List<Usuario> usuarios = usuario.listarUsuarios();
-		
-		// Adiciona um atributo de requisição chamado 'usuarios' para que seja utilizado na visao
-		request.setAttribute("usuarios", usuarios);
-		
-		// Encaminha a chamada para a visão, especificamente para a página usuarios.jsp
-		request.getRequestDispatcher("usuarios.jsp").forward(request, response);
-			*/	
+		CrudUsuario crudUsuario = new CrudUsuario();
+		String login = request.getParameter("login");
+		String senha = request.getParameter("senha");
+		Usuario usuario = crudUsuario.autenticaUsuario(login, senha);
+		if (usuario==null) {
+			request.setAttribute("erro", "Acesso negado!");
+			request.setAttribute("voltar", "'./controller?comando=Login'");
+			request.getRequestDispatcher("erro.jsp").forward(request, response);
+		} else {
+			request.setAttribute("nome", usuario.getNome());
+			request.getRequestDispatcher("controller?comando=Home").forward(request, response);
+			
+		}
 	}
 
 }

@@ -12,7 +12,8 @@
 <body>
 	<div class="containerErro">
 		<div class="box"><img src="./img/falha.png"></div>
-		<h1>Erro: ${erro}</h1>		
+		<h1>Erro: ${erro}</h1>
+		<button type="button" onclick="window.location.href=${voltar}">Voltar</button>		
 	</div>
 </body>
 </html>

@@ -15,7 +15,6 @@ public class FrontController extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recupera o parâmetro com o nome do comando a ser instanciado
 		String comando = request.getParameter("comando");
-		
 		try {
 			/** 
 			 * Cria uma nova instância do comando que foi passado por parâmetro (usando a API Java Reflection). 
@@ -27,16 +26,19 @@ public class FrontController extends HttpServlet{
 			command.execute(request, response);
 		} catch (InstantiationException e) {
 			// Prenche o atributo que será usado como ${erro} na visão
+			request.setAttribute("voltar", "'./controller?comando=Home'");
 			request.setAttribute("erro", "Erro interno - Ligue para o programador!");
 			// Encaminha a requisição para a página de erro em caso de exceção
 			request.getRequestDispatcher("erro.jsp").forward(request, response);
 		} catch (IllegalAccessException e) {
 			// Prenche o atributo que será usado como ${erro} na visão
+			request.setAttribute("voltar", "'./controller?comando=Home'");
 			request.setAttribute("erro", "Acesso negado!");
 			// Encaminha a requisição para a página de erro em caso de exceção
 			request.getRequestDispatcher("erro.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// Prenche o atributo que será usado como ${erro} na visão
+			request.setAttribute("voltar", "'./controller?comando=Home'");
 			request.setAttribute("erro", "404 - Página não encontrada!");
 			// Encaminha a requisição para a página de erro em caso de exceção
 			request.getRequestDispatcher("erro.jsp").forward(request, response);
@@ -44,8 +46,9 @@ public class FrontController extends HttpServlet{
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 	
 	

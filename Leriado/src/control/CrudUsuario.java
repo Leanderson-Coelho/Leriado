@@ -142,9 +142,9 @@ public class CrudUsuario {
 	 * NULL caso a autenticação não seja realizada com sucesso. 
 	 */
 
-	public Usuario autenticaUsuario(String email, String senha) {
+	public Usuario autenticaUsuario(String login, String senha) {
 		try {
-			return usuarioDAO.autenticaUsuario(email, senha);
+			return usuarioDAO.autenticaUsuario(login, senha);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
