@@ -1,4 +1,4 @@
-package controller.comand;
+package controller.command;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ import model.UsuarioDAO;
  * Controlador de Aplicação referente à entidade Usuario
  * Note ue ele implementa a interface Command e o método execute definido por ela
  */
-public class UsuarioCommand implements Command {
+public class Login implements Command {
 
 	/** 
 	 * Lógica de negócio do comando de Usuarios.
@@ -22,6 +22,7 @@ public class UsuarioCommand implements Command {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 		/*// Instancia a classe DAO responsável por abstrair o acesso a banco (modelo)
 		UsuarioDAO usuario = new UsuarioDAO();
 		

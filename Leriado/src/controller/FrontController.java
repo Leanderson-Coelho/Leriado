@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.comand.Command;
+import controller.command.Command;
 
 @WebServlet("/controller")
 public class FrontController extends HttpServlet{
@@ -37,11 +37,18 @@ public class FrontController extends HttpServlet{
 			request.getRequestDispatcher("erro.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// Prenche o atributo que será usado como ${erro} na visão
-			request.setAttribute("erro", "Página não encontrada!");
+			request.setAttribute("erro", "404 - Página não encontrada!");
 			// Encaminha a requisição para a página de erro em caso de exceção
 			request.getRequestDispatcher("erro.jsp").forward(request, response);
 		}
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub		
+	}
+	
+	
 	
 
 }

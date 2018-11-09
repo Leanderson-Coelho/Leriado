@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Erro!</title>
+	<link rel="icon" type="image/png" href="img/icone.png" />
+	<link rel="stylesheet" type="text/css" href="./css/estilo.css"/>
+	<title>Erro!</title>
 </head>
 <body>
-
-	<div style="width: 500px; text-align: center; margin: 0 auto; background: #ff0033; color: #fff;">
-		<h1>Erro: ${erro}</h1>
+	<div class="containerErro">
+		<div class="box"><img src="./img/falha.png"></div>
+		<h1>Erro: ${erro}</h1>		
 	</div>
 </body>
 </html>
