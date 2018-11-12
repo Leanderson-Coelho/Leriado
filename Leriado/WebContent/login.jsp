@@ -9,7 +9,6 @@
 </head>
 <body>	
 	<div class="containerLogin">
-		<div><img = src <>
 		<div class="boxlogin">			
 			<form action="controller?comando=Logar" method="POST">
 				<div class="boxElemento"><input type="text" name="login" value="usuário"></div>
