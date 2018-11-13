@@ -22,19 +22,7 @@ public class Login implements Command {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("login.jsp").forward(request, response);
-		/*// Instancia a classe DAO responsável por abstrair o acesso a banco (modelo)
-		UsuarioDAO usuario = new UsuarioDAO();
-		
-		// Chama o modelo para recuperar a lista de usuarios
-		List<Usuario> usuarios = usuario.listarUsuarios();
-		
-		// Adiciona um atributo de requisição chamado 'usuarios' para que seja utilizado na visao
-		request.setAttribute("usuarios", usuarios);
-		
-		// Encaminha a chamada para a visão, especificamente para a página usuarios.jsp
-		request.getRequestDispatcher("usuarios.jsp").forward(request, response);
-			*/	
+		request.getRequestDispatcher("login.html").forward(request, response);
 	}
 
 }
