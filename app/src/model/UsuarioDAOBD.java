@@ -12,8 +12,35 @@ import conecta.Conecta;
 
 public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 	
+	private final String campoUsuario = "id, ativo, email, senha, nome, sobrenome, "
+			+ " sexo, datanasc, acesso, telefone, rua, cidade, "
+			+ " estado, numero, cep";
+	
 	public UsuarioDAOBD() {
 			
+	}
+	
+	private Usuario lerUsuario(ResultSet resultSet) throws SQLException {
+		if (resultSet==null)
+			return null;
+		Usuario usuario = new Usuario(
+				resultSet.getInt("id"),
+				resultSet.getBoolean("ativo"),
+				resultSet.getString("email"),
+				resultSet.getString("senha"),
+				resultSet.getString("nome"),
+				resultSet.getString("sobrenome"),
+				resultSet.getString("sexo"),
+				resultSet.getDate("datanasc").toLocalDate(),
+				resultSet.getInt("acesso"),
+				resultSet.getString("telefone"),
+				resultSet.getString("rua"),
+				resultSet.getString("cidade"),
+				resultSet.getString("estado"),
+				resultSet.getString("numero"),
+				resultSet.getString("cep")
+		);
+		return usuario;
 	}
 		
 	@Override
@@ -21,16 +48,14 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 		HashSet<Usuario> usuarios = new HashSet<>();
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id, login, senha, nome FROM usuario;"
+					"SELECT " 
+					+ campoUsuario
+					+ " FROM usuario"
+					+ " WHERE ativo"
 			);
 			ResultSet resultSet = statement.executeQuery();
-			while(resultSet.next()) {
-				Usuario usuario = new Usuario(
-						resultSet.getInt(1),
-						resultSet.getString(2),						
-						resultSet.getString(3),
-						resultSet.getString(4));						
-				usuarios.add(usuario);
+			while(resultSet.next()) {			
+				usuarios.add(lerUsuario(resultSet));
 			}		
 		} catch (SQLException  e) {
 			// TODO Auto-generated catch block
@@ -58,7 +83,7 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
 					" SELECT COUNT(*) FROM usuario "
-					+ " WHERE id=?;"
+					+ " WHERE ativo AND id=?;"
 			);
 			statement.setInt(1, usuario.getId());
 			ResultSet resultSet = statement.executeQuery();
@@ -81,13 +106,24 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 		
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO usuario (login,senha,nome) "
-					+ " VALUES(?,?,?);"
+					"INSERT INTO usuario (email,senha,nome,sobrenome,sexo,datanasc,"
+					+ " acesso, telefone, rua, cidade, estado, numero, cep) "
+					+ " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);"
 			);
 			
-			statement.setString(1, obj.getLogin());
+			statement.setString(1, obj.getEmail());
 			statement.setString(2, obj.getSenha());
-			statement.setString(3, obj.getNome());	
+			statement.setString(3, obj.getNome());
+			statement.setString(4, obj.getSobreNome());
+			statement.setString(5, obj.getSexo());
+			statement.setDate(6,java.sql.Date.valueOf(obj.getDataNasc()));
+			statement.setInt(7, obj.getAcesso());
+			statement.setString(8, obj.getTelefone());
+			statement.setString(9,obj.getRua());
+			statement.setString(10, obj.getCidade());
+			statement.setString(11, obj.getEstado());
+			statement.setString(12, obj.getNumero());
+			statement.setString(13, obj.getCep());
 			
 			return statement.executeUpdate()>0;
 			
@@ -111,15 +147,27 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
 					"UPDATE usuario "
-					+ " SET login=?, nome=?, senha=? "
+					+ " SET email=?, senha=?, nome=?, sobrenome=?,"
+					+ " sexo=?, datanasc=?, acesso=?, telefone=?, "
+					+ " rua=?, cidade=?, estado=?, numero=?, cep=? "
 					+ " WHERE id=?"
 					
 			);
 			
-			statement.setString(1, obj.getLogin());
-			statement.setString(2, obj.getNome());
-			statement.setString(3, obj.getSenha());			
-			statement.setInt(4, obj.getId());
+			statement.setString(1, obj.getEmail());
+			statement.setString(2, obj.getSenha());	
+			statement.setString(3, obj.getNome());
+			statement.setString(4, obj.getSobreNome());
+			statement.setString(5,obj.getSexo());
+			statement.setDate(6, java.sql.Date.valueOf(obj.getDataNasc()));
+			statement.setInt(7, obj.getAcesso());
+			statement.setString(8, obj.getTelefone());
+			statement.setString(9,obj.getRua());
+			statement.setString(10, obj.getCidade());
+			statement.setString(11, obj.getEstado());
+			statement.setString(12, obj.getNumero());
+			statement.setString(13, obj.getCep());			
+			statement.setInt(14, obj.getId());
 			
 			return statement.executeUpdate()>0;
 			
@@ -135,7 +183,8 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"DELETE FROM usuario "					
+					"UPDATE usuario "
+					+ " SET ativo=false "					
 					+ " WHERE id=?"
 					
 			);		
@@ -157,23 +206,19 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 	}
 
 	@Override
-	public Usuario autenticaUsuario(String login, String senha) {
+	public Usuario autenticaUsuario(String email, String senha) {
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id, nome"
-					+ " FROM usuario "
-					+ "WHERE login=? AND senha=?;"
+					"SELECT "
+					+ campoUsuario
+					+ " FROM usuario"
+					+ " WHERE ativo AND email=? AND senha=?"
 			);
-			statement.setString(1, login);
+			statement.setString(1, email);
 			statement.setString(2, senha);
 			ResultSet resultSet = statement.executeQuery();
 			if(resultSet.next()) {
-				Usuario usuario = new Usuario(
-						resultSet.getInt(1),
-						login,
-						senha,
-						resultSet.getString(2));
-				return usuario;
+				return lerUsuario(resultSet);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -186,19 +231,15 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 	public Usuario buscar(Integer id) throws IOException, ClassNotFoundException {
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT   login, senha, nome"
+					"SELECT "
+					+ campoUsuario
 					+ " FROM usuario "
 					+ "WHERE id=?;"
 			);
 			statement.setInt(1, id);
 			ResultSet resultSet = statement.executeQuery();
 			if(resultSet.next()) {
-				Usuario usuario = new Usuario(
-						id,
-						resultSet.getString(1),						
-						resultSet.getString(2),
-						resultSet.getString(3));
-				return usuario;
+				return lerUsuario(resultSet);
 			}
 		} catch (ClassNotFoundException | SQLException  e) {
 			// TODO Auto-generated catch block
@@ -209,47 +250,23 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 	
 	@Override
 	public Usuario buscarId(Integer id) throws IOException, ClassNotFoundException{
-		try(Connection connection = Conecta.criarConexao()){
-			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id, login, senha, nome"
-					+ " FROM usuario "
-					+ "WHERE id=?;"
-			);
-			statement.setInt(1, id);
-			ResultSet resultSet = statement.executeQuery();
-			if(resultSet.next()) {
-				Usuario usuario = new Usuario(
-						resultSet.getInt(1),
-						resultSet.getString(2),						
-						resultSet.getString(3),
-						resultSet.getString(4));
-				return usuario;
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();			
-		}
-		return null;
+		return buscar(id);
 		
 	}
 
 	@Override
-	public Usuario buscarLogin(String login) throws IOException, ClassNotFoundException {
+	public Usuario buscarEmail(String email) throws IOException, ClassNotFoundException {
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id, login, senha, nome"
+					"SELECT "
+					+ campoUsuario
 					+ " FROM usuario "
-					+ "WHERE login=?;"
+					+ "WHERE email=?;"
 			);
-			statement.setString(1, login);
+			statement.setString(1, email);
 			ResultSet resultSet = statement.executeQuery();
 			if(resultSet.next()) {
-				Usuario usuario = new Usuario(
-						resultSet.getInt(1),
-						resultSet.getString(2),						
-						resultSet.getString(3),
-						resultSet.getString(4));
-				return usuario;
+				return lerUsuario(resultSet);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -263,19 +280,15 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 		HashSet<Usuario> usuarios = new HashSet<>();
 		try(Connection connection = Conecta.criarConexao()){
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT id, login, senha, nome"
+					"SELECT "
+					+ campoUsuario
 					+ " FROM usuario "
 					+ "WHERE nome ilike ?;"
 			);
 			statement.setString(1, nome);
 			ResultSet resultSet = statement.executeQuery();
-			while(resultSet.next()) {
-				Usuario usuario = new Usuario(
-						resultSet.getInt(1),
-						resultSet.getString(2),						
-						resultSet.getString(3),
-						resultSet.getString(4));						
-				usuarios.add(usuario);
+			while(resultSet.next()) {						
+				usuarios.add(lerUsuario(resultSet));
 			}		
 		} catch (ClassNotFoundException | SQLException  e) {
 			// TODO Auto-generated catch block

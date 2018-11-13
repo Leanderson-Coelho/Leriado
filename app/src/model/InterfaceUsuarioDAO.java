@@ -9,7 +9,7 @@ public interface InterfaceUsuarioDAO extends InterfaceDAO<Usuario>{
 	Usuario autenticaUsuario(String email, String senha);
 	Usuario buscar(Integer codigo) throws IOException, ClassNotFoundException;
 	Usuario buscarId(Integer id) throws IOException, ClassNotFoundException;
-	Usuario buscarLogin(String login) throws IOException, ClassNotFoundException;
+	Usuario buscarEmail(String email) throws IOException, ClassNotFoundException;
 	HashSet<Usuario> buscarNome(String nome) throws IOException, ClassNotFoundException;
 
 }

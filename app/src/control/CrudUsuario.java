@@ -91,9 +91,9 @@ public class CrudUsuario {
      * @return o Objeto Usuario cadastrado caso seja localizado.
      * NULL caso o usuário não seja localizado.
      */
-	public Usuario buscaUsuario(String login){
+	public Usuario buscaUsuario(String email){
 		try {
-			return usuarioDAO.buscarLogin(login);
+			return usuarioDAO.buscarEmail(email);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
