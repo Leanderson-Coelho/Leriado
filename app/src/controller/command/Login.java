@@ -41,7 +41,6 @@ public class Login implements Command {
 			String estado = request.getParameter("estado");
 			String numero = request.getParameter("numero");
 			String cep = request.getParameter("cep");
-			
 			Usuario u = new Usuario(1, true, emailA+emailP, senha, nome, sobrenome, sexo, data, acesso, telefone, rua, cidade, estado, numero, cep);
 			System.out.println(u);
 			UsuarioDAO dao = new UsuarioDAO();
