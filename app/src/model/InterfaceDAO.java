@@ -4,7 +4,7 @@ package model;
 import java.io.IOException;
 import java.util.HashSet;
 
-public interface InterfaceDAO<T> {
+public interface InterfaceDAO<T>{
 	HashSet<T> getLista()throws IOException, ClassNotFoundException;	
 	void setLista(HashSet<T> obj) throws IOException, ClassNotFoundException;	
 	boolean salvar(T obj) throws IOException, ClassNotFoundException;

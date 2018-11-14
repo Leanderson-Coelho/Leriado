@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
+import org.postgresql.util.PSQLException;
+
 import conecta.Conecta;
 
 
@@ -31,7 +33,7 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 				resultSet.getString("nome"),
 				resultSet.getString("sobrenome"),
 				resultSet.getString("sexo"),
-				resultSet.getDate("datanasc").toLocalDate(),
+				resultSet.getString("datanasc"),
 				resultSet.getInt("acesso"),
 				resultSet.getString("telefone"),
 				resultSet.getString("rua"),
@@ -100,7 +102,7 @@ public class UsuarioDAOBD implements InterfaceUsuarioDAO{
 	}
 
 	@Override
-	public boolean salvar(Usuario obj) throws IOException, ClassNotFoundException {
+	public boolean salvar(Usuario obj) throws IOException, ClassNotFoundException{
 		if(usuarioExiste(obj))
 		return false;	
 		

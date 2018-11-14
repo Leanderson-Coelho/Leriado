@@ -15,7 +15,7 @@ public class Usuario {
 	private String nome;
 	private String sobreNome;
 	private String sexo;
-	private LocalDate dataNasc;
+	private String dataNasc;
 	private Integer acesso;
 	private String telefone;
 	private String rua;
@@ -31,7 +31,7 @@ public class Usuario {
 	
 
 	public Usuario(Integer id, Boolean ativo, String email, String senha, String nome, String sobreNome, String sexo,
-			LocalDate dataNasc, Integer acesso, String telefone, String rua, String cidade, String estado,
+			String dataNasc, Integer acesso, String telefone, String rua, String cidade, String estado,
 			String numero, String cep) {
 		super();
 		this.id = id;
@@ -87,11 +87,11 @@ public class Usuario {
 
 
 
-	public LocalDate getDataNasc() {
+	public String getDataNasc() {
 		return dataNasc;
 	}
 
-	public void setDataNasc(LocalDate dataNasc) {
+	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
 	}
 
@@ -173,6 +173,16 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", ativo=" + ativo + ", email=" + email + ", senha=" + senha + ", nome=" + nome
+				+ ", sobreNome=" + sobreNome + ", sexo=" + sexo + ", dataNasc=" + dataNasc + ", acesso=" + acesso
+				+ ", telefone=" + telefone + ", rua=" + rua + ", cidade=" + cidade + ", estado=" + estado + ", numero="
+				+ numero + ", cep=" + cep + "]";
 	}
 	
 }

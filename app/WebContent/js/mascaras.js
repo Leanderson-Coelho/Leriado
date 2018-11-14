@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	$('#cep').mask('00000-000');
+	$('#data').mask('00/00/0000');
 	$('#numero').mask('#');
 	var maskBehavior = function (val) {
 		return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';

@@ -15,7 +15,8 @@ public interface Command {
 	 * Define o método genérico para a execução do comando.
 	 * Note que é necessário definir o lançamento das exeções ServletException e IOException
 	 * Essas exceções são lançadas durante o redirecionamento de chamadas (chamada forward ao requestDispatcher do HttpServletRequest)
+	 * @throws ClassNotFoundException 
 	 */
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException;
 	
 }

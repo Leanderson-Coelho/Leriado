@@ -13,11 +13,13 @@
 	<div id="container">
 		<div id="cabecalho"></div>
 		<div id="conteudo">
-			<form action="controller?comando=Home" method="post">
+			<form action="controller?comando=Login" method="post">
 				<table>
 					<tr>
-						<td colspan="2"><input type="text" name="nome"
+						<td><input type="text" name="nome"
 							placeholder="Nome" class="campo"></td>
+						<td><input type="text" name="sobrenome"
+							placeholder="Sobrenome" class="campo"></td>
 					</tr>
 					<tr>
 						<td><input type="text" name="emailAnterior"
@@ -39,12 +41,14 @@
 							placeholder="Repita a senha" class="campo"></td>
 					</tr>
 					<tr>
-						<td>
-						<input type="radio" name="sexo" value="M">
-						<label class="campo" for="M" style="border: 0px;">Masculino</label></td>
-						<td>
-						<input type="radio" name="sexo" value="F">
-						<label class="campo" for="F" style="border: 0px;">Feminino</label></td>
+						<td><input type="radio" name="sexo" value="M"> <label
+							class="campo" for="M" style="border: 0px;">Masculino</label></td>
+						<td><input type="radio" name="sexo" value="F"> <label
+							class="campo" for="F" style="border: 0px;">Feminino</label></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="data"
+							placeholder="Nascimento" id="data" class="campo"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="text" name="telefone"

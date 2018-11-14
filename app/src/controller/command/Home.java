@@ -14,11 +14,7 @@ public class Home implements Command {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		if(request.getParameter("cadastrar").equals("Leriar")) {
-			
-			System.out.println("Aqui vc cadastra os dados no bd");
-			
-		}
+		
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 
 	}
