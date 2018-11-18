@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript"
+	src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
+<script type="text/javascript" src="js/mascaras.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/estilo2.css">
+</head>
+<body>
+	<div id="container">
+		<div id="cabecalho"></div>
+		<div id="conteudo">
+			<form action="controller?comando=Login" method="post">
+				<table>
+					<tr>
+						<td><input type="text" name="nome"
+							placeholder="Nome" class="campo"></td>
+						<td><input type="text" name="sobrenome"
+							placeholder="Sobrenome" class="campo"></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="emailAnterior"
+							placeholder="E-mail" class="campo"></td>
+						<td><select name="emailPosterior" class="campo"
+							style="opacity: 0.6">
+								<option>@gmail.com</option>
+								<option>@hotmail.com</option>
+								<option>@outlook.com</option>
+								<option>@academico.ifpb.edu.br</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="password" name="senha"
+							placeholder="Senha" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="password" name="confirma-senha"
+							placeholder="Repita a senha" class="campo"></td>
+					</tr>
+					<tr>
+						<td><input type="radio" name="sexo" value="M"> <label
+							class="campo" for="M" style="border: 0px;">Masculino</label></td>
+						<td><input type="radio" name="sexo" value="F"> <label
+							class="campo" for="F" style="border: 0px;">Feminino</label></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="data"
+							placeholder="Nascimento" id="data" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="telefone"
+							placeholder="Telefone" id="telefone" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="rua"
+							placeholder="Rua" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="cidade"
+							placeholder="Cidade" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="estado"
+							placeholder="Estado" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="numero"
+							placeholder="Numero" id="numero" class="campo"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="cep"
+							placeholder="CEP" id="cep" class="campo"></td>
+					</tr>
+					<tr>
+						<td style="text-align: center;" colspan="2"><input
+							type="submit" name="cadastrar" value="Leriar"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="rodape"></div>
+	</div>
+</body>
+</html>
