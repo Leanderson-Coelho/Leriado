@@ -1,57 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Entre na sua conta</title>
-	<link rel="stylesheet" type="text/css" href="./css/estilo.css">
+	<title>Leriado</title>
+	<link rel="stylesheet" type="text/css" href="./css/estiloLogin.css">
 </head>
 <body>
-	<div id="all">
-		<div id="cabecalho">
-			<div id="logo">
-				<img src="img/logo1.png" width="200">
-			</div>
-			<div id="divMenu">
-				<nav id="navMenu">
-					<ul id="listaMenu">
-						<li><a href="#">MENU</a></li>
-						<li><a href="#">MENU</a></li>
-						<li><a href="#">MENU</a></li>
-						<li id="left"><a href="#">MENU</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<div id="principal">
-			<h1>Página de login</h1>
-			<div id="divForm">
-				<form action="controller?comando=Logar" method="post">
-					<table>
-						<tr>
-							<td><label for="login">Login:</label></td>
-							<td><input id="login" type="text" name="login"/></td>
-						</tr>
-						<tr>
-							<td><label for="senha">Senha:</label></td>
-							<td><input id="senha" type="password" name="senha"/></td>
-						</tr>
-					</table>
-					<input type="submit" class="opacidade" value="Entrar"/>
+	<div id="bannerTituloLogin">
+		<div id="subBannerTituloLogin">
+			<div><img src="img/logoLogin.png"></div>
+			<div></div>
+			<div>
+				<form id="formLogin">
+					<div id="subForm">
+						<div id="subFormEmail">
+							<label>Email</label>
+							<input type="text" name="usuario">
+						</div>
+						<div id="subFormSenha">
+							<label>Senha</label>
+							<input type="password" name="senha">
+							<label><a href="">Esqueceu a senha?</a></label>
+						</div>
+						<div id="subFormEnviar">
+							<input type="submit" name="" value="Entrar">
+						</div>
+					</div>
 				</form>
-				<input type="submit" class="opacidade" onclick="window.location.href='controller?comando=Cadastro';" value="Cadastrar-se"/>
 			</div>
-		</div>
-		<div id="divRodape">
-			<footer id="rodape">
-				<table width="100%">
-					<tr>
-						<td><b>LERIADO©</b></td>
-						<td>™Todos os direitos reservados.</td>
-						<td>Rede Social</td>
-					</tr>
-				</table>
-			</footer>
-		</div>
+		</div>		
 	</div>
 </body>
 </html>
