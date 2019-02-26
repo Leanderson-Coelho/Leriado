@@ -2,6 +2,7 @@ package com.ifpb.edu.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ifpb.edu.model.domain.Usuario;
@@ -15,58 +16,67 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	}
 
 	@Override
-	public void criar(Usuario usuario) {
+	public void criar(Usuario usuario) throws SQLException {
 		
 		String sql = "insert into usuario(email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep)"
 				+ " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement statement;
-		try {
-			statement = connection.prepareStatement(sql);
-			statement.setString(1, usuario.getEmail());
-			statement.setString(2, usuario.getSenha());
-			statement.setString(3, usuario.getNome());
-			statement.setString(4, usuario.getSobrenome());
-			statement.setString(5, usuario.getSexo());
-			statement.setDate(6, java.sql.Date.valueOf(usuario.getDatanasc()));
-			statement.setInt(7, usuario.getAcesso());
-			statement.setString(8, usuario.getTelefone());
-			statement.setString(9, usuario.getRua());
-			statement.setString(10, usuario.getCidade());
-			statement.setString(11, usuario.getEstado());
-			statement.setString(12, usuario.getNumero());
-			statement.setString(13, usuario.getCep());
-			statement.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, usuario.getEmail());
+		statement.setString(2, usuario.getSenha());
+		statement.setString(3, usuario.getNome());
+		statement.setString(4, usuario.getSobrenome());
+		statement.setString(5, usuario.getSexo());
+		statement.setDate(6, java.sql.Date.valueOf(usuario.getDatanasc()));
+		statement.setInt(7, usuario.getAcesso());
+		statement.setString(8, usuario.getTelefone());
+		statement.setString(9, usuario.getRua());
+		statement.setString(10, usuario.getCidade());
+		statement.setString(11, usuario.getEstado());
+		statement.setString(12, usuario.getNumero());
+		statement.setString(13, usuario.getCep());
+		statement.execute();
 	}
 
 	@Override
 	public void atualizar(Usuario usuarioNovo, Integer idUsuario) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void remover(Integer idUsuario) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public Usuario buscarPorId(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
-	public Usuario buscarPorEmail(String email) {
-		// TODO Auto-generated method stub
+	public Usuario buscarPorEmail(String email) throws SQLException {
+		
+		String sql = "select * from usuario where email=?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, email);
+		ResultSet result = statement.executeQuery();
+		if(result.next()) {
+			return new Usuario(result.getString("email"),
+					result.getString("senha"),
+					result.getString("nome"),
+					result.getString("sobrenome"),
+					result.getString("sexo"),
+					result.getDate("datanasc").toLocalDate(),
+					result.getInt("acesso"),
+					result.getString("telefone"),
+					result.getString("rua"),
+					result.getString("cidade"),
+					result.getString("estado"),
+					result.getString("numero"),
+					result.getString("cep"));
+		}
 		return null;
 	}
-
-	
-
 }
