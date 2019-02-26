@@ -1,12 +1,15 @@
 package com.ifpb.edu.model.dao;
 
+import java.sql.Connection;
+
 import com.ifpb.edu.model.domain.Usuario;
+import com.ifpb.edu.model.jdbc.ConnectionFactory;
 
 public class UsuarioDaoImpl implements UsuarioDao{
 
 	@Override
 	public void criar(Usuario usuario) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
