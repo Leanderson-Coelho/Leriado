@@ -9,7 +9,7 @@ public interface UsuarioDao {
 	void criar(Usuario usuario) throws SQLException;
 	void atualizar(Usuario usuarioNovo, Integer idUsuario);
 	void remover(Integer idUsuario);
-	Usuario buscarPorId(Integer id);
+	Usuario buscarPorId(Integer id) throws SQLException;
 	Usuario buscarPorEmail(String email) throws SQLException;
 	
 }

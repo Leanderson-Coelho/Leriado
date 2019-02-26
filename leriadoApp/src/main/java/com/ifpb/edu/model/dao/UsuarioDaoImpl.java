@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -50,8 +51,28 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	}
 
 	@Override
-	public Usuario buscarPorId(Integer id) {
-		
+	public Usuario buscarPorId(Integer id) throws SQLException {
+		String query = new String("SELECT * FROM usuario WHERE id = ?");
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setInt(1, id);
+		ResultSet result = statement.executeQuery();
+		if(result.next()) {
+			Usuario usuario = new Usuario();
+			usuario.setEmail(result.getString(1));
+			usuario.setSenha(result.getString(2));
+			usuario.setNome(result.getString(3));
+			usuario.setSobrenome(result.getString(4));
+			usuario.setSexo(result.getString(5));
+			usuario.setDatanasc(result.getObject(6,LocalDate.class));
+			usuario.setAcesso(result.getInt(7));
+			usuario.setTelefone(result.getString(8));
+			usuario.setRua(result.getString(9));
+			usuario.setCidade(result.getString(10));
+			usuario.setEstado(result.getString(11));
+			usuario.setNumero(result.getString(12));
+			usuario.setCep(result.getString(13));
+			return usuario;
+		}
 		return null;
 	}
 

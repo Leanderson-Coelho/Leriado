@@ -33,6 +33,8 @@ public class Usuario {
 		this.numero = numero;
 		this.cep = cep;
 	}
+	public Usuario() {}
+	
 	public String getEmail() {
 		return email;
 	}
