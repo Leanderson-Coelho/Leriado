@@ -61,7 +61,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	
 	@Override
 	public void remover(Integer idUsuario) throws SQLException{
-		String query = "delete from usuario where id=?";
+		String query = "update usuario set ativo=FALSE where id=?";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setInt(1, idUsuario);
 		statement.executeUpdate();
