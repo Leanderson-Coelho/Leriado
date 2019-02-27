@@ -47,7 +47,7 @@ public class ConnectionFactory {
 	public Connection getConnection(){
 		Connection connection = null;
 		try {
-			Class.forName("org.postgresql.Driver");
+			Class.forName(driver);
 			connection = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
