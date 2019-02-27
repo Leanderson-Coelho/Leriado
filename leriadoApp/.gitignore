@@ -1,2 +1,5 @@
 /target/
-config.properties
+/src/main/resources/config.properties
+/.settings/
+/.classpath
+/.project
