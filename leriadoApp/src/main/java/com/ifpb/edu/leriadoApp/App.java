@@ -16,7 +16,8 @@ public class App
     public static void main( String[] args ) throws SQLException
     {
         UsuarioDaoImpl dao = new UsuarioDaoImpl();
-        dao.criar(new Usuario("zeCouvinha@gmail.com", "176546", "Zé", "das Couves Junio", "M", LocalDate.now(), 1, "40028922", "Rua", "Narnia", "Sólido",  "423", "79311-013"));
-        System.out.println(dao.buscarPorEmail("zeCouvinha@gmail.com"));
+//        dao.criar(new Usuario("zeCouves@gmail.com", "MaRiA", "Zé", "das Couves", "M", LocalDate.now(), 1, "40028922", "Rua", "Narnia", "Sólido",  "423", "79311-013"));
+        dao.remover(12);
+        System.out.println(dao.login("zeCouves@gmail.com", "MaRia"));
     }
 }
