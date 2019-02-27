@@ -119,11 +119,15 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	
 	@Override
 	public boolean login(String email, String senha) throws SQLException {
-		String query = "select id from usuario where email=? and senha=?";
+		String query = "select count(*) from usuario where email=? and senha=?";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, email);
 		statement.setString(2, senha);
 		ResultSet result = statement.executeQuery();
-		return result.next();
+		result.next();
+		if(result.getInt(1) == 1) {
+			return true;
+		}
+		return false;
 	}
 }
