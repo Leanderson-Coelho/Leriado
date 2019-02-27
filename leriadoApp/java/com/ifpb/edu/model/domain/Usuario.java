@@ -2,8 +2,10 @@ package com.ifpb.edu.model.domain;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 
 public class Usuario {
+	HashMap<String, String> s,djfh;
 	private String email;
 	private String senha;
 	private String nome;
@@ -120,5 +122,7 @@ public class Usuario {
 				+ ", rua=" + rua + ", cidade=" + cidade + ", estado=" + estado + ", numero=" + numero + ", cep=" + cep
 				+ "]";
 	}
+	
+	
 	
 }
