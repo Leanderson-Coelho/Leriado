@@ -5,20 +5,19 @@ import java.time.LocalDateTime;
 public class Texto {
 	
 	private int id;
-	private boolean ativo;
+	private Boolean ativo;
 	private String conteudo;
 	private LocalDateTime datahora;
-	private Integer idUsuario;
-
+	private Usuario usuario;
+	
 	public Texto() {}
 
-	public Texto(int id, boolean ativo, String conteudo, LocalDateTime datahora, Integer idUsuario) {
-		super();
+	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario) {		
 		this.id = id;
 		this.ativo = ativo;
 		this.conteudo = conteudo;
 		this.datahora = datahora;
-		this.idUsuario = idUsuario;
+		this.usuario = usuario;
 	}
 
 	public int getId() {
@@ -29,11 +28,11 @@ public class Texto {
 		this.id = id;
 	}
 
-	public boolean isAtivo() {
+	public Boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 
@@ -53,19 +52,18 @@ public class Texto {
 		this.datahora = datahora;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
 		return "Texto [id=" + id + ", ativo=" + ativo + ", conteudo=" + conteudo + ", datahora=" + datahora
-				+ ", idUsuario=" + idUsuario + "]";
-	}	
-	
-
+				+ ", usuario=" + usuario + "]";
+	}
+		
 }
