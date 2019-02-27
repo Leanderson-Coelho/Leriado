@@ -10,14 +10,14 @@ import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 
 public class UsuarioDaoImpl implements UsuarioDao{
-	Connection connection;
+	private Connection connection;
 	
 	public UsuarioDaoImpl() {
 		connection = ConnectionFactory.getInstance().getConnection();
 	}
 
+	@Override
 	public void criar(Usuario usuario) throws SQLException {
-		
 		String sql = "insert into usuario(email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep)"
 				+ " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement statement = connection.prepareStatement(sql);
@@ -36,19 +36,38 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		statement.setString(13, usuario.getCep());
 		statement.execute();
 	}
-
+	//email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep
+	@Override
 	public void atualizar(Usuario usuarioNovo, Integer idUsuario) throws SQLException{
-		
-		
+		String query = new String("UPDATE usuario SET email=?,senha=?,nome=?,sobrenome=?,sexo=?,datanasc=?,acesso=?,telefone=?,rua=?,cidade=?,estado=?,numero=?,cep=?"
+				+ " WHERE id = ?");
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, usuarioNovo.getEmail());
+		statement.setString(2, usuarioNovo.getSenha());
+		statement.setString(3, usuarioNovo.getNome());
+		statement.setString(4, usuarioNovo.getSobrenome());
+		statement.setString(5, usuarioNovo.getSexo());
+		statement.setDate(6, java.sql.Date.valueOf(usuarioNovo.getDatanasc()));
+		statement.setInt(7, usuarioNovo.getAcesso());
+		statement.setString(8, usuarioNovo.getTelefone());
+		statement.setString(9, usuarioNovo.getRua());
+		statement.setString(10, usuarioNovo.getCidade());
+		statement.setString(11, usuarioNovo.getEstado());
+		statement.setString(12, usuarioNovo.getNumero());
+		statement.setString(13, usuarioNovo.getCep());
+		statement.setInt(14, idUsuario);
+		statement.execute();
 	}
-
+	
+	@Override
 	public void remover(Integer idUsuario) throws SQLException{
 		String query = "delete from usuario where id=?";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setInt(1, idUsuario);
 		statement.executeUpdate();
 	}
-
+	
+	@Override
 	public Usuario buscarPorId(Integer id) throws SQLException {
 		String query = new String("SELECT * FROM usuario WHERE id = ?");
 		PreparedStatement statement = connection.prepareStatement(query);
@@ -56,26 +75,26 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		ResultSet result = statement.executeQuery();
 		if(result.next()) {
 			Usuario usuario = new Usuario();
-			usuario.setEmail(result.getString(1));
-			usuario.setSenha(result.getString(2));
-			usuario.setNome(result.getString(3));
-			usuario.setSobrenome(result.getString(4));
-			usuario.setSexo(result.getString(5));
-			usuario.setDatanasc(result.getObject(6,LocalDate.class));
-			usuario.setAcesso(result.getInt(7));
-			usuario.setTelefone(result.getString(8));
-			usuario.setRua(result.getString(9));
-			usuario.setCidade(result.getString(10));
-			usuario.setEstado(result.getString(11));
-			usuario.setNumero(result.getString(12));
-			usuario.setCep(result.getString(13));
+			usuario.setEmail(result.getString(3));
+			usuario.setSenha(result.getString(4));
+			usuario.setNome(result.getString(5));
+			usuario.setSobrenome(result.getString(6));
+			usuario.setSexo(result.getString(7));
+			usuario.setDatanasc(result.getDate(8).toLocalDate());
+			usuario.setAcesso(result.getInt(9));
+			usuario.setTelefone(result.getString(10));
+			usuario.setRua(result.getString(11));
+			usuario.setCidade(result.getString(12));
+			usuario.setEstado(result.getString(13));
+			usuario.setNumero(result.getString(14));
+			usuario.setCep(result.getString(15));
 			return usuario;
 		}
 		return null;
 	}
-
+	
+	@Override
 	public Usuario buscarPorEmail(String email) throws SQLException {
-		
 		String sql = "select * from usuario where email=?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, email);
@@ -97,7 +116,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		}
 		return null;
 	}
-
+	
+	@Override
 	public boolean login(String email, String senha) throws SQLException {
 		String query = "select id from usuario where email=? and senha=?";
 		PreparedStatement statement = connection.prepareStatement(query);
