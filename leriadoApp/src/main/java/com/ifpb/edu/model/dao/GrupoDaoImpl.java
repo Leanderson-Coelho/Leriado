@@ -1,8 +1,10 @@
 package com.ifpb.edu.model.dao;
 
+import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -26,21 +28,29 @@ public class GrupoDaoImpl implements GrupoDao{
 	}
 
 	@Override
-	public void excluir(int idGrupo) {
-		// TODO Auto-generated method stub
-		
+	public void excluir(int idGrupo) throws SQLException {
+		String query = "update grupo set ativo=false where id=?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setInt(1, idGrupo);
+		statement.executeQuery();
 	}
 
 	@Override
-	public void adicionarUsuario(String email) {
-		// TODO Auto-generated method stub
-		
+	public void adicionarUsuario(int idGrupo,int idUsuario) throws SQLException {
+		String sql = new String("INSERT INTO participagrupo (usuarioid,grupoid) VALUES (?,?)");
+		PreparedStatement statement = connection.prepareStatement(sql); 		
+		statement.setInt(1, idUsuario);
+		statement.setInt(2,idGrupo);
+		statement.execute();
 	}
 
 	@Override
-	public void removerUsuario(String email) {
-		// TODO Auto-generated method stub
-		
+	public void removerUsuario(int idGrupo,int idUsuario) throws SQLException {
+		String sql = new String("DELETE FROM participagrupo WHERE usuarioid = ? and grupoid = ?");
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, idUsuario);
+		statement.setInt(2, idGrupo);
+		statement.execute();
 	}
 
 }
