@@ -45,9 +45,12 @@ public class GrupoDaoImpl implements GrupoDao{
 	}
 
 	@Override
-	public void removerUsuario(String email) {
-		// TODO Auto-generated method stub
-		
+	public void removerUsuario(int idGrupo,int idUsuario) throws SQLException {
+		String sql = new String("DELETE FROM participagrupo WHERE usuarioid = ? and grupoid = ?");
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, idUsuario);
+		statement.setInt(2, idGrupo);
+		statement.execute();
 	}
 
 }
