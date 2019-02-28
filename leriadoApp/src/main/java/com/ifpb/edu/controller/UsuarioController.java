@@ -31,7 +31,15 @@ public class UsuarioController implements Command{
 			case "buscarProId":
 				buscarPorId(request,response);
 				break;
+			case "login":
+				login(request,response);
+				break;
 		}
+	}
+
+	private void login(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void buscarPorId(HttpServletRequest request, HttpServletResponse response) {
