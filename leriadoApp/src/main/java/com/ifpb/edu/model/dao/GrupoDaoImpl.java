@@ -28,9 +28,11 @@ public class GrupoDaoImpl implements GrupoDao{
 	}
 
 	@Override
-	public void excluir(int idGrupo) {
-		// TODO Auto-generated method stub
-		
+	public void excluir(int idGrupo) throws SQLException {
+		String query = "update grupo set ativo=false where id=?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setInt(1, idGrupo);
+		statement.executeQuery();
 	}
 
 	@Override

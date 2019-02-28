@@ -25,7 +25,7 @@ CREATE TABLE grupo(
 	datahora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	nome VARCHAR(50) NOT NULL UNIQUE,
 	descricao TEXT,
-	foto VARCHAR(16),
+	foto VARCHAR(32),
 	CONSTRAINT grupo_pk PRIMARY KEY(id),
 	CONSTRAINT grupo_tamnome CHECK (LENGTH(nome)>=6) 
 );
@@ -69,7 +69,7 @@ CREATE TABLE publicacao(
 /*CRIACAO DA TABELA FOTO*/
 CREATE TABLE foto(
 	publicacaoid INT,
-	arquivo VARCHAR(16) NOT NULL,
+	arquivo VARCHAR(32) NOT NULL,
 	CONSTRAINT foto_pk PRIMARY KEY (publicacaoid),
 	CONSTRAINT foto_publicacaoid_fk FOREIGN KEY (publicacaoid)
 		REFERENCES publicacao(textoid)
