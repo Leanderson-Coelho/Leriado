@@ -19,6 +19,12 @@ public class Texto {
 		this.datahora = datahora;
 		this.usuario = usuario;
 	}
+	
+	public Texto(String conteudo, Usuario usuario) {
+		super();
+		this.conteudo = conteudo;
+		this.usuario = usuario;
+	}
 
 	public int getId() {
 		return id;
