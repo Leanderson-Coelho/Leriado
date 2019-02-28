@@ -1,4 +1,4 @@
-package com.ifpb.edu.leriadoApp;
+package com.ifpb.edu.view;
 
 import java.sql.Date;
 import java.sql.SQLException;
