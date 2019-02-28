@@ -1,8 +1,10 @@
 package com.ifpb.edu.model.dao;
 
+import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -32,9 +34,12 @@ public class GrupoDaoImpl implements GrupoDao{
 	}
 
 	@Override
-	public void adicionarUsuario(String email) {
-		// TODO Auto-generated method stub
-		
+	public void adicionarUsuario(int idGrupo,int idUsuario) throws SQLException {
+		String sql = new String("INSERT INTO participagrupo (usuarioid,grupoid) VALUES (?,?)");
+		PreparedStatement statement = connection.prepareStatement(sql); 		
+		statement.setInt(1, idUsuario);
+		statement.setInt(2,idGrupo);
+		statement.execute();
 	}
 
 	@Override
