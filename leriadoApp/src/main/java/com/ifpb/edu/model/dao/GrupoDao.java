@@ -10,5 +10,4 @@ public interface GrupoDao {
 	public void excluir(int idGrupo) throws SQLException;
 	void adicionarUsuario(int idGrupo, int idUsuario) throws SQLException;
 	void removerUsuario(int idGrupo, int idUsuario) throws SQLException;
-	
 }
