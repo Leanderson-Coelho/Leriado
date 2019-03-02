@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class Usuario {
+	private int id = 0;
 	private String email;
 	private String senha;
 	private String nome;
@@ -17,8 +18,9 @@ public class Usuario {
 	private String estado; 
 	private String numero; 
 	private String cep;
-	public Usuario(String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
+	public Usuario(int id, String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
 			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {
+		this.id = id;
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;
@@ -34,7 +36,13 @@ public class Usuario {
 		this.cep = cep;
 	}
 	public Usuario() {}
-	
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}
