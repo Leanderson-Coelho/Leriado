@@ -1,6 +1,8 @@
-package com.ifpb.edu.model.domain;
+package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
+
+import com.ifpb.edu.model.domain.Usuario;
 
 public class Comentario extends Texto{
 	
