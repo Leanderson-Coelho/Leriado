@@ -12,19 +12,6 @@ public class Comentario extends Texto{
 		super();
 	}
 
-	public Comentario(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario) {
-		super(id, ativo, conteudo, datahora, usuario);
-	}
-
-	public Comentario(String conteudo, Usuario usuario) {
-		super(conteudo, usuario);
-	}
-
-	public Comentario(Texto responde) {
-		super();
-		this.responde = responde;
-	}
-	
 	public Comentario(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, Texto responde) {
 		super(id, ativo, conteudo, datahora, usuario);
 		this.responde = responde;
