@@ -1,25 +1,29 @@
 package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.ifpb.edu.model.domain.Usuario;
 
 public class Noticia extends Publicacao{
 	
 	private String titulo;
+	private List<Foto> fotos;
 
 	public Noticia() {
 		super();
 	}
 
-	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia) {
+	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia, List<Foto> fotos) {
 		super(id, ativo, conteudo, datahora, usuario, relevancia);
 		this.titulo = titulo;
+		this.fotos = fotos;
 	}
 
-	public Noticia(String titulo, String conteudo, Usuario usuario, int relevancia) {
+	public Noticia(String titulo, String conteudo, Usuario usuario, int relevancia, List<Foto> fotos) {
 		super(conteudo, usuario, relevancia);
 		this.titulo = titulo;
+		this.fotos = fotos;
 	}
 
 	public String getTitulo() {
