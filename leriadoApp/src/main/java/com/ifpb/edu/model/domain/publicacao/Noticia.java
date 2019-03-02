@@ -33,6 +33,14 @@ public class Noticia extends Publicacao{
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+	
+	public List<Foto> getFotos() {
+		return fotos;
+	}
+
+	public void setFotos(List<Foto> fotos) {
+		this.fotos = fotos;
+	}
 
 	@Override
 	public String toString() {
