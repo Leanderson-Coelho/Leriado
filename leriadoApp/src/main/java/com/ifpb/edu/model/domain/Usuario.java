@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class Usuario {
 	private int id = 0;
+	private boolean ativo;
 	private String email;
 	private String senha;
 	private String nome;
@@ -41,6 +42,12 @@ public class Usuario {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	public String getEmail() {
 		return email;
