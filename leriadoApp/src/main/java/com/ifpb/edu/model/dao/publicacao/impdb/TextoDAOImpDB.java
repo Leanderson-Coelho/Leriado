@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
+import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.TextoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.publicacao.Texto;
@@ -47,15 +51,17 @@ public class TextoDAOImpDB implements TextoDAO {
 	public void edita(Texto texto) throws DataAccessException{
 		try {
 			String query = "UPDATE texto SET "
-					+ "id=?,ativo=?,conteudo=?,datahora=?,usuarioid=?";
-			PreparedStatement stm = connection.prepareStatement(query);
-			stm.setInt(1,texto.getId());
-			stm.setBoolean(2,texto.getAtivo());
-			stm.setString(3, texto.getConteudo());
-			stm.setTimestamp(4,java.sql.Timestamp.valueOf(texto.getDatahora()));
-			stm.setInt(5, texto.getUsuario().getId());
+					+ "ativo=?,conteudo=?,datahora=?,usuarioid=?"
+					+ "WHERE id=?";
+			PreparedStatement stm = connection.prepareStatement(query);			
+			stm.setBoolean(1,texto.getAtivo());
+			stm.setString(2, texto.getConteudo());
+			stm.setTimestamp(3,java.sql.Timestamp.valueOf(texto.getDatahora()));
+			stm.setInt(4, texto.getUsuario().getId());
+			stm.setInt(5,texto.getId());
 			stm.executeUpdate();
 		}catch (Exception e) {
+			e.printStackTrace();			
 			throw new DataAccessException("Falha ao editar texto");
 		}
 	}
@@ -67,9 +73,28 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public Texto buscar(int id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Texto> buscar(int id) throws DataAccessException {
+		Optional<Texto> texto = Optional.empty();
+		try {
+			UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+			String query = "SELECT * FROM texto "
+					+ "WHERE id = ?";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1,id);
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()) {
+				texto = Optional.of(new Texto(
+						rs.getInt("id"), 
+						rs.getBoolean("ativo"),
+						rs.getString("conteudo"),
+						rs.getTimestamp("datahora").toLocalDateTime(),
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid"))));
+			}
+			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao buscar texto");
+		} 
+		return texto;
 	}
 
 	@Override
