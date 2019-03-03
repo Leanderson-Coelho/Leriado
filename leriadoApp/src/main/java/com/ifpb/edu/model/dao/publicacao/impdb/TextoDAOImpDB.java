@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.TextoDAO;
@@ -43,15 +44,32 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public void edita(Texto texto) {
-		// TODO Auto-generated method stub
-
+	public void edita(Texto texto) throws DataAccessException{
+		try {
+			String query = "UPDATE texto SET "
+					+ "id=?,ativo=?,conteudo=?,datahora=?,usuarioid=?";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1,texto.getId());
+			stm.setBoolean(2,texto.getAtivo());
+			stm.setString(3, texto.getConteudo());
+			stm.setTimestamp(4,java.sql.Timestamp.valueOf(texto.getDatahora()));
+			stm.setInt(5, texto.getUsuario().getId());
+			stm.executeUpdate();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao editar texto");
+		}
 	}
 
 	@Override
 	public void exclui(Texto texto) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Texto buscar(int id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
