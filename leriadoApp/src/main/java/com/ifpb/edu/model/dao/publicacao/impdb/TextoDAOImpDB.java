@@ -3,6 +3,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.TextoDAO;
@@ -20,19 +21,22 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public int cria(Texto texto) throws DataAccessException{
-		String query = "INSERT INTO texto(conteudo,usuario) VALUES(?,?)";
-		PreparedStatement stm = null;
+	public int cria(Texto texto) throws DataAccessException{			
 		try{
-			stm = connection.prepareStatement(query);
-			stm.setString(1, texto.getConteudo());
+			String query = "INSERT INTO texto (conteudo,usuarioid) "
+					+ "VALUES(?,?) "
+					+ "RETURNING id,ativo,datahora";
+			PreparedStatement stm = connection.prepareStatement(query);			
+			stm.setString(1, texto.getConteudo());			
 			stm.setInt(2, texto.getUsuario().getId());
-			stm.executeUpdate();
-			final ResultSet rs = stm.getGeneratedKeys();
-			texto.setId(rs.getInt("is"));
-			texto.setAtivo(rs.getBoolean("ativo"));			
-			texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
-		} catch (Exception e) {
+			stm.execute();
+			ResultSet rs = stm.getResultSet();
+			if(rs.next()) {			
+				texto.setId(rs.getInt("id"));
+				texto.setAtivo(rs.getBoolean("ativo"));			
+				texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
+			}
+		} catch (Exception e) {			
 			throw new DataAccessException("Falha ao criar texto");
 		}
 		return texto.getId();

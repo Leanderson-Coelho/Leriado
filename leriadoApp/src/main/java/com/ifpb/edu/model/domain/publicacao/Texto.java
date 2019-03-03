@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Usuario;
 
-public abstract class Texto {
+public class Texto {
 	
 	private int id = 0;
 	private Boolean ativo = true;
