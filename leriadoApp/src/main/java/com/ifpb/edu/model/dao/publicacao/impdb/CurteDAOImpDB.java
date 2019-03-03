@@ -32,17 +32,19 @@ public class CurteDAOImpDB implements CurteDAO{
 				throw new DataAccessException("Falha ao criar curtida");
 			}		
 	}
-
+	
 	@Override
-	public void editaCurte(Curte curte) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void excluiCurte(Curte curte) {
-		// TODO Auto-generated method stub
-		
+	public void excluiCurte(Curte curte) throws DataAccessException{
+		try {
+			String query = "DELETE FROM curte"
+					+ "WHERE (textoid=?) AND (usuarioid=?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1,curte.getTexto().getId());
+			stm.setInt(2, curte.getUsuario().getId());
+			stm.executeUpdate();			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao excluir curtida");
+		}		
 	}
 
 	@Override
