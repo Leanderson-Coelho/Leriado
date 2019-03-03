@@ -67,8 +67,16 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public void exclui(Texto texto) {
-		// TODO Auto-generated method stub
+	public void exclui(Texto texto) throws DataAccessException{
+		try {
+			String query = "DELETE FROM texto"
+					+ " WHERE id = ?";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1,texto.getId());
+			stm.executeUpdate();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao excluir texto");
+		}
 
 	}
 
