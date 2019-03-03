@@ -10,6 +10,6 @@ public interface CurteDAO {
 	
 	void cria(Curte curte) throws DataAccessException;	
 	void exclui(Curte curte) throws DataAccessException;
-	int quantidade(Texto texto) throws DataAccessException;
+	int quant(Texto texto) throws DataAccessException;
 	List<Curte> lista(Texto texto) throws DataAccessException;
 }

@@ -48,8 +48,19 @@ public class CurteDAOImpDB implements CurteDAO{
 	}
 
 	@Override
-	public int quantidade(Texto texto) {
-		// TODO Auto-generated method stub
+	public int quant(Texto texto) throws DataAccessException{
+		try {
+			String query = "SELECT COUNT(*) FROM curte"
+					+ "WHERE textoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, texto.getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()) {
+				return = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar a quantidade de curtidas.");
+		}
 		return 0;
 	}
 
