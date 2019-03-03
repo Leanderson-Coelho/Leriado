@@ -18,9 +18,8 @@ public class Usuario {
 	private String estado; 
 	private String numero; 
 	private String cep;
-	public Usuario(int id, String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
-			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {
-		this.id = id;
+	public Usuario(String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
+			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {		
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;
@@ -123,7 +122,7 @@ public class Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Usuario [email=" + email + ", senha=" + senha + ", nome=" + nome + ", sobrenome=" + sobrenome
+		return "Usuario [id="+getId()+", email=" + email + ", senha=" + senha + ", nome=" + nome + ", sobrenome=" + sobrenome
 				+ ", sexo=" + sexo + ", datanasc=" + datanasc + ", acesso=" + acesso + ", telefone=" + telefone
 				+ ", rua=" + rua + ", cidade=" + cidade + ", estado=" + estado + ", numero=" + numero + ", cep=" + cep
 				+ "]";
