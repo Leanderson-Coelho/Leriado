@@ -3,6 +3,8 @@ package com.ifpb.edu.leriadoApp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.ifpb.edu.model.dao.publicacao.impdb.TextoDAOImpDB;
@@ -50,8 +52,18 @@ public class TextoDAOImpDBTeste {
 		}
 	}
 	
-	
-	
-	
+	@Test
+	public void listarTextoTeste() {
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			List<Texto> textos = textoDAO.lista();
+			for (Texto texto : textos) {
+				System.out.println(texto.getUsuario().getNome());
+				System.out.println(texto.getConteudo());				
+			}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
