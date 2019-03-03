@@ -108,8 +108,25 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public TipoTexto tipo(Texto texto) {
-		// TODO Auto-generated method stub
+	public TipoTexto tipo(Texto texto) throws DataAccessException{
+		try {
+			String query = "SELECT TipoTexto(?)";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, texto.getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()) {
+				switch (rs.getString(1)){
+				case "PUBLICACAO": return TipoTexto.PUBLICACAO;
+				case "COMENTARIO": return TipoTexto.COMENTARIO;
+				case "NOTICIA": return TipoTexto.NOTICIA;
+				case "FOTO": return TipoTexto.FOTO;
+				case "LINK": return TipoTexto.LINK;
+				default:					
+				}
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Não foi possível recuperar o tipo");
+		}
 		return null;
 	}
 
