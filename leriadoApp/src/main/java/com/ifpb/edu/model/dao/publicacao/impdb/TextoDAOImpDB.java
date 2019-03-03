@@ -138,27 +138,27 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public List<Texto> lista(int inicio, int quant) {
+	public List<Texto> lista(int inicio, int quant) throws DataAccessException{
 		List<Texto> textos = new ArrayList<Texto>();
 		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
 		try {
 			String query = "SELECT * FROM texto"
-					+ " LIMIT ? OFFSET ? ";
+					+ " OFFSET ? LIMIT ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, inicio);
 			stm.setInt(2, quant);
 			ResultSet rs = stm.executeQuery();
-			while (rs.next()) {
-				Usuario usuario = usuarioDAO.buscarPorId(rs.getInt("id"));
+			while (rs.next()) {				
 				textos.add(new Texto(
 						rs.getInt("id"),
 						rs.getBoolean("ativo"),
 						rs.getString("conteudo"),
 						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuario));
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid"))));
 			}
 		}catch (Exception e) {
-			throw new DataAccessException("Falha ao listar textos.")
+			e.printStackTrace();			
+			throw new DataAccessException("Falha ao listar textos.");
 		}
 		return textos;
 	}
