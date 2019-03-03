@@ -9,6 +9,7 @@ public interface TextoDAO {
 	int cria(Texto texto) throws DataAccessException;
 	void edita(Texto texto) throws DataAccessException;
 	void exclui(Texto texto) throws DataAccessException;
+	Texto buscar(int id) throws DataAccessException;
 	TipoTexto tipo(Texto texto) throws DataAccessException;
 	List<Texto> lista() throws DataAccessException;
 	List<Texto>lista(int inicio,int quant) throws DataAccessException;
