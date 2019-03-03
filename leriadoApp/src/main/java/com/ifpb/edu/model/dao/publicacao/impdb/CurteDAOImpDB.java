@@ -3,9 +3,12 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.CurteDAO;
+import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Curte;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -56,7 +59,7 @@ public class CurteDAOImpDB implements CurteDAO{
 			stm.setInt(1, texto.getId());
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				return = rs.getInt(1);
+				return rs.getInt(1);
 			}
 		}catch (Exception e) {
 			throw new DataAccessException("Falha ao recuperar a quantidade de curtidas.");
@@ -65,9 +68,28 @@ public class CurteDAOImpDB implements CurteDAO{
 	}
 
 	@Override
-	public List<Curte> lista(Texto texto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Curte> lista(Texto texto) throws DataAccessException{
+		List<Curte> cutidas = new ArrayList<Curte>();
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		Usuario usuario = null;
+		int ti = texto.getId();
+		try {
+			texto = textoDAO.buscar(ti).orElseThrow();
+			String query = "SELECT * FROM curte"
+					+ "WHERE textoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, texto.getId());
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				usuario = usuarioDAO.buscarPorId(rs.getInt("usuarioid"));
+				cutidas.add(new Curte(texto, usuario, rs.getTimestamp("datahora").toLocalDateTime()));
+			}
+			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar curtidas.");
+		}		
+		return cutidas;
 	}
 	
 	
