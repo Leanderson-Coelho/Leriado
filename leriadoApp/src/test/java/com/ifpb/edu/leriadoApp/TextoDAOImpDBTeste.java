@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.dao.publicacao.impdb.TextoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Texto;
@@ -56,7 +57,7 @@ public class TextoDAOImpDBTeste {
 	public void listarTextoTeste() {
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
 		try {
-			List<Texto> textos = textoDAO.lista();
+			List<Texto> textos = textoDAO.lista(10,3);
 			for (Texto texto : textos) {
 				System.out.println(texto.getUsuario().getNome());
 				System.out.println(texto.getConteudo());				
@@ -65,5 +66,32 @@ public class TextoDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void quantTextoTeste() {
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			System.out.println(textoDAO.quant());
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
+	
+	@Test
+	public void tipoTextoTeste() {
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			List<Texto> textos = textoDAO.lista();
+			for (Texto texto : textos) {				
+				System.out.println(texto.getConteudo());
+				System.out.println(textoDAO.tipo(texto));
+			}			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 
 }
