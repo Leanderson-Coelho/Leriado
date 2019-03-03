@@ -35,8 +35,19 @@ public class TextoDAOImpDBTeste {
 			textoDAO.edita(texto);
 		} catch (DataAccessException e) {		
 			e.printStackTrace();
+		}		
+	}
+	
+	@Test
+	public void excluiTextoTeste() {
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			Texto texto = new Texto();
+			texto.setId(1);
+			textoDAO.exclui(texto);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		
 	}
 	
 	
