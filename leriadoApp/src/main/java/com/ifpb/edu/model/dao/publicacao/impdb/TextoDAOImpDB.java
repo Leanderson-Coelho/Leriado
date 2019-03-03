@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import javax.swing.text.html.Option;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.TextoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
+import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
@@ -112,9 +114,27 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
-	public List<Texto> lista() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Texto> lista() throws DataAccessException{
+		List<Texto> textos = new ArrayList<Texto>();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		try {
+			String query = "SELECT * FROM texto ";
+			Statement stm = connection.createStatement();
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {			
+				Usuario usuario = usuarioDAO.buscarPorId(rs.getInt("usuarioid"));
+				textos.add(new Texto(
+						rs.getInt("id"),
+						rs.getBoolean("ativo"),
+						rs.getString("conteudo"),
+						rs.getTimestamp("datahora").toLocalDateTime(),
+						usuario));
+			}
+						
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao lista textos.");
+		}
+		return textos;
 	}
 
 	@Override
