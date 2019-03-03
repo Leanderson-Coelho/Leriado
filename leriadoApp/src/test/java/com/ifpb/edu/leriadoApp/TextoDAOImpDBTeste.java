@@ -23,8 +23,24 @@ public class TextoDAOImpDBTeste {
 			System.out.println(texto);
 		} catch (DataAccessException e) {
 			e.printStackTrace();
+		}		
+	}
+	
+	@Test
+	public void editaTextoTeste() {
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();		
+		try {
+			Texto texto = textoDAO.buscar(3).orElse(null);
+			texto.setConteudo("Modificação do texto");
+			textoDAO.edita(texto);
+		} catch (DataAccessException e) {		
+			e.printStackTrace();
 		}
 		
 	}
+	
+	
+	
+	
 
 }
