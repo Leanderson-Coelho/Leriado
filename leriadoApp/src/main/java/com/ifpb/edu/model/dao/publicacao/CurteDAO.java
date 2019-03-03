@@ -8,8 +8,8 @@ import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public interface CurteDAO {
 	
-	void criaCurte(Curte curte) throws DataAccessException;	
-	void excluiCurte(Curte curte) throws DataAccessException;
-	int quantCurtidas(Texto texto) throws DataAccessException;
-	List<Curte> listaCurte(Texto texto) throws DataAccessException;
+	void cria(Curte curte) throws DataAccessException;	
+	void exclui(Curte curte) throws DataAccessException;
+	int quantidade(Texto texto) throws DataAccessException;
+	List<Curte> lista(Texto texto) throws DataAccessException;
 }

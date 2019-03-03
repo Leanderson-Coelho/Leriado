@@ -20,7 +20,7 @@ public class CurteDAOImpDB implements CurteDAO{
 	}
 
 	@Override
-	public void criaCurte(Curte curte) throws DataAccessException{
+	public void cria(Curte curte) throws DataAccessException{
 		try {
 			String query = "INSERT INTO curte (textoid,usuarioid) "
 					+ "VALUES(?,?)";
@@ -34,7 +34,7 @@ public class CurteDAOImpDB implements CurteDAO{
 	}
 	
 	@Override
-	public void excluiCurte(Curte curte) throws DataAccessException{
+	public void exclui(Curte curte) throws DataAccessException{
 		try {
 			String query = "DELETE FROM curte"
 					+ "WHERE (textoid=?) AND (usuarioid=?) ";
@@ -48,13 +48,13 @@ public class CurteDAOImpDB implements CurteDAO{
 	}
 
 	@Override
-	public int quantCurtidas(Texto texto) {
+	public int quantidade(Texto texto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<Curte> listaCurte(Texto texto) {
+	public List<Curte> lista(Texto texto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
