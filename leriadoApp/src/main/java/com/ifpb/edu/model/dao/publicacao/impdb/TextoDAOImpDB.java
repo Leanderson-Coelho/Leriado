@@ -114,6 +114,21 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
+	public int quant() throws DataAccessException {
+		try {
+			String query = "SELECT COUNT(*) FROM texto ";
+			Statement stm = connection.createStatement();
+			ResultSet rs = stm.executeQuery(query);
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar a quantidade de textos");
+		} 
+		return 0;
+	}
+
+	@Override
 	public List<Texto> lista() throws DataAccessException{
 		List<Texto> textos = new ArrayList<Texto>();
 		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
