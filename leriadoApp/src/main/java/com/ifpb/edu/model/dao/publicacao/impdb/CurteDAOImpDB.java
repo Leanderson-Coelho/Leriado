@@ -39,7 +39,7 @@ public class CurteDAOImpDB implements CurteDAO{
 	@Override
 	public void exclui(Curte curte) throws DataAccessException{
 		try {
-			String query = "DELETE FROM curte"
+			String query = "DELETE FROM curte "
 					+ "WHERE (textoid=?) AND (usuarioid=?) ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1,curte.getTexto().getId());
@@ -53,7 +53,7 @@ public class CurteDAOImpDB implements CurteDAO{
 	@Override
 	public int quant(Texto texto) throws DataAccessException{
 		try {
-			String query = "SELECT COUNT(*) FROM curte"
+			String query = "SELECT COUNT(*) FROM curte "
 					+ "WHERE textoid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, texto.getId());
@@ -76,7 +76,7 @@ public class CurteDAOImpDB implements CurteDAO{
 		int ti = texto.getId();
 		try {
 			texto = textoDAO.buscar(ti).orElseThrow();
-			String query = "SELECT * FROM curte"
+			String query = "SELECT * FROM curte "
 					+ "WHERE textoid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, texto.getId());
