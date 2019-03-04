@@ -21,12 +21,13 @@ public class MarcaDAOImpDB implements MarcaDAO{
 	@Override
 	public void cria(Marca marca) throws DataAccessException {
 		try {
-			String query = "INSERT INT marca (textoid, usuario) VALUES (?,?) ";
+			String query = "INSERT INTO marca (textoid, usuarioid) VALUES (?,?) ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, marca.getTexto().getId());
 			stm.setInt(2, marca.getUsuario().getId());
 			stm.executeUpdate();			
 		}catch (Exception e) {
+			e.printStackTrace();
 			throw new DataAccessException("Falha ao marcar usuário");
 		}
 		
