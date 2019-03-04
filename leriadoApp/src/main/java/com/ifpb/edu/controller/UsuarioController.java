@@ -2,6 +2,9 @@ package com.ifpb.edu.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +25,7 @@ public class UsuarioController implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		String acao = request.getParameter("acao");
 		switch(acao) {
-			case "criar":
+			case "cadastrar":
 				cadastrar(request,response);
 				break;
 			case "remover":
@@ -81,7 +84,77 @@ public class UsuarioController implements Command{
 	}
 
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
 		
+		Usuario usuario = new Usuario();
+		
+		String email = request.getParameter("emailAnterior")+request.getParameter("emailPosterior");
+		String senha = request.getParameter("senha");
+		String nome = request.getParameter("nome");
+		String sobrenome = request.getParameter("sobrenome");
+		String sexo = request.getParameter("sexo");
+		String data = request.getParameter("data");
+		String telefone = request.getParameter("telefone");
+		String cep = request.getParameter("cep");
+		String cidade = request.getParameter("cidade");
+		String rua = request.getParameter("rua");
+		String estado = request.getParameter("estado");
+		String numero = request.getParameter("numero");
+		
+		try {
+			if(usuarioDao.buscarPorEmail(email)!=null) {
+				//email já cadastrado ;-;
+			}
+		} catch (SQLException e1) {
+			//erro 501
+		}
+		
+		if(senha.length()<8) {
+			//senha menor que 8 caracteres
+		}
+		
+		if(nome.isEmpty() && sobrenome.isEmpty() && sexo.isEmpty()) {
+			//preencha os campos obrigatórios
+		}
+		
+		if(!telefone.isEmpty() && telefone.length()<14) {
+			//formatação do numero de telefone inválido
+		}
+		
+		if(!cep.isEmpty() && cep.length()<9) {
+			//formatação do cep inválido 
+		}
+		
+		if(senha.equals(request.getParameter("confirma-senha"))) {
+			//senha não corresponde a confirmação
+		}
+		
+		
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			usuario.setDatanasc(LocalDate.parse(data, formatter));			
+		}catch(DateTimeParseException e) {
+			//formatação da data inválida
+		}
+		
+		usuario.setEmail(email);
+		usuario.setNome(nome);
+		usuario.setSobrenome(sobrenome);
+		usuario.setSenha(senha);
+		usuario.setSexo(sexo);
+		usuario.setTelefone(telefone);
+		usuario.setCidade(cidade);
+		usuario.setRua(rua);
+		usuario.setEstado(estado);
+		usuario.setNumero(numero);
+		usuario.setCep(cep);
+		usuario.setAcesso(1);
+		
+		try {
+			usuarioDao.criar(usuario);
+		} catch (SQLException e) {
+			//erro 501
+		}
+		
+		request.setAttribute("usuario", usuario);
 	}
 }

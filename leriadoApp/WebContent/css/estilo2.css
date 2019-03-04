@@ -1,0 +1,57 @@
+body, html {
+	margin: 0;
+}
+
+#container {
+	width: 100vw;
+	height: auto;
+	background: linear-gradient(180deg, #fff, orange 200%);
+	/*background-image: url("/Leriado/img/textura.jpg");*/
+	position: relative;
+}
+
+#cabecalho {
+	width: 100%;
+	height: 90px;
+	background: linear-gradient(180deg, #FFA500 5%, #FF8C00 60%, #FF4500 100%);
+	box-shadow: 0px 5px 10px grey;
+}
+
+#conteudo {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top : 7px;
+	width: 350px;
+	height: 560px;
+	background-color: #DCDCDC;
+}
+
+.campo {
+	margin-right: 2px;
+	height: 35px;
+	width: 96%;
+	border-radius: 5px;
+	font-size: large;
+	border: 1px solid;
+	border-color: gray;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	padding: 3px;
+	color: #696969; 
+}
+
+input[type="submit"] {
+	width: 50%;
+	height: 35px;
+	border-radius: 5px;
+	border: 0px;
+	background: linear-gradient(180deg, #FFA500 5%, #FF8C00 60%, #FF4500 100%);
+	font-size: larger;
+	font-weight: bold;
+	color: white;
+}
+
+#rodape {
+	width: 100%;
+	height: 120px;
+	background-color: #222222;
+}
