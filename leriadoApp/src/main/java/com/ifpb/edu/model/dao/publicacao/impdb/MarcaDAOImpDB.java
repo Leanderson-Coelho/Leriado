@@ -27,21 +27,23 @@ public class MarcaDAOImpDB implements MarcaDAO{
 			stm.setInt(2, marca.getUsuario().getId());
 			stm.executeUpdate();			
 		}catch (Exception e) {
-			e.printStackTrace();
 			throw new DataAccessException("Falha ao marcar usuário");
 		}
 		
 	}
-
-	@Override
-	public void edita(Marca marca) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void exclui(Marca marca) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "DELETE FROM marca "
+					+ "WHERE (textoid = ?) AND (ususarioid = ?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, marca.getTexto().getId());
+			stm.setInt(2, marca.getUsuario().getId());
+			stm.executeUpdate();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao excluir marca.");
+		}
 		
 	}
 
