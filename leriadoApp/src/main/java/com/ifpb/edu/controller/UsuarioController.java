@@ -47,7 +47,7 @@ public class UsuarioController implements Command{
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			Usuario usuario = usuarioDao.buscarPorEmail(login);
-			if(usuario!=null && usuario.getSenha().equals(senha)) {
+			if(usuarioDao.login(login, senha)) {
 				usuario.setSenha("");
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
 				response.sendRedirect("logado.jsp");
