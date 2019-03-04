@@ -96,8 +96,30 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 
 	@Override
 	public List<Comentario> lista(Texto texto, int inicio, int quant) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Comentario> cometarios = new ArrayList<Comentario>();
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			int it = texto.getId();
+			texto = textoDAO.buscar(it).orElseThrow();
+			String query = "SELECT textoid FROM comentario "
+					+ "WHERE respondeid = ? "
+					+ "OFFSET ? LIMIT ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, texto.getId());
+			stm.setInt(2, inicio);
+			stm.setInt(3, quant);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Comentario comentario = new Comentario();				
+				textoDAO.buscar(rs.getInt("textoid"), comentario);
+				comentario.setResponde(texto);
+				cometarios.add(comentario);				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao listar comentários");
+		}
+		return cometarios;
 	}
 	
 }
