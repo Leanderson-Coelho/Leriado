@@ -91,6 +91,24 @@ public class CurteDAOImpDB implements CurteDAO{
 		}		
 		return cutidas;
 	}
+
+	@Override
+	public boolean existe(Curte curte) throws DataAccessException {
+		try {
+			String query = "SELECT EXISTS ( "
+					+ "SELECT FROM curte WHERE (textoid = ?) AND (usuarioid = ?) )";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, curte.getTexto().getId());
+			stm.setInt(2, curte.getUsuario().getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()) {
+				return rs.getBoolean(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao consultar curtida.");
+		}
+		return false;
+	}
 	
 	
 
