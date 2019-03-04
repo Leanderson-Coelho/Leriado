@@ -1,33 +1,57 @@
 package com.ifpb.edu.model.dao.publicacao.impdb;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.MarcaDAO;
 import com.ifpb.edu.model.domain.publicacao.Marca;
 import com.ifpb.edu.model.domain.publicacao.Texto;
+import com.ifpb.edu.model.jdbc.ConnectionFactory;
+import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class MarcaDAOImpDB implements MarcaDAO{
-
-	@Override
-	public int criaMarca(Marca marca) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	private Connection connection;
+	
+	public MarcaDAOImpDB() {
+		connection = ConnectionFactory.getInstance().getConnection();
 	}
 
 	@Override
-	public void editaMarca(Marca marca) {
+	public void cria(Marca marca) throws DataAccessException {
+		try {
+			String query = "INSERT INT marca (textoid, usuario) VALUES (?,?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, marca.getTexto().getId());
+			stm.setInt(2, marca.getUsuario().getId());
+			stm.executeUpdate();			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao marcar usuário");
+		}
+		
+	}
+
+	@Override
+	public void edita(Marca marca) throws DataAccessException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void excluiMarca(Marca marca) {
+	public void exclui(Marca marca) throws DataAccessException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Marca> listaMarca(Texto texto) {
+	public boolean existe(int textoId, int usuarioId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Marca> listaMarca(Texto texto) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
