@@ -13,7 +13,6 @@ public interface ComentarioDAO {
 	void cria(Comentario comentario) throws DataAccessException;
 	void edita(Comentario comentario) throws DataAccessException;
 	void exclui(Comentario comentario) throws DataAccessException;	
-	Optional<Comentario> buscar(int id) throws DataAccessException;
 	int quant(Texto texto) throws DataAccessException;
 	List<Comentario> lista(Texto texto) throws DataAccessException;
 	List<Comentario>lista(Texto texto, int inicio,int quant) throws DataAccessException;

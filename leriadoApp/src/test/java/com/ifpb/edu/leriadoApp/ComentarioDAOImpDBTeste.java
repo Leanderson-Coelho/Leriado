@@ -47,5 +47,29 @@ public class ComentarioDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void quantTeste() {
+		try {
+			Texto texto = new Texto();
+			texto.setId(1);
+			System.out.println(new ComentarioDAOImpDB().quant(texto));
+		}catch (Exception e) {
+			e.printStackTrace();			
+		}
+	}
+	
+	@Test
+	public void excluirTeste() {
+		ComentarioDAOImpDB comentarioDAO = new ComentarioDAOImpDB();
+		Comentario comentario = new Comentario();
+		comentario.setId(11);
+		try {
+			comentarioDAO.exclui(comentario);						
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }

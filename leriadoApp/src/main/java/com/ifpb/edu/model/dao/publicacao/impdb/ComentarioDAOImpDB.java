@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ifpb.edu.model.dao.publicacao.ComentarioDAO;
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.publicacao.Comentario;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -53,19 +54,30 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 
 	@Override
 	public void exclui(Comentario comentario) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Optional<Comentario> buscar(int id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			if (textoDAO.tipo(comentario)!=TipoTexto.COMENTARIO)
+				throw new Exception();
+			textoDAO.exclui(comentario);
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao excluir comentário");
+		}		
 	}
 
 	@Override
 	public int quant(Texto texto) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM comentario "
+					+ "WHERE respondeid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, texto.getId());
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar a quantidade de comentários");
+		}
 		return 0;
 	}
 
