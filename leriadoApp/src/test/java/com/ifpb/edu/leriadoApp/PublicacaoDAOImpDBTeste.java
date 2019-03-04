@@ -48,5 +48,14 @@ public class PublicacaoDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void quantTeste() {
+		try {
+			System.out.println(new PublicacaoDAOImpDB().quant());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

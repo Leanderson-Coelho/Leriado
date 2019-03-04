@@ -2,6 +2,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.PublicacaoDAO;
@@ -67,7 +68,17 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 
 	@Override
 	public int quant() throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM texto "
+					+ "WHERE TipoTexto(id) = 'PUBLICACAO' ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar a quantidade de publicações");
+		}
 		return 0;
 	}
 
