@@ -1,8 +1,14 @@
 package com.ifpb.edu.leriadoApp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sound.midi.Soundbank;
+
 import org.junit.Test;
 
 import com.ifpb.edu.model.dao.publicacao.impdb.MarcaDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.TextoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Marca;
 import com.ifpb.edu.model.domain.publicacao.Texto;
@@ -33,6 +39,22 @@ public class MarcaDAOImpDBTeste {
 		try {
 			System.out.println(marcaDAO.existe(4, 2));
 		} catch (DataAccessException e) {		
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void ListaTeste() {
+		MarcaDAOImpDB marcaDAO = new MarcaDAOImpDB();		
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			Texto texto = textoDAO.buscar(1).orElseThrow();
+			System.out.println(texto.getConteudo());
+			List<Marca> marcacoes = marcaDAO.listaMarca(texto);
+			for (Marca marca : marcacoes) {
+				System.out.println(marca.getUsuario().getNome());
+			}
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

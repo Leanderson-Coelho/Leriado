@@ -3,11 +3,14 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PreDestroy;
 
+import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.MarcaDAO;
+import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Marca;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -70,8 +73,25 @@ public class MarcaDAOImpDB implements MarcaDAO{
 
 	@Override
 	public List<Marca> listaMarca(Texto texto) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Marca> marcacoes = new ArrayList<Marca>();
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		try {
+			int ti = texto.getId();
+			texto = textoDAO.buscar(ti).orElseThrow();
+			String query = "SELECT usuarioid FROM marca "
+					+ "WHERE  textoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, ti);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				marcacoes.add(new Marca(texto, usuarioDAO.buscarPorId(rs.getInt("usuarioid"))));
+			}
+			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar marcações");
+		}
+		return marcacoes;
 	}
 
 }
