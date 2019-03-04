@@ -50,7 +50,7 @@ public class UsuarioController implements Command{
 			if(usuario!=null && usuario.getSenha().equals(senha)) {
 				usuario.setSenha("");
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
-				response.sendRedirect("logado.jps");
+				response.sendRedirect("logado.jsp");
 			}else {
 				throw new CommandException(401, "Senha ou email inválido");
 			}
