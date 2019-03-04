@@ -3,6 +3,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.PublicacaoDAO;
@@ -84,14 +85,49 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 
 	@Override
 	public List<Publicacao> lista() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Publicacao> publicacoes = new ArrayList<Publicacao>();
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			String query = "SELECT * FROM publicacao "
+					+ "WHERE TipoTexto(textoid) = 'PUBLICACAO' ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Publicacao publicacao = new Publicacao();
+				publicacao.setId(rs.getInt("textoid"));
+				textoDAO.buscar(publicacao);
+				publicacao.setRelevancia(rs.getInt("relevancia"));
+				publicacoes.add(publicacao);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar publicações");
+		}
+		return publicacoes;
 	}
 
 	@Override
 	public List<Publicacao> lista(int inicio, int quant) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Publicacao> publicacoes = new ArrayList<Publicacao>();
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			String query = "SELECT * FROM publicacao "
+					+ "WHERE TipoTexto(textoid) = 'PUBLICACAO' "
+					+ " OFFSET ? LIMIT ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, inicio);
+			stm.setInt(2, quant);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Publicacao publicacao = new Publicacao();
+				publicacao.setId(rs.getInt("textoid"));
+				textoDAO.buscar(publicacao);
+				publicacao.setRelevancia(rs.getInt("relevancia"));
+				publicacoes.add(publicacao);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar publicações");
+		}
+		return publicacoes;
 	}
 
 }

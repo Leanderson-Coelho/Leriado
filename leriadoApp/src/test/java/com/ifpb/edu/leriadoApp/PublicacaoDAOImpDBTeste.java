@@ -1,5 +1,9 @@
 package com.ifpb.edu.leriadoApp;
 
+import java.util.List;
+
+import javax.sound.midi.Soundbank;
+
 import org.junit.Test;
 
 import com.ifpb.edu.model.dao.publicacao.impdb.PublicacaoDAOImpDB;
@@ -57,5 +61,22 @@ public class PublicacaoDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void listaTeste() {
+		List<Publicacao> publicacoes = null;
+		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();		
+		try {
+			publicacoes = publicacaoDAO.lista(0,2);
+			for (Publicacao publicacao : publicacoes) {
+				System.out.println(publicacao.getConteudo());				
+				System.out.println("----------");
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }
