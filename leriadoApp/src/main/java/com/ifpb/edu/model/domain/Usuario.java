@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class Usuario {
+	private int id = 0;
+	private boolean ativo;
 	private String email;
 	private String senha;
 	private String nome;
@@ -18,7 +20,7 @@ public class Usuario {
 	private String numero; 
 	private String cep;
 	public Usuario(String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
-			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {
+			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {		
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;
@@ -34,7 +36,19 @@ public class Usuario {
 		this.cep = cep;
 	}
 	public Usuario() {}
-	
+
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -115,7 +129,7 @@ public class Usuario {
 	}
 	@Override
 	public String toString() {
-		return "Usuario [email=" + email + ", senha=" + senha + ", nome=" + nome + ", sobrenome=" + sobrenome
+		return "Usuario [id="+getId()+", email=" + email + ", senha=" + senha + ", nome=" + nome + ", sobrenome=" + sobrenome
 				+ ", sexo=" + sexo + ", datanasc=" + datanasc + ", acesso=" + acesso + ", telefone=" + telefone
 				+ ", rua=" + rua + ", cidade=" + cidade + ", estado=" + estado + ", numero=" + numero + ", cep=" + cep
 				+ "]";

@@ -1,10 +1,15 @@
 package com.ifpb.edu.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.UsuarioDao;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
+import com.ifpb.edu.model.domain.Usuario;
 
 public class UsuarioController implements Command{
 	private UsuarioDao usuarioDao;
@@ -14,7 +19,7 @@ public class UsuarioController implements Command{
 	}
 	
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		String acao = request.getParameter("acao");
 		switch(acao) {
 			case "criar":
@@ -37,9 +42,22 @@ public class UsuarioController implements Command{
 		}
 	}
 
-	private void login(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+	private void login(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		try {
+			String login = request.getParameter("login");
+			String senha = request.getParameter("senha");
+			Usuario usuario = usuarioDao.buscarPorEmail(login);
+			if(usuario!=null && usuario.getSenha().equals(senha)) {
+				usuario.setSenha("");
+				request.getSession(true).setAttribute("usuarioLogado", usuario);
+				response.sendRedirect("logado.jps");
+			}else {
+				throw new CommandException(401, "Senha ou email inválido");
+			}
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void buscarPorId(HttpServletRequest request, HttpServletResponse response) {

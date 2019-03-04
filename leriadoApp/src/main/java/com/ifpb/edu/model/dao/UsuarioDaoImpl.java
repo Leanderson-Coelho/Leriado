@@ -39,23 +39,25 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	//email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep
 	@Override
 	public void atualizar(Usuario usuarioNovo, Integer idUsuario) throws SQLException{
-		String query = new String("UPDATE usuario SET email=?,senha=?,nome=?,sobrenome=?,sexo=?,datanasc=?,acesso=?,telefone=?,rua=?,cidade=?,estado=?,numero=?,cep=?"
+		String query = new String("UPDATE usuario SET "
+				+ "ativo=?, email=?,senha=?,nome=?,sobrenome=?,sexo=?,datanasc=?,acesso=?,telefone=?,rua=?,cidade=?,estado=?,numero=?,cep=?"
 				+ " WHERE id = ?");
 		PreparedStatement statement = connection.prepareStatement(query);
-		statement.setString(1, usuarioNovo.getEmail());
-		statement.setString(2, usuarioNovo.getSenha());
-		statement.setString(3, usuarioNovo.getNome());
-		statement.setString(4, usuarioNovo.getSobrenome());
-		statement.setString(5, usuarioNovo.getSexo());
-		statement.setDate(6, java.sql.Date.valueOf(usuarioNovo.getDatanasc()));
-		statement.setInt(7, usuarioNovo.getAcesso());
-		statement.setString(8, usuarioNovo.getTelefone());
-		statement.setString(9, usuarioNovo.getRua());
-		statement.setString(10, usuarioNovo.getCidade());
-		statement.setString(11, usuarioNovo.getEstado());
-		statement.setString(12, usuarioNovo.getNumero());
-		statement.setString(13, usuarioNovo.getCep());
-		statement.setInt(14, idUsuario);
+		statement.setBoolean(1, usuarioNovo.isAtivo());
+		statement.setString(2, usuarioNovo.getEmail());
+		statement.setString(3, usuarioNovo.getSenha());
+		statement.setString(4, usuarioNovo.getNome());
+		statement.setString(5, usuarioNovo.getSobrenome());
+		statement.setString(6, usuarioNovo.getSexo());
+		statement.setDate(7, java.sql.Date.valueOf(usuarioNovo.getDatanasc()));
+		statement.setInt(8, usuarioNovo.getAcesso());
+		statement.setString(9, usuarioNovo.getTelefone());
+		statement.setString(10, usuarioNovo.getRua());
+		statement.setString(11, usuarioNovo.getCidade());
+		statement.setString(12, usuarioNovo.getEstado());
+		statement.setString(13, usuarioNovo.getNumero());
+		statement.setString(14, usuarioNovo.getCep());
+		statement.setInt(15, idUsuario);
 		statement.execute();
 	}
 	
@@ -75,19 +77,21 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		ResultSet result = statement.executeQuery();
 		if(result.next()) {
 			Usuario usuario = new Usuario();
-			usuario.setEmail(result.getString(3));
-			usuario.setSenha(result.getString(4));
-			usuario.setNome(result.getString(5));
-			usuario.setSobrenome(result.getString(6));
-			usuario.setSexo(result.getString(7));
-			usuario.setDatanasc(result.getDate(8).toLocalDate());
-			usuario.setAcesso(result.getInt(9));
-			usuario.setTelefone(result.getString(10));
-			usuario.setRua(result.getString(11));
-			usuario.setCidade(result.getString(12));
-			usuario.setEstado(result.getString(13));
-			usuario.setNumero(result.getString(14));
-			usuario.setCep(result.getString(15));
+			usuario.setId(result.getInt("id"));
+			usuario.setAtivo(result.getBoolean("ativo"));
+			usuario.setEmail(result.getString("email"));
+			usuario.setSenha(result.getString("senha"));
+			usuario.setNome(result.getString("nome"));
+			usuario.setSobrenome(result.getString("sobrenome"));
+			usuario.setSexo(result.getString("sexo"));
+			usuario.setDatanasc(result.getDate("datanasc").toLocalDate());
+			usuario.setAcesso(result.getInt("acesso"));
+			usuario.setTelefone(result.getString("telefone"));
+			usuario.setRua(result.getString("rua"));
+			usuario.setCidade(result.getString("cidade"));
+			usuario.setEstado(result.getString("estado"));
+			usuario.setNumero(result.getString("numero"));
+			usuario.setCep(result.getString("cep"));
 			return usuario;
 		}
 		return null;
@@ -100,19 +104,23 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		statement.setString(1, email);
 		ResultSet result = statement.executeQuery();
 		if(result.next()) {
-			return new Usuario(result.getString("email"),
-					result.getString("senha"),
-					result.getString("nome"),
-					result.getString("sobrenome"),
-					result.getString("sexo"),
-					result.getDate("datanasc").toLocalDate(),
-					result.getInt("acesso"),
-					result.getString("telefone"),
-					result.getString("rua"),
-					result.getString("cidade"),
-					result.getString("estado"),
-					result.getString("numero"),
-					result.getString("cep"));
+			Usuario usuario = new Usuario();
+			usuario.setId(result.getInt("id"));
+			usuario.setAtivo(result.getBoolean("ativo"));
+			usuario.setEmail(result.getString("email"));
+			usuario.setSenha(result.getString("senha"));
+			usuario.setNome(result.getString("nome"));
+			usuario.setSobrenome(result.getString("sobrenome"));
+			usuario.setSexo(result.getString("sexo"));
+			usuario.setDatanasc(result.getDate("datanasc").toLocalDate());
+			usuario.setAcesso(result.getInt("acesso"));
+			usuario.setTelefone(result.getString("telefone"));
+			usuario.setRua(result.getString("rua"));
+			usuario.setCidade(result.getString("cidade"));
+			usuario.setEstado(result.getString("estado"));
+			usuario.setNumero(result.getString("numero"));
+			usuario.setCep(result.getString("cep"));
+			return usuario;
 		}
 		return null;
 	}
