@@ -2,6 +2,8 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +43,12 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 
 	@Override
 	public void edita(Comentario comentario) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			textoDAO.edita(comentario);
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao editar comentário");			 
+		}		
 	}
 
 	@Override
@@ -65,8 +71,27 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 
 	@Override
 	public List<Comentario> lista(Texto texto) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Comentario> cometarios = new ArrayList<Comentario>();
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+		try {
+			int it = texto.getId();
+			texto = textoDAO.buscar(it).orElseThrow();
+			String query = "SELECT textoid FROM comentario "
+					+ "WHERE respondeid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, texto.getId());
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Comentario comentario = new Comentario();				
+				textoDAO.buscar(rs.getInt("textoid"), comentario);
+				comentario.setResponde(texto);
+				cometarios.add(comentario);				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao listar comentários");
+		}
+		return cometarios;
 	}
 
 	@Override

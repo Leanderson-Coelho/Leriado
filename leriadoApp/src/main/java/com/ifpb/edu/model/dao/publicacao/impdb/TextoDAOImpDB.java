@@ -108,6 +108,40 @@ public class TextoDAOImpDB implements TextoDAO {
 	}
 
 	@Override
+	public void buscar(Texto texto) throws DataAccessException {
+		try {
+			int id = texto.getId();
+			buscar(id, texto);
+		} catch (Exception e) {
+			throw new DataAccessException("Falha ao buscar texto");
+		}
+	}
+
+	@Override
+	public void buscar(int id, Texto texto) throws DataAccessException {
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		if (texto == null) {
+			texto = new Texto();			
+		}
+		try {
+			String query = "SELECT * FROM texto "
+					+ "WHERE id = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				texto.setAtivo(rs.getBoolean("ativo"));
+				texto.setConteudo(rs.getString("conteudo"));
+				texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
+				texto.setUsuario(usuarioDAO.buscarPorId(rs.getInt("usuarioid")));
+			} else
+				throw new Exception();
+		} catch (Exception e) {
+			throw new  DataAccessException("Falha ao buscar texto");
+		}		
+	}
+
+	@Override
 	public TipoTexto tipo(Texto texto) throws DataAccessException{
 		try {
 			String query = "SELECT TipoTexto(?)";
