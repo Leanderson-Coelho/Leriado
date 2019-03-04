@@ -93,13 +93,13 @@ public class CurteDAOImpDB implements CurteDAO{
 	}
 
 	@Override
-	public boolean existe(Curte curte) throws DataAccessException {
+	public boolean existe(int textoId, int usuarioId) throws DataAccessException {
 		try {
 			String query = "SELECT EXISTS ( "
 					+ "SELECT FROM curte WHERE (textoid = ?) AND (usuarioid = ?) )";
 			PreparedStatement stm = connection.prepareStatement(query);
-			stm.setInt(1, curte.getTexto().getId());
-			stm.setInt(2, curte.getUsuario().getId());
+			stm.setInt(1, textoId);
+			stm.setInt(2, usuarioId);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
 				return rs.getBoolean(1);
