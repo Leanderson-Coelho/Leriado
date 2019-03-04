@@ -75,7 +75,7 @@ public class CurteDAOImpDB implements CurteDAO{
 		Usuario usuario = null;
 		int ti = texto.getId();
 		try {
-			texto = textoDAO.buscar(ti).orElseThrow();
+			texto = textoDAO.buscar(ti).orElseThrow(null);////////////////////////
 			String query = "SELECT * FROM curte "
 					+ "WHERE textoid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);

@@ -12,6 +12,8 @@ public class FrontController extends HttpServlet{
 		try {
 			String commandName = request.getParameter("command");
 			Command command = (Command) Class.forName(this.getClass().getPackage().getName()+"."+commandName).newInstance();
+			command.execute(request, response);
+			
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,7 +28,7 @@ public class FrontController extends HttpServlet{
 	
 	@Override
 	public void doGet(HttpServletRequest request,HttpServletResponse response) {
-		//TODO
+		execute(request, response);
 	}
 	
 	@Override
