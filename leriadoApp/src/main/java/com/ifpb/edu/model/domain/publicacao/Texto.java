@@ -1,13 +1,15 @@
-package com.ifpb.edu.model.domain;
+package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
 
+import com.ifpb.edu.model.domain.Usuario;
+
 public class Texto {
 	
-	private int id;
-	private Boolean ativo;
+	private int id = 0;
+	private Boolean ativo = true;
 	private String conteudo;
-	private LocalDateTime datahora;
+	private LocalDateTime datahora = LocalDateTime.now();
 	private Usuario usuario;
 	
 	public Texto() {}

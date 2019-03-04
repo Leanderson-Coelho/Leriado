@@ -33,6 +33,7 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void doGet(HttpServletRequest request,HttpServletResponse response) {
 		execute(request,response);	
+
 	}
 	
 	@Override
