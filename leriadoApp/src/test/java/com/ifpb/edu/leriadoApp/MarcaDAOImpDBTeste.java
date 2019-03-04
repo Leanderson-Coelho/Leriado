@@ -6,6 +6,7 @@ import com.ifpb.edu.model.dao.publicacao.impdb.MarcaDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Marca;
 import com.ifpb.edu.model.domain.publicacao.Texto;
+import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class MarcaDAOImpDBTeste {
 	
@@ -23,6 +24,16 @@ public class MarcaDAOImpDBTeste {
 			marcaDAO.cria(marca);			
 		}catch (Exception e) {
 			e.printStackTrace();	
+		}
+	}
+	
+	@Test
+	public void ExisteTeste() {
+		MarcaDAOImpDB marcaDAO = new MarcaDAOImpDB();
+		try {
+			System.out.println(marcaDAO.existe(4, 2));
+		} catch (DataAccessException e) {		
+			e.printStackTrace();
 		}
 	}
 }

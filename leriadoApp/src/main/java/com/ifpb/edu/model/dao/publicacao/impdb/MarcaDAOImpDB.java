@@ -2,7 +2,10 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
+
+import javax.annotation.PreDestroy;
 
 import com.ifpb.edu.model.dao.publicacao.MarcaDAO;
 import com.ifpb.edu.model.domain.publicacao.Marca;
@@ -49,7 +52,19 @@ public class MarcaDAOImpDB implements MarcaDAO{
 
 	@Override
 	public boolean existe(int textoId, int usuarioId) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT EXISTS "
+					+ "(SELECT FROM marca WHERE (textoid = ?) AND (usuarioid = ?))";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, textoId);
+			stm.setInt(2, usuarioId);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				return rs.getBoolean(1); 
+			}			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao consultar marca");
+		}
 		return false;
 	}
 
