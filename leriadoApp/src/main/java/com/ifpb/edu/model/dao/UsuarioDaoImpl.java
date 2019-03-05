@@ -36,7 +36,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		statement.setString(13, usuario.getCep());
 		statement.execute();
 	}
-	//email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep
+
 	@Override
 	public void atualizar(Usuario usuarioNovo, Integer idUsuario) throws SQLException{
 		String query = new String("UPDATE usuario SET "
