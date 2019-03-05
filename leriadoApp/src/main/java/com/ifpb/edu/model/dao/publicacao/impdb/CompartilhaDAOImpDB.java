@@ -22,18 +22,34 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public void cria(Compartilha compartilha) throws DataAccessException {
+		try {
 		String query = "INSERT INTO compartilha (usuarioid,publicacao,grupoid) "
 				+ "VALUES (?,?,?) ";
 		PreparedStatement stm = connection.prepareStatement(query);
 		stm.setInt(1, compartilha.getUsuario().getId());
 		stm.setInt(2, compartilha.getPublicacao().getId());
-		//stm.setInt(3, compartilha.getGrupo().ge);
-
+		stm.setInt(3, compartilha.getGrupo().getId());
+		stm.execute();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao compartilhar publicação.");	
+		}
 	}
 
 	@Override
 	public void exclui(Compartilha compartilha) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "DELETE FROM compartilha "
+					+ " WHERE (usuario.id = ?) AND "
+					+ " (publicacaoid = ?) AND "
+					+ " (grupoid = ?)";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, compartilha.getUsuario().getId());
+			stm.setInt(2, compartilha.getPublicacao().getId());
+			stm.setInt(3, compartilha.getGrupo().getId());
+			stm.execute();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao remover compartilhamento");
+		}
 
 	}
 
