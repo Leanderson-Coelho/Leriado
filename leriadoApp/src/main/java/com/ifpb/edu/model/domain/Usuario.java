@@ -19,8 +19,9 @@ public class Usuario {
 	private String estado; 
 	private String numero; 
 	private String cep;
-	public Usuario(String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
-			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {		
+	public Usuario(int id, String email, String senha, String nome, String sobrenome, String sexo, LocalDate datanasc,
+			Integer acesso, String telefone, String rua, String cidade, String estado, String numero, String cep) {
+		this.id = id;
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;

@@ -3,6 +3,7 @@ package com.ifpb.edu.model.dao;
 import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -18,13 +19,16 @@ public class GrupoDaoImpl implements GrupoDao{
 	
 	@Override
 	public void criar(Grupo novoGrupo) throws SQLException {
-		String sql = new String("INSERT INTO grupo (ativo,nome,descricao,foto) VALUES (?,?,?,?)");
+		String sql = "INSERT INTO grupo (ativo,nome,descricao,foto)"
+				+ " VALUES (?,?,?,?)"
+				+ " RETURNING id ";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setBoolean(1, novoGrupo.isAtivo());
 		statement.setString(2, novoGrupo.getNome());
 		statement.setString(3, novoGrupo.getDescricao());
 		statement.setString(4, novoGrupo.getFoto());
-		statement.execute();
+		ResultSet rs = statement.executeQuery();
+		novoGrupo.setId(rs.getInt(1));
 	}
 
 	@Override

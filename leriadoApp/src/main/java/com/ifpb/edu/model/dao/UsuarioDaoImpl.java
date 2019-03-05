@@ -18,8 +18,9 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
 	@Override
 	public void criar(Usuario usuario) throws SQLException {
-		String sql = "insert into usuario(email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep)"
-				+ " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO usuario(email, senha, nome, sobrenome, sexo, datanasc, acesso, telefone, rua, cidade, estado, numero, cep)"
+				+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+				+ " RETURNING id";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, usuario.getEmail());
 		statement.setString(2, usuario.getSenha());
@@ -34,7 +35,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		statement.setString(11, usuario.getEstado());
 		statement.setString(12, usuario.getNumero());
 		statement.setString(13, usuario.getCep());
-		statement.execute();
+		ResultSet rs = statement.executeQuery();
+		usuario.setId(rs.getInt(1));
 	}
 
 	@Override
