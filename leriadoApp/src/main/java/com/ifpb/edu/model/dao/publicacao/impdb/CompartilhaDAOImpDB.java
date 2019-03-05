@@ -51,31 +51,78 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			e.printStackTrace();
 			throw new DataAccessException("Falha ao remover compartilhamento");
 		}
-
 	}
 
 	@Override
-	public List<Publicacao> lista() throws DataAccessException {
+	public int quant() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int quant(Grupo grupo) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int quant(Usuario usuario) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int quant(Publicacao publicacao) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Compartilha> lista() throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Publicacao> lista(Grupo grupo) throws DataAccessException {
+	public List<Compartilha> lista(Grupo grupo) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Publicacao> lista(Usuario usuario) throws DataAccessException {
+	public List<Compartilha> lista(Usuario usuario) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Publicacao> lista(Publicacao publicacao) throws DataAccessException {
+	public List<Compartilha> lista(Publicacao publicacao) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public List<Compartilha> lista(int inicio, int quant) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Compartilha> lista(Grupo grupo, int inicio, int quant) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Compartilha> lista(Usuario usuario, int inicio, int quant) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Compartilha> lista(Publicacao publicacao, int inicio, int quant) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

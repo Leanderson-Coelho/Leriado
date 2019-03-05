@@ -180,6 +180,7 @@ CREATE TABLE participagrupo(
 
 /*CRIACAO DA TABELA COMPARTILHA*/
 CREATE TABLE compartilha(
+	datahora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	usuarioid INT,
 	publicacaoid INT,	
 	grupoid INT,

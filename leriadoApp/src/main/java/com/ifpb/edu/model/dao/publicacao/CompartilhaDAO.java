@@ -12,8 +12,16 @@ public interface CompartilhaDAO {
 	
 	void cria(Compartilha compartilha) throws DataAccessException;
 	void exclui(Compartilha compartilha) throws DataAccessException;
-	List<Publicacao> lista() throws DataAccessException;
-	List<Publicacao> lista(Grupo grupo) throws DataAccessException;
-	List<Publicacao> lista(Usuario usuario) throws DataAccessException;
-	List<Publicacao> lista(Publicacao publicacao) throws DataAccessException;
+	int quant()throws DataAccessException;
+	int quant(Grupo grupo) throws DataAccessException;
+	int quant(Usuario usuario) throws DataAccessException;
+	int quant(Publicacao publicacao)throws DataAccessException;
+	List<Compartilha> lista() throws DataAccessException;
+	List<Compartilha> lista(Grupo grupo) throws DataAccessException;
+	List<Compartilha> lista(Usuario usuario) throws DataAccessException;
+	List<Compartilha> lista(Publicacao publicacao) throws DataAccessException;
+	List<Compartilha> lista(int inicio, int quant) throws DataAccessException;
+	List<Compartilha> lista(Grupo grupo, int inicio, int quant) throws DataAccessException;
+	List<Compartilha> lista(Usuario usuario, int inicio, int quant) throws DataAccessException;
+	List<Compartilha> lista(Publicacao publicacao, int inicio, int quant) throws DataAccessException;
 }
