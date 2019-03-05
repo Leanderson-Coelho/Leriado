@@ -79,8 +79,18 @@ public class UsuarioController implements Command{
 	}
 
 	private void remover(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		try {
+			usuarioDao.remover(usuario.getId());
+			request.getSession().invalidate();
+			response.sendRedirect("index.html");
+		} catch (SQLException e) {
+			//erro 501
+			e.printStackTrace();
+		} catch (IOException e) {
+			//erro 404
+			e.printStackTrace();
+		}
 	}
 
 	private void cadastrar(HttpServletRequest request, HttpServletResponse response) {
