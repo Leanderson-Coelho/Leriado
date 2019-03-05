@@ -23,7 +23,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	@Override
 	public void cria(Compartilha compartilha) throws DataAccessException {
 		try {
-		String query = "INSERT INTO compartilha (usuarioid,publicacao,grupoid) "
+		String query = "INSERT INTO compartilha (usuarioid,publicacaoid,grupoid) "
 				+ "VALUES (?,?,?) ";
 		PreparedStatement stm = connection.prepareStatement(query);
 		stm.setInt(1, compartilha.getUsuario().getId());
@@ -39,7 +39,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	public void exclui(Compartilha compartilha) throws DataAccessException {
 		try {
 			String query = "DELETE FROM compartilha "
-					+ " WHERE (usuario.id = ?) AND "
+					+ " WHERE (usuarioid = ?) AND "
 					+ " (publicacaoid = ?) AND "
 					+ " (grupoid = ?)";
 			PreparedStatement stm = connection.prepareStatement(query);
@@ -48,6 +48,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(3, compartilha.getGrupo().getId());
 			stm.execute();
 		}catch (Exception e) {
+			e.printStackTrace();
 			throw new DataAccessException("Falha ao remover compartilhamento");
 		}
 
@@ -67,6 +68,12 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public List<Publicacao> lista(Usuario usuario) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Publicacao> lista(Publicacao publicacao) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -15,4 +15,5 @@ public interface CompartilhaDAO {
 	List<Publicacao> lista() throws DataAccessException;
 	List<Publicacao> lista(Grupo grupo) throws DataAccessException;
 	List<Publicacao> lista(Usuario usuario) throws DataAccessException;
+	List<Publicacao> lista(Publicacao publicacao) throws DataAccessException;
 }
