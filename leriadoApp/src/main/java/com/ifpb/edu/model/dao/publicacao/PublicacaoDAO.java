@@ -6,7 +6,6 @@ import com.ifpb.edu.model.domain.publicacao.Publicacao;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public interface PublicacaoDAO {
-	
 	void cria(Publicacao publicacao) throws DataAccessException;
 	void edita(Publicacao publicacao) throws DataAccessException;
 	void exclui(Publicacao publicacao) throws DataAccessException;
