@@ -78,5 +78,19 @@ public class PublicacaoDAOImpDBTeste {
 		}
 	}
 	
+	@Test
+	public void buscaTeste() {
+		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
+//		Publicacao publicacao = new Publicacao();
+//		publicacao.setId(13);
+		Publicacao publicacao = null;
+		try {
+			 publicacao = publicacaoDAO.buscar(13);
+			System.out.println(publicacao.getConteudo());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }

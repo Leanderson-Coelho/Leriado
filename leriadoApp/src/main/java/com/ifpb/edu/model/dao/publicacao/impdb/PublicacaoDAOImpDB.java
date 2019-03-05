@@ -68,6 +68,46 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 	}
 
 	@Override
+	public Publicacao buscar(int id) throws DataAccessException {
+		Publicacao publicacao = new Publicacao();		
+		publicacao.setId(id);
+		buscar(publicacao);		
+		return publicacao;
+	}
+
+	@Override
+	public void buscar(Publicacao publicacao) throws DataAccessException {
+		try {
+			int id = publicacao.getId();
+			buscar(id, publicacao);
+		} catch (Exception e) {
+			throw new DataAccessException("Falha ao buscar publicação");
+		}
+	}
+
+	@Override
+	public void buscar(int id, Publicacao publicacao) throws DataAccessException {		
+		TextoDAOImpDB textoDAO = new TextoDAOImpDB();		
+		try {			
+			textoDAO.buscar(id,publicacao);			
+			if (textoDAO.tipo(publicacao) != TipoTexto.PUBLICACAO)
+				throw new Exception();
+			String query = "SELECT * FROM publicacao "
+					+ "WHERE textoid = ?";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				publicacao.setRelevancia(rs.getInt("relevancia"));
+			} else 
+				throw new Exception();
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao buscar publicação");
+		}				
+	}
+
+	@Override
 	public int quant() throws DataAccessException {
 		try {
 			String query = "SELECT COUNT(*) FROM texto "

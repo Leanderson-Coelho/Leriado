@@ -119,10 +119,7 @@ public class TextoDAOImpDB implements TextoDAO {
 
 	@Override
 	public void buscar(int id, Texto texto) throws DataAccessException {
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		if (texto == null) {
-			texto = new Texto();			
-		}
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();		
 		try {
 			String query = "SELECT * FROM texto "
 					+ "WHERE id = ? ";
@@ -130,6 +127,7 @@ public class TextoDAOImpDB implements TextoDAO {
 			stm.setInt(1, id);
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
+				texto.setId(id);
 				texto.setAtivo(rs.getBoolean("ativo"));
 				texto.setConteudo(rs.getString("conteudo"));
 				texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
