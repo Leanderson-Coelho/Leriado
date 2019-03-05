@@ -44,5 +44,21 @@ public class CompartilhaDAOImpDBTeste {
 		}
 	}
 	
+	@Test
+	public void quantTeste() {
+		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB(); 
+		Publicacao publicacao = new Publicacao();
+		Usuario usuario = new Usuario();
+		Grupo grupo = new Grupo();
+		publicacao.setId(1);
+		usuario.setId(1);
+		grupo.setId(1);	
+		try {
+			System.out.println(compartilhaDAO.quant(grupo));					
+		}catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
+	
 
 }

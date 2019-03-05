@@ -2,6 +2,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.CompartilhaDAO;
@@ -48,32 +49,73 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(3, compartilha.getGrupo().getId());
 			stm.execute();
 		}catch (Exception e) {
-			e.printStackTrace();
 			throw new DataAccessException("Falha ao remover compartilhamento");
 		}
 	}
 
 	@Override
 	public int quant() throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM compartilha";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar quantidade");
+		}
 		return 0;
 	}
 
 	@Override
 	public int quant(Grupo grupo) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM compartilha "
+					+ "WHERE grupoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, grupo.getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar quantidade");
+		}
 		return 0;
 	}
 
 	@Override
 	public int quant(Usuario usuario) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM compartilha "
+					+ "WHERE usuarioid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuario.getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar quantidade");
+		}
 		return 0;
 	}
 
 	@Override
 	public int quant(Publicacao publicacao) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM compartilha "
+					+ "WHERE publicacaoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, publicacao.getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar quantidade");
+		}
 		return 0;
 	}
 
