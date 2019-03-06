@@ -42,6 +42,9 @@ public class UsuarioController implements Command{
 			case "login":
 				login(request,response);
 				break;
+			case "logout":
+				logout(request,response);
+				break;
 		}
 	}
 
@@ -234,5 +237,16 @@ public class UsuarioController implements Command{
 		}
 		
 		request.setAttribute("usuario", usuario);
+	}
+	
+	private void logout(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
+		try {
+			response.sendRedirect("index.html");
+		} catch (IOException e) {
+			// erro 401
+			e.printStackTrace();
+		}
+		
 	}
 }
