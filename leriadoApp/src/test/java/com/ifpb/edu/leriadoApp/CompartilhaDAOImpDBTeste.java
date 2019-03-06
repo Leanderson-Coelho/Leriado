@@ -71,7 +71,7 @@ public class CompartilhaDAOImpDBTeste {
 		usuario.setId(1);
 		grupo.setId(1);	
 		try {
-			List<Compartilha> comp = compartilhaDAO.lista(grupo);
+			List<Compartilha> comp = compartilhaDAO.lista(grupo,0,1);
 			for (Compartilha compartilha : comp) {
 				System.out.print("Grupo: ");
 				System.out.println(compartilha.getGrupo().getNome());
