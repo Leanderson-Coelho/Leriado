@@ -153,7 +153,7 @@ public class TextoDAOImpDB implements TextoDAO {
 				case "NOTICIA": return TipoTexto.NOTICIA;
 				case "FOTO": return TipoTexto.FOTO;
 				case "LINK": return TipoTexto.LINK;
-				default:					
+				default: return TipoTexto.FALHA;
 				}
 			}
 		}catch (Exception e) {

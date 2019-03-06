@@ -3,11 +3,13 @@ package com.ifpb.edu.model.dao;
 import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
+import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class GrupoDaoImpl implements GrupoDao{
 	private Connection connection;
@@ -18,13 +20,16 @@ public class GrupoDaoImpl implements GrupoDao{
 	
 	@Override
 	public void criar(Grupo novoGrupo) throws SQLException {
-		String sql = new String("INSERT INTO grupo (ativo,nome,descricao,foto) VALUES (?,?,?,?)");
+		String sql = "INSERT INTO grupo (ativo,nome,descricao,foto)"
+				+ " VALUES (?,?,?,?)"
+				+ " RETURNING id ";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setBoolean(1, novoGrupo.isAtivo());
 		statement.setString(2, novoGrupo.getNome());
 		statement.setString(3, novoGrupo.getDescricao());
 		statement.setString(4, novoGrupo.getFoto());
-		statement.execute();
+		ResultSet rs = statement.executeQuery();
+		novoGrupo.setId(rs.getInt(1));
 	}
 
 	@Override
@@ -52,5 +57,30 @@ public class GrupoDaoImpl implements GrupoDao{
 		statement.setInt(2, idGrupo);
 		statement.execute();
 	}
+
+	@Override
+	public Grupo busca(int id) throws DataAccessException {
+		try {
+			String query = "SELECT * FROM grupo "
+					+ "WHERE id = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				return new Grupo(
+						rs.getInt("id"), 
+						rs.getBoolean("ativo"),
+						rs.getTimestamp("datahora").toLocalDateTime(),
+						rs.getString("nome"),
+						rs.getString("descricao"),
+						rs.getString("foto"));
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Fala ao buscar grupo");
+		}
+		return null;
+	}
+	
+	
 
 }
