@@ -9,5 +9,6 @@
 <body>
 <h1>Olá ${sessionScope.usuarioLogado.nome }</h1>
 <button><a href="Leriado?command=UsuarioController&acao=remover">Remover Conta</a></button>
+<button><a href="atualizar.jsp">Atualizar</a></button>
 </body>
 </html>

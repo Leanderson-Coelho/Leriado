@@ -121,6 +121,7 @@ public class UsuarioController implements Command{
 		usuario.setSenha(senha);
 		usuario.setSexo(sexo);
 		usuario.setTelefone(telefone);
+		usuario.setDatanasc(LocalDate.parse(data));
 		usuario.setCidade(cidade);
 		usuario.setRua(rua);
 		usuario.setEstado(estado);
