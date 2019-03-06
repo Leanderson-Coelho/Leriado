@@ -1,6 +1,7 @@
 package com.ifpb.edu.leriadoApp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -55,6 +56,33 @@ public class CompartilhaDAOImpDBTeste {
 		grupo.setId(1);	
 		try {
 			System.out.println(compartilhaDAO.quant(grupo));					
+		}catch (Exception e) {			
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void listaTeste() {
+		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB(); 
+		Publicacao publicacao = new Publicacao();
+		Usuario usuario = new Usuario();
+		Grupo grupo = new Grupo();
+		publicacao.setId(1);
+		usuario.setId(1);
+		grupo.setId(1);	
+		try {
+			List<Compartilha> comp = compartilhaDAO.lista(grupo);
+			for (Compartilha compartilha : comp) {
+				System.out.print("Grupo: ");
+				System.out.println(compartilha.getGrupo().getNome());
+				System.out.print("Texto: ");
+				System.out.println(compartilha.getPublicacao().getConteudo());
+				System.out.print("Usuario: ");
+				System.out.println(compartilha.getUsuario().getNome());
+				System.out.print("Data: ");
+				System.out.println(compartilha.getDataHora());				
+			}
+								
 		}catch (Exception e) {			
 			e.printStackTrace();
 		}

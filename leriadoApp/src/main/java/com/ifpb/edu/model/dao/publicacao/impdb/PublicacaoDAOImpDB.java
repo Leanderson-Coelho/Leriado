@@ -90,7 +90,7 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();		
 		try {			
 			textoDAO.buscar(id,publicacao);			
-			if (textoDAO.tipo(publicacao) != TipoTexto.PUBLICACAO)
+			if (textoDAO.tipo(publicacao) == TipoTexto.FALHA)
 				throw new Exception();
 			String query = "SELECT * FROM publicacao "
 					+ "WHERE textoid = ?";
@@ -102,7 +102,6 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 			} else 
 				throw new Exception();
 		}catch (Exception e) {
-			e.printStackTrace();
 			throw new DataAccessException("Falha ao buscar publicação");
 		}				
 	}

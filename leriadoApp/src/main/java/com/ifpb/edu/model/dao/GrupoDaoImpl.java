@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
+import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class GrupoDaoImpl implements GrupoDao{
 	private Connection connection;
@@ -56,5 +57,30 @@ public class GrupoDaoImpl implements GrupoDao{
 		statement.setInt(2, idGrupo);
 		statement.execute();
 	}
+
+	@Override
+	public Grupo busca(int id) throws DataAccessException {
+		try {
+			String query = "SELECT * FROM grupo "
+					+ "WHERE id = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				return new Grupo(
+						rs.getInt("id"), 
+						rs.getBoolean("ativo"),
+						rs.getTimestamp("datahora").toLocalDateTime(),
+						rs.getString("nome"),
+						rs.getString("descricao"),
+						rs.getString("foto"));
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Fala ao buscar grupo");
+		}
+		return null;
+	}
+	
+	
 
 }

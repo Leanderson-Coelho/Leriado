@@ -3,8 +3,11 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ifpb.edu.model.dao.GrupoDaoImpl;
+import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.CompartilhaDAO;
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.domain.Usuario;
@@ -121,26 +124,109 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public List<Compartilha> lista() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Compartilha> comp = new ArrayList<Compartilha>();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
+		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		try {
+			String query = "SELECT * FROM compartilha "
+					+ " ORDER BY datahora DESC ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs =stm.executeQuery();
+			while (rs.next()) {
+				comp.add(new Compartilha(
+						rs.getTimestamp("datahora").toLocalDateTime(), 
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
+						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
+						grupoDAO.busca(rs.getInt("grupoid"))));
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao listar compartilhamento");
+		}
+		return comp;
 	}
 
 	@Override
 	public List<Compartilha> lista(Grupo grupo) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Compartilha> comp = new ArrayList<Compartilha>();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
+		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		try {
+			String query = "SELECT * FROM compartilha "
+					+ " WHERE grupoid = ? "
+					+ " ORDER BY datahora DESC ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, grupo.getId());
+			ResultSet rs =stm.executeQuery();
+			while (rs.next()) {
+				comp.add(new Compartilha(
+						rs.getTimestamp("datahora").toLocalDateTime(), 
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
+						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
+						grupoDAO.busca(rs.getInt("grupoid"))));
+			}
+			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar compartilhamento");
+		}
+		return comp;
 	}
 
 	@Override
 	public List<Compartilha> lista(Usuario usuario) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Compartilha> comp = new ArrayList<Compartilha>();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
+		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		try {
+			String query = "SELECT * FROM compartilha "
+					+ " WHERE usuarioid = ? "
+					+ " ORDER BY datahora DESC ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuario.getId());
+			ResultSet rs =stm.executeQuery();
+			while (rs.next()) {
+				comp.add(new Compartilha(
+						rs.getTimestamp("datahora").toLocalDateTime(), 
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
+						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
+						grupoDAO.busca(rs.getInt("grupoid"))));
+			}
+			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar compartilhamento");
+		}
+		return comp;
 	}
 
 	@Override
 	public List<Compartilha> lista(Publicacao publicacao) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Compartilha> comp = new ArrayList<Compartilha>();
+		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
+		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
+		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		try {
+			String query = "SELECT * FROM compartilha "
+					+ " WHERE publicacaoid = ? "
+					+ " ORDER BY datahora DESC ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, publicacao.getId());
+			ResultSet rs =stm.executeQuery();
+			while (rs.next()) {
+				comp.add(new Compartilha(
+						rs.getTimestamp("datahora").toLocalDateTime(), 
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
+						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
+						grupoDAO.busca(rs.getInt("grupoid"))));
+			}
+			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar compartilhamento");
+		}
+		return comp;
 	}
 
 	@Override
