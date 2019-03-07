@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
@@ -15,12 +16,20 @@ import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class TextoDAOImpDBTeste {
 	
-	@Test
-	public void criaTextoTeste() {
-		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
-		Usuario usuario = new Usuario();
+	private TextoDAOImpDB textoDAO = null;
+	private Usuario usuario = null;
+	private Texto texto = null;
+	
+	@Before
+	public void inicioTeste() {
+		textoDAO = new TextoDAOImpDB();
+		usuario = new Usuario();
 		usuario.setId(1);
-		Texto texto = new Texto("Conteúdo",usuario);
+		texto = new Texto("Conteúdo de teste", usuario);		
+	}
+	
+	@Test
+	public void criaTextoTeste() {	
 		try {
 			assertNotEquals(0, textoDAO.cria(texto));
 			System.out.println(texto);
@@ -30,10 +39,9 @@ public class TextoDAOImpDBTeste {
 	}
 	
 	@Test
-	public void editaTextoTeste() {
-		TextoDAOImpDB textoDAO = new TextoDAOImpDB();		
+	public void editaTextoTeste() {				
 		try {
-			Texto texto = textoDAO.buscar(3).orElse(null);
+			texto = textoDAO.buscar(3).orElse(null);
 			texto.setConteudo("Modificação do texto");
 			textoDAO.edita(texto);
 		} catch (DataAccessException e) {		
@@ -42,10 +50,8 @@ public class TextoDAOImpDBTeste {
 	}
 	
 	@Test
-	public void excluiTextoTeste() {
-		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
-		try {
-			Texto texto = new Texto();
+	public void excluiTextoTeste() {		
+		try {			
 			texto.setId(1);
 			textoDAO.exclui(texto);
 		}catch (Exception e) {
@@ -55,7 +61,6 @@ public class TextoDAOImpDBTeste {
 	
 	@Test
 	public void listarTextoTeste() {
-		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
 		try {
 			List<Texto> textos = textoDAO.lista(10,3);
 			for (Texto texto : textos) {
@@ -68,24 +73,22 @@ public class TextoDAOImpDBTeste {
 	}
 	
 	@Test
-	public void quantTextoTeste() {
-		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+	public void quantTextoTeste() {		
 		try {
 			System.out.println(textoDAO.quant());
 		}catch (Exception e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 		}
 	}
 	
 	@Test
-	public void tipoTextoTeste() {
-		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
+	public void tipoTextoTeste() {		
 		try {
 			List<Texto> textos = textoDAO.lista();
 			for (Texto texto : textos) {				
 				System.out.println(texto.getConteudo());
 				System.out.println(textoDAO.tipo(texto));
+				System.out.println(texto.getTipoTexto());
 			}			
 		}catch (Exception e) {
 			e.printStackTrace();
