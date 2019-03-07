@@ -6,19 +6,8 @@
 <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
-<!-- <script type="text/javascript" src="js/mascaras.js"></script>-->
-<script type="text/javascript">
-function validarSenha(){
-	   senha = document.getElementsByName('senha').value;
-	   senha2 = document.getElementsByName('confirma-senha').value;
-	   
-	   if(senha!= senha2) {
-	       confirma-senha.setCustomValidity("Senhas diferentes!");
-	       return false; 
-	   }
-	   return true;
-	}
-</script>
+    <script type="text/javascript" src="js/mascaras.js"></script>
+
 <link rel="stylesheet" type="text/css" href="./css/estilo2.css">
 </head>
 <body>
@@ -80,7 +69,7 @@ function validarSenha(){
 							placeholder="CEP" id="cep" class="campo" pattern="\d{5}-\d{3}"></td>
 					</tr>
 					<tr>
-						<td style="text-align: center;" colspan="2"><input onsubmit="validarSenha()"
+						<td style="text-align: center;" colspan="2"><input
 							type="submit" name="cadastrar" value="Leriar"></td>
 					</tr>
 				</table>

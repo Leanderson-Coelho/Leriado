@@ -205,7 +205,6 @@ public class UsuarioController implements Command{
 		request.setAttribute("usuario", usuario);
 		
 		List<String> msgsErro = Validator.validaTodos(nome, sobrenome, email, senha, sexo, dataNasc, telefone, numero, cep, formatter);
-
 		try {
 			if(usuarioDao.buscarPorEmail(email)!=null) {
 				msgsErro.add(2, "Email já cadastrado");
@@ -219,6 +218,7 @@ public class UsuarioController implements Command{
 				request.setAttribute("msgsErro", msgsErro);
 				try {
 					request.getRequestDispatcher("cadastro.jsp").forward(request, response);
+					return;
 				} catch (ServletException | IOException e) {
 					//erro 501
 				}
@@ -228,6 +228,7 @@ public class UsuarioController implements Command{
 		try {
 			usuarioDao.criar(usuario);
 			request.getRequestDispatcher("logado.jsp").forward(request, response);
+			return;
 		} catch (SQLException | ServletException | IOException e) {
 			//erro 501
 		}
