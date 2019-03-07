@@ -2,6 +2,7 @@ package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
 
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
 
 public class Publicacao extends Texto{
@@ -13,7 +14,7 @@ public class Publicacao extends Texto{
 	}
 
 	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia) {
-		super(id, ativo, conteudo, datahora, usuario);
+		super(id, ativo, conteudo, datahora, usuario,TipoTexto.PUBLICACAO);
 		this.relevancia = relevancia;
 	}
 

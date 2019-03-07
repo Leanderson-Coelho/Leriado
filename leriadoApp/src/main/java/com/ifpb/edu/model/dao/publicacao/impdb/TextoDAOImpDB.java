@@ -4,17 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import javax.swing.text.html.Option;
 
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.TextoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
+import com.ifpb.edu.model.domain.publicacao.Comentario;
+import com.ifpb.edu.model.domain.publicacao.Foto;
+import com.ifpb.edu.model.domain.publicacao.Link;
+import com.ifpb.edu.model.domain.publicacao.Noticia;
+import com.ifpb.edu.model.domain.publicacao.Publicacao;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
@@ -26,6 +28,29 @@ public class TextoDAOImpDB implements TextoDAO {
 	public TextoDAOImpDB() {
 		connection = ConnectionFactory.getInstance().getConnection();
 	}
+	
+	private TipoTexto tipoPeloNome(String nome) {
+		switch (nome) {
+		case "PUBLICACAO": return TipoTexto.PUBLICACAO;
+		case "COMENTARIO": return TipoTexto.COMENTARIO;
+		case "NOTICIA": return TipoTexto.NOTICIA;
+		case "FOTO": return TipoTexto.FOTO;
+		case "LINK": return TipoTexto.LINK;
+		default: return TipoTexto.FALHA; 
+		}
+	}
+	
+	
+//	private Texto criaTipo(TipoTexto tipoTexto) throws DataAccessException{
+//		switch (tipoTexto) {
+//		case PUBLICACAO: return new Publicacao();
+//		case COMENTARIO: return new Comentario();
+//		case NOTICIA: return new Noticia();
+//		case FOTO: return new Foto();
+//		case LINK: return new Link();
+//		default: throw new DataAccessException("Tipo de publicação inválido");			
+//		}
+//	}
 
 	@Override
 	public int cria(Texto texto) throws DataAccessException{			
@@ -87,7 +112,7 @@ public class TextoDAOImpDB implements TextoDAO {
 		Optional<Texto> texto = Optional.empty();
 		try {
 			UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-			String query = "SELECT * FROM texto "
+			String query = "SELECT * , tipotexto(id) AS tipo FROM texto "
 					+ "WHERE id = ?";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1,id);
@@ -98,7 +123,8 @@ public class TextoDAOImpDB implements TextoDAO {
 						rs.getBoolean("ativo"),
 						rs.getString("conteudo"),
 						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid"))));
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid")),
+						tipoPeloNome(rs.getNString("tipo"))));
 			}
 			
 		}catch (Exception e) {
@@ -182,7 +208,7 @@ public class TextoDAOImpDB implements TextoDAO {
 		List<Texto> textos = new ArrayList<Texto>();
 		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
 		try {
-			String query = "SELECT * FROM texto ";
+			String query = "SELECT *, tipotexto(id) AS tipo  FROM texto ";
 			Statement stm = connection.createStatement();
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {			
@@ -192,7 +218,8 @@ public class TextoDAOImpDB implements TextoDAO {
 						rs.getBoolean("ativo"),
 						rs.getString("conteudo"),
 						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuario));
+						usuario,
+						tipoPeloNome(rs.getString("tipo"))));
 			}
 						
 		}catch (Exception e) {
@@ -206,7 +233,7 @@ public class TextoDAOImpDB implements TextoDAO {
 		List<Texto> textos = new ArrayList<Texto>();
 		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
 		try {
-			String query = "SELECT * FROM texto"
+			String query = "SELECT *, tipotexto(id) AS tipo FROM texto"
 					+ " OFFSET ? LIMIT ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, inicio);
@@ -218,7 +245,8 @@ public class TextoDAOImpDB implements TextoDAO {
 						rs.getBoolean("ativo"),
 						rs.getString("conteudo"),
 						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid"))));
+						usuarioDAO.buscarPorId(rs.getInt("usuarioid")),
+						tipoPeloNome(rs.getString("tipo"))));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();			
