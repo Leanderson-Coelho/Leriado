@@ -4,23 +4,32 @@ package com.ifpb.edu.model.domain;
 import java.time.LocalDateTime;
 
 public class Grupo {
+	private int id;
 	private boolean ativo;
 	private LocalDateTime dataHora;
 	private String nome;
 	private String descricao;
 	private String foto;
 	
-	public Grupo() {
-		super();
+	public Grupo() {		
 	}
 
-	public Grupo(boolean ativo, LocalDateTime dataHora, String nome, String descricao, String foto) {
+	public Grupo(int id, boolean ativo, LocalDateTime dataHora, String nome, String descricao, String foto) {
 		super();
+		this.id = id;
 		this.ativo = ativo;
 		this.dataHora = dataHora;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.foto = foto;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public boolean isAtivo() {
