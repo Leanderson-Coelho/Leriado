@@ -33,7 +33,7 @@ public class TextoDAOImpDBTeste {
 	public void editaTextoTeste() {
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();		
 		try {
-			Texto texto = textoDAO.buscar(3).orElse(null);
+			Texto texto = textoDAO.buscar(3).orElse();
 			texto.setConteudo("Modificação do texto");
 			textoDAO.edita(texto);
 		} catch (DataAccessException e) {		

@@ -6,7 +6,6 @@ body, html {
 	width: 100vw;
 	height: auto;
 	background: linear-gradient(180deg, #fff, orange 200%);
-	/*background-image: url("/Leriado/img/textura.jpg");*/
 	position: relative;
 }
 
