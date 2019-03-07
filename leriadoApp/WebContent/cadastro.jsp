@@ -6,7 +6,19 @@
 <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript"
 	src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
-<script type="text/javascript" src="js/mascaras.js"></script>
+<!-- <script type="text/javascript" src="js/mascaras.js"></script>-->
+<script type="text/javascript">
+function validarSenha(){
+	   senha = document.getElementsByName('senha').value;
+	   senha2 = document.getElementsByName('confirma-senha').value;
+	   
+	   if(senha!= senha2) {
+	       confirma-senha.setCustomValidity("Senhas diferentes!");
+	       return false; 
+	   }
+	   return true;
+	}
+</script>
 <link rel="stylesheet" type="text/css" href="./css/estilo2.css">
 </head>
 <body>
@@ -17,42 +29,35 @@
 				<table>
 					<tr>
 						<td><input type="text" name="nome"
-							placeholder="Nome" class="campo"></td>
+							placeholder="*Nome" class="campo" required pattern="^[A-Za-z]{2,}$"></td>
 						<td><input type="text" name="sobrenome"
-							placeholder="Sobrenome" class="campo"></td>
+							placeholder="*Sobrenome" class="campo" required pattern="^[A-Za-z]{2,}$"></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="emailAnterior"
-							placeholder="E-mail" class="campo"></td>
-						<td><select name="emailPosterior" class="campo"
-							style="opacity: 0.6">
-								<option>@gmail.com</option>
-								<option>@hotmail.com</option>
-								<option>@outlook.com</option>
-								<option>@academico.ifpb.edu.br</option>
-						</select></td>
+						<td colspan="2"><input type="text" name="email"
+							placeholder="*E-mail" class="campo" required pattern="^[\w\.\-]+@([\w\-]+\.)+[A-Za-z]{2,4}$"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="password" name="senha"
-							placeholder="Senha" class="campo"></td>
+							placeholder="*Senha(no mínimo 8 dígitos)" class="campo" required min="8"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="password" name="confirma-senha"
-							placeholder="Repita a senha" class="campo"></td>
+							placeholder="*Repita a senha" class="campo" required min="8"></td>
 					</tr>
 					<tr>
-						<td><input type="radio" name="sexo" value="M"> <label
+						<td><input type="radio" name="sexo" value="M" required> <label
 							class="campo" for="M" style="border: 0px;">Masculino</label></td>
-						<td><input type="radio" name="sexo" value="F"> <label
+						<td><input type="radio" name="sexo" value="F" required> <label
 							class="campo" for="F" style="border: 0px;">Feminino</label></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="text" name="data"
-							placeholder="Nascimento" id="data" class="campo"></td>
+							placeholder="*Nascimento" id="data" class="campo" required></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="text" name="telefone"
-							placeholder="Telefone" id="telefone" class="campo"></td>
+							placeholder="Telefone" id="telefone" class="campo" pattern="^\(\d{2}\) \d{4}\d?-\d{4}$"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="text" name="rua"
@@ -68,14 +73,14 @@
 					</tr>
 					<tr>
 						<td colspan="2"><input type="text" name="numero"
-							placeholder="Numero" id="numero" class="campo"></td>
+							placeholder="Numero" id="numero" class="campo" pattern="\d+"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="text" name="cep"
-							placeholder="CEP" id="cep" class="campo"></td>
+							placeholder="CEP" id="cep" class="campo" pattern="\d{5}-\d{3}"></td>
 					</tr>
 					<tr>
-						<td style="text-align: center;" colspan="2"><input
+						<td style="text-align: center;" colspan="2"><input onsubmit="validarSenha()"
 							type="submit" name="cadastrar" value="Leriar"></td>
 					</tr>
 				</table>

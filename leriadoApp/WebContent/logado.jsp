@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Olá ${sessionScope.usuarioLogado.nome }</h1>
+<h1>Olá!!!!</h1>
 </body>
 </html>
