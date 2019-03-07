@@ -1,11 +1,9 @@
 package com.ifpb.edu.model.dao;
 
-import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
