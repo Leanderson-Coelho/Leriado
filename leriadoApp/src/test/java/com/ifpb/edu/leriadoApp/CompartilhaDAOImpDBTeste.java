@@ -3,6 +3,7 @@ package com.ifpb.edu.leriadoApp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.ifpb.edu.model.dao.publicacao.impdb.CompartilhaDAOImpDB;
@@ -13,12 +14,21 @@ import com.ifpb.edu.model.domain.publicacao.Publicacao;
 
 public class CompartilhaDAOImpDBTeste {
 	
+	private CompartilhaDAOImpDB compartilhaDAO = null; 
+	private Publicacao publicacao = null;
+	private Usuario usuario = null;
+	private Grupo grupo = null;
+	
+	@Before
+	public void inicioTeste() {
+		compartilhaDAO = new CompartilhaDAOImpDB(); 
+		publicacao = new Publicacao();
+		usuario = new Usuario();
+		grupo = new Grupo();
+	}
+	
 	@Test
-	public void criaTeste() {
-		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB(); 
-		Publicacao publicacao = new Publicacao();
-		Usuario usuario = new Usuario();
-		Grupo grupo = new Grupo();
+	public void criaTeste() {		
 		publicacao.setId(1);
 		usuario.setId(3);
 		grupo.setId(1);	
@@ -30,11 +40,7 @@ public class CompartilhaDAOImpDBTeste {
 	}
 	
 	@Test
-	public void excluiTeste() {
-		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB(); 
-		Publicacao publicacao = new Publicacao();
-		Usuario usuario = new Usuario();
-		Grupo grupo = new Grupo();
+	public void excluiTeste() {		
 		publicacao.setId(1);
 		usuario.setId(3);
 		grupo.setId(1);	
@@ -47,10 +53,6 @@ public class CompartilhaDAOImpDBTeste {
 	
 	@Test
 	public void quantTeste() {
-		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB(); 
-		Publicacao publicacao = new Publicacao();
-		Usuario usuario = new Usuario();
-		Grupo grupo = new Grupo();
 		publicacao.setId(1);
 		usuario.setId(1);
 		grupo.setId(1);	
@@ -63,10 +65,6 @@ public class CompartilhaDAOImpDBTeste {
 	
 	@Test
 	public void listaTeste() {
-		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB(); 
-		Publicacao publicacao = new Publicacao();
-		Usuario usuario = new Usuario();
-		Grupo grupo = new Grupo();
 		publicacao.setId(1);
 		usuario.setId(1);
 		grupo.setId(1);	
