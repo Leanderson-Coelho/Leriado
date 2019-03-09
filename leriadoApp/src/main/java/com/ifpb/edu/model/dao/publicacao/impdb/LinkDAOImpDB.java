@@ -120,8 +120,26 @@ public class LinkDAOImpDB implements LinkDAO {
 
 	@Override
 	public List<Link> lista(int inicio, int quant) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Link> links = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM link "					
+					+ " ORDER BY publicacaoid DESC "
+					+ " OFFSET ? LIMIT ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, inicio);
+			stm.setInt(2, quant);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Link link = new Link();
+				link.setId(rs.getInt("publicacaoid"));
+				link.setLink(rs.getString("link"));
+				new PublicacaoDAOImpDB().buscar(link);
+				links.add(link);				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar links");
+		}
+		return links;
 	}
 
 }

@@ -56,7 +56,7 @@ public class LinkDAOImpDBTeste {
 	@Test
 	public void listaTeste() {
 		try {
-			List<Link> lista = linkDAO.lista();
+			List<Link> lista = linkDAO.lista(0,2);
 			for (Link link : lista) {
 				System.out.println(link.getConteudo());
 				System.out.println(link.getLink());
