@@ -1,5 +1,7 @@
 package com.ifpb.edu.leriadoApp;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,6 +48,20 @@ public class LinkDAOImpDBTeste {
 	public void quantTeste() {
 		try {
 			System.out.println(linkDAO.quant());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void listaTeste() {
+		try {
+			List<Link> lista = linkDAO.lista();
+			for (Link link : lista) {
+				System.out.println(link.getConteudo());
+				System.out.println(link.getLink());
+				
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

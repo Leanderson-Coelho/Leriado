@@ -3,6 +3,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.taglibs.standard.lang.jstl.ELException;
@@ -66,8 +67,22 @@ public class LinkDAOImpDB implements LinkDAO {
 
 	@Override
 	public List<Link> lista() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Link> links = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM link";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Link link = new Link();
+				link.setId(rs.getInt("publicacaoid"));
+				link.setLink(rs.getString("link"));
+				new PublicacaoDAOImpDB().buscar(link);
+				links.add(link);				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar links");
+		}
+		return links;
 	}
 
 }
