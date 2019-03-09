@@ -2,6 +2,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.apache.taglibs.standard.lang.jstl.ELException;
@@ -44,14 +45,22 @@ public class LinkDAOImpDB implements LinkDAO {
 			stm.setInt(1, link.getId());
 			stm.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new DataAccessException("Falha ao excluir link");
 		}
 	}
 
 	@Override
 	public int quant() throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM link";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao buscar a quantidade de links");
+		}
 		return 0;
 	}
 

@@ -41,5 +41,14 @@ public class LinkDAOImpDBTeste {
 			e.printStackTrace();
 		}		
 	}
+	
+	@Test
+	public void quantTeste() {
+		try {
+			System.out.println(linkDAO.quant());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
