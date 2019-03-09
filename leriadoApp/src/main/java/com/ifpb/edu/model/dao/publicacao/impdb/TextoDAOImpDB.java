@@ -147,7 +147,7 @@ public class TextoDAOImpDB implements TextoDAO {
 	public void buscar(int id, Texto texto) throws DataAccessException {
 		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();		
 		try {
-			String query = "SELECT * FROM texto "
+			String query = "SELECT *, tipotexto(id) AS tipo FROM texto "
 					+ "WHERE id = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, id);
@@ -158,6 +158,7 @@ public class TextoDAOImpDB implements TextoDAO {
 				texto.setConteudo(rs.getString("conteudo"));
 				texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
 				texto.setUsuario(usuarioDAO.buscarPorId(rs.getInt("usuarioid")));
+				texto.setTipoTexto(tipoPeloNome(rs.getString("tipo")));
 			} else
 				throw new Exception();
 		} catch (Exception e) {

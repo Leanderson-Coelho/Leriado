@@ -31,5 +31,15 @@ public class LinkDAOImpDBTeste {
 		}
 				
 	}
+	
+	@Test
+	public void excluiTeste() {
+		link.setId(12);
+		try {
+			linkDAO.exclui(link);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}		
+	}
 
 }
