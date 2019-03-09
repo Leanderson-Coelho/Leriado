@@ -66,5 +66,17 @@ public class LinkDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void buscaTeste() {		
+		try {
+			link = linkDAO.buscar(6);
+			System.out.println(link.getConteudo());
+			System.out.println(link.getLink());
+		} catch (DataAccessException e) {		
+			e.printStackTrace();
+		}
+				
+	}
 
 }

@@ -51,6 +51,39 @@ public class LinkDAOImpDB implements LinkDAO {
 	}
 
 	@Override
+	public Link buscar(int id) throws DataAccessException {
+		Link link = new Link();
+		link.setId(id);
+		buscar(link);
+		return link;
+	}
+
+	@Override
+	public void buscar(Link link) throws DataAccessException {
+		int id = link.getId();
+		buscar(id, link);
+	}
+
+	@Override
+	public void buscar(int id, Link link) throws DataAccessException {
+		try {
+			String query = "SELECT * FROM link "
+					+ " WHERE publicacaoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				link.setId(id);
+				link.setLink(rs.getString("link"));
+				new PublicacaoDAOImpDB().buscar(link);
+			} else
+				throw new Exception();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao buscar link");
+		}
+	}
+
+	@Override
 	public int quant() throws DataAccessException {
 		try {
 			String query = "SELECT COUNT(*) FROM link";
@@ -83,6 +116,12 @@ public class LinkDAOImpDB implements LinkDAO {
 			throw new DataAccessException("Falha ao listar links");
 		}
 		return links;
+	}
+
+	@Override
+	public List<Link> lista(int inicio, int quant) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -41,11 +41,8 @@ public class TextoDAOImpDBTeste {
 	@Test
 	public void editaTextoTeste() {				
 		try {
-<<<<<<< HEAD
-			Texto texto = textoDAO.buscar(3).orElse();
-=======
-			texto = textoDAO.buscar(3).orElse(null);
->>>>>>> bPublicacao
+
+			Texto texto = textoDAO.buscar(3).orElseThrow();
 			texto.setConteudo("Modificação do texto");
 			textoDAO.edita(texto);
 		} catch (DataAccessException e) {		
