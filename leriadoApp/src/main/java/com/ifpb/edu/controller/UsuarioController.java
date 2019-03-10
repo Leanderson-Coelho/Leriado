@@ -62,6 +62,7 @@ public class UsuarioController implements Command{
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
 				response.sendRedirect("logado.jsp");
 			}else {
+				System.out.println(senha+' '+login);
 				throw new CommandException(401, "Senha ou email inválido");
 			}
 		} catch (SQLException | IOException e) {
@@ -94,41 +95,39 @@ public class UsuarioController implements Command{
 		String rua = request.getParameter("rua");
 		String estado = request.getParameter("estado");
 		String numero = request.getParameter("numero");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		
+		List<String> msgsErro = Validator.validaTodos(nome, sobrenome, email, senha, sexo, data, telefone, numero, cep, formatter);
 		try {
 			if(usuarioDao.buscarPorEmail(email)!=null) {
-				//email já cadastrado ;-;
+				msgsErro.add(2, "Email já cadastrado");
 			}
 		} catch (SQLException e1) {
 			//erro 501
 		}
-		if(senha.length()<8) {
-			//senha menor que 8 caracteres
+		for(String msgErro : msgsErro) {
+			if(!(msgErro==null)) {
+				request.setAttribute("msgsErro", msgsErro);
+				try {
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+					return;
+				} catch (ServletException | IOException e) {
+					//erro 501
+				}
+			}
 		}
-		if(nome.isEmpty() && sobrenome.isEmpty() && sexo.isEmpty()) {
-			//preencha os campos obrigatórios
-		}
-		if(!telefone.isEmpty() && telefone.length()<14) {
-			//formatação do numero de telefone inválido
-		}
-		if(!cep.isEmpty() && cep.length()<9) {
-			//formatação do cep inválido 
-		}
-		if(senha.equals(request.getParameter("confirma-senha"))) {
-			//senha não corresponde a confirmação
-		}
-		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-			usuario.setDatanasc(LocalDate.parse(data, formatter));			
-		}catch(DateTimeParseException e) {
-			//formatação da data inválida
-		}
+				
 		usuario.setEmail(email);
 		usuario.setNome(nome);
 		usuario.setSobrenome(sobrenome);
 		usuario.setSenha(senha);
 		usuario.setSexo(sexo);
 		usuario.setTelefone(telefone);
-		usuario.setDatanasc(LocalDate.parse(data));
+		try {
+			usuario.setDatanasc(LocalDate.parse(data, formatter));			
+		}catch(DateTimeParseException e) {
+			//formatação da data inválida
+		}
 		usuario.setCidade(cidade);
 		usuario.setRua(rua);
 		usuario.setEstado(estado);
@@ -137,20 +136,20 @@ public class UsuarioController implements Command{
 		usuario.setAcesso(1);
 		usuario.setAtivo(true);
 		usuario.setId(((Usuario)request.getSession().getAttribute("usuarioLogado")).getId());
+		
 		try {
 			usuarioDao.atualizar(usuario, usuario.getId());
 		} catch (SQLException e) {
-			//erro 501
+			// erro 501
 			e.printStackTrace();
 		}
-		usuario.setSenha("");
-		request.getSession().setAttribute("usuarioLogado", usuario);
 		try {
 			response.sendRedirect("logado.jsp");
 		} catch (IOException e) {
-			//erro 401
+			// erro 401
 			e.printStackTrace();
 		}
+		
 	}
 
 	private void remover(HttpServletRequest request, HttpServletResponse response) {

@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-<script type="text/javascript"
-	src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
-    <script type="text/javascript" src="js/mascaras.js"></script>
-
+<script type="text/javascript" src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
+<script type="text/javascript" src="js/mascaras.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/estilo2.css">
 </head>
 <body>
@@ -28,7 +26,7 @@
 					</tr>
 					<tr>
 						<td colspan="2"><input type="password" name="senha"
-							placeholder="*Senha(no mínimo 8 dígitos)" class="campo" required min="8"></td>
+							placeholder="*Senha(no mï¿½nimo 8 dï¿½gitos)" class="campo" required min="8"></td>
 					</tr>
 					<tr>
 						<td colspan="2"><input type="password" name="confirma-senha"
