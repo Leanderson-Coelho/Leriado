@@ -18,6 +18,7 @@ public interface FotoDAO {
 	List<Foto> lista() throws DataAccessException;
 	List<Foto> lista(int inicio, int quant) throws DataAccessException;
 	Optional<Foto> buscarFotoPerfil(Usuario usuario) throws DataAccessException;
+	void criaFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 	void mudarFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 	void removerFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 }

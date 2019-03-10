@@ -166,6 +166,13 @@ public class FotoDAOImpDB implements FotoDAO {
 
 
 	@Override
+	public void criaFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
+		cria(foto);
+		mudarFotoPerfil(usuario, foto);		
+	}
+
+
+	@Override
 	public void mudarFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
 		try {
 			String query = "INSERT INTO fotoperfil (usuarioid,fotoid) VALUES (?,?) ";
