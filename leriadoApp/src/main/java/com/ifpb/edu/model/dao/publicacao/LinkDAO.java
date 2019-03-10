@@ -3,7 +3,6 @@ package com.ifpb.edu.model.dao.publicacao;
 import java.util.List;
 
 import com.ifpb.edu.model.domain.publicacao.Link;
-import com.ifpb.edu.model.domain.publicacao.Publicacao;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public interface LinkDAO {
