@@ -10,7 +10,6 @@ import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Foto;
-import com.ifpb.edu.model.domain.publicacao.Link;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class FotoDAOImpDBTeste {
@@ -79,6 +78,18 @@ public class FotoDAOImpDBTeste {
 				System.out.println(foto.getArquivo());				
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void fotoPerfilTeste() {
+		try {
+			foto = fotoDAO.buscarFotoPerfil(usuario).orElseThrow();
+			System.out.println(foto.getId());
+			System.out.println(foto.getConteudo());
+			System.out.println(foto.getArquivo());
+		} catch (DataAccessException e) {		
 			e.printStackTrace();
 		}
 	}

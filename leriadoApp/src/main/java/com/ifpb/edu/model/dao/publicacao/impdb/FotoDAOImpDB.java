@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.ifpb.edu.model.dao.publicacao.FotoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
+import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Foto;
-import com.ifpb.edu.model.domain.publicacao.Link;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
@@ -141,6 +142,40 @@ public class FotoDAOImpDB implements FotoDAO {
 			throw new DataAccessException("Falha ao listar fotos");
 		}
 		return fotos;
+	}
+
+	@Override
+	public Optional<Foto> buscarFotoPerfil(Usuario usuario) throws DataAccessException {
+		Foto foto = null;
+		try {
+			String query = "SELECT fotoid FROM fotoperfil "
+					+ " WHERE usuarioid = ? "
+					+ " ORDER BY datahora DESC"
+					+ " LIMIT 1 ";			
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuario.getId());
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				foto = buscar(rs.getInt(1));				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar foto perfil");
+		}
+		return Optional.of(foto);
+	}
+
+
+	@Override
+	public void mudarFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removerFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
