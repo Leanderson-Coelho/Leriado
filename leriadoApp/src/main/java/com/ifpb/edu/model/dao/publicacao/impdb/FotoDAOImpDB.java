@@ -167,8 +167,15 @@ public class FotoDAOImpDB implements FotoDAO {
 
 	@Override
 	public void mudarFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		try {
+			String query = "INSERT INTO fotoperfil (usuarioid,fotoid) VALUES (?,?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuario.getId());
+			stm.setInt(2, foto.getId());
+			stm.execute();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao mudar a foto do perfil");
+		}		
 	}
 
 

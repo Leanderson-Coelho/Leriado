@@ -93,5 +93,16 @@ public class FotoDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void mudarFotoPerfilTeste() {
+		try {
+			fotoDAO.cria(foto);
+			fotoDAO.mudarFotoPerfil(usuario, foto);
+		} catch (DataAccessException e) {		
+			e.printStackTrace();
+		}
+		
+	}
 
 }
