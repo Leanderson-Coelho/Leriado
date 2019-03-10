@@ -211,6 +211,7 @@ CREATE TABLE fotonoticia(
 
 /*CRIACAO DA TABELA FOTOPERFIL*/
 CREATE TABLE fotoperfil(
+	datahora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	usuarioid INT,
 	fotoid INT,	
 	CONSTRAINT fotoperfil_pk PRIMARY KEY (usuarioid,fotoid),

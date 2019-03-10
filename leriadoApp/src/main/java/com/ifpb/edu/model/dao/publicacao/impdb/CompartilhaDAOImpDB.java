@@ -3,12 +3,15 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.GrupoDaoImpl;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.CompartilhaDAO;
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Compartilha;
@@ -22,6 +25,41 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	public CompartilhaDAOImpDB() {
 		connection = ConnectionFactory.getInstance().getConnection();
+	}
+	
+	private Compartilha lerTabela(ResultSet rs) throws DataAccessException{
+		TipoTexto tipoTexto = null;		
+		Publicacao publicacao = null;				
+		try {
+			switch (rs.getString("tipo")) {		
+			case "PUBLICACAO": 
+				tipoTexto = TipoTexto.PUBLICACAO;
+				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				break;
+			case "NOTICIA": 
+				tipoTexto = TipoTexto.NOTICIA;
+				//publicacao = new NoticiaDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				break;				
+			case "FOTO": 
+				tipoTexto = TipoTexto.FOTO;
+				//publicacao = new FotoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				break;
+			case "LINK": 
+				tipoTexto = TipoTexto.LINK;
+				//publicacao = new LinkDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				break;
+			default: 
+				throw new Exception();			
+			}			
+			Grupo grupo = new GrupoDaoImpl().busca(rs.getInt("grupoid"));
+			Usuario usuario = new UsuarioDaoImpl().buscarPorId(rs.getInt("usuarioid"));
+			return new Compartilha(LocalDateTime.now(), usuario, publicacao, grupo);
+		} catch (Exception e) {
+			throw new DataAccessException("Tipo de publicação inválido");
+		}
 	}
 
 	@Override
@@ -125,20 +163,13 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	@Override
 	public List<Compartilha> lista() throws DataAccessException {
 		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " ORDER BY datahora DESC ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -149,23 +180,16 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public List<Compartilha> lista(Grupo grupo) throws DataAccessException {
-		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		List<Compartilha> comp = new ArrayList<Compartilha>();		
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " WHERE grupoid = ? "
 					+ " ORDER BY datahora DESC ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, grupo.getId());
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -176,23 +200,16 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public List<Compartilha> lista(Usuario usuario) throws DataAccessException {
-		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		List<Compartilha> comp = new ArrayList<Compartilha>();		
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " WHERE usuarioid = ? "
 					+ " ORDER BY datahora DESC ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, usuario.getId());
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -204,22 +221,15 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	@Override
 	public List<Compartilha> lista(Publicacao publicacao) throws DataAccessException {
 		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " WHERE publicacaoid = ? "
 					+ " ORDER BY datahora DESC ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, publicacao.getId());
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -230,12 +240,9 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public List<Compartilha> lista(int inicio, int quant) throws DataAccessException {
-		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		List<Compartilha> comp = new ArrayList<Compartilha>();		
 		try {
-			String query = "SELECT * FROM compartilha"					
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha"					
 					+ " ORDER BY datahora DESC "
 					+ " OFFSET ? LIMIT ?";
 			PreparedStatement stm = connection.prepareStatement(query);
@@ -243,11 +250,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(2, quant);
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -259,11 +262,8 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	@Override
 	public List<Compartilha> lista(Grupo grupo, int inicio, int quant) throws DataAccessException {
 		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " WHERE grupoid = ? "
 					+ " ORDER BY datahora DESC "
 					+ " OFFSET ? LIMIT ? ";
@@ -273,11 +273,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(3, quant);
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -289,11 +285,8 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	@Override
 	public List<Compartilha> lista(Usuario usuario, int inicio, int quant) throws DataAccessException {
 		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " WHERE usuarioid = ? "
 					+ " ORDER BY datahora DESC "
 					+ " OFFSET ? LIMIT ? ";
@@ -303,11 +296,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(3, quant);
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {
@@ -319,11 +308,8 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	@Override
 	public List<Compartilha> lista(Publicacao publicacao, int inicio, int quant) throws DataAccessException {
 		List<Compartilha> comp = new ArrayList<Compartilha>();
-		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-		PublicacaoDAOImpDB publicacaoDAO = new PublicacaoDAOImpDB();
-		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
 		try {
-			String query = "SELECT * FROM compartilha "
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha "
 					+ " WHERE publicacaoid = ? "
 					+ " ORDER BY datahora DESC "
 					+ " OFFSET ? LIMIT ? ";
@@ -333,11 +319,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(3, quant);
 			ResultSet rs =stm.executeQuery();
 			while (rs.next()) {
-				comp.add(new Compartilha(
-						rs.getTimestamp("datahora").toLocalDateTime(), 
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")), 
-						publicacaoDAO.buscar(rs.getInt("publicacaoid")), 
-						grupoDAO.busca(rs.getInt("grupoid"))));
+				comp.add(lerTabela(rs));
 			}
 			
 		}catch (Exception e) {

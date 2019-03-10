@@ -2,6 +2,7 @@ package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
 
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
 
 public class Texto {
@@ -11,15 +12,17 @@ public class Texto {
 	private String conteudo;
 	private LocalDateTime datahora = LocalDateTime.now();
 	private Usuario usuario;
+	private TipoTexto tipoTexto;
 	
 	public Texto() {}
 
-	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario) {		
+	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto) {		
 		this.id = id;
 		this.ativo = ativo;
 		this.conteudo = conteudo;
 		this.datahora = datahora;
 		this.usuario = usuario;
+		this.tipoTexto = tipoTexto;
 	}
 	
 	public Texto(String conteudo, Usuario usuario) {
@@ -68,10 +71,18 @@ public class Texto {
 		this.usuario = usuario;
 	}
 
+	public TipoTexto getTipoTexto() {
+		return tipoTexto;
+	}
+
+	public void setTipoTexto(TipoTexto tipoTexto) {
+		this.tipoTexto = tipoTexto;
+	}
+
 	@Override
 	public String toString() {
 		return "Texto [id=" + id + ", ativo=" + ativo + ", conteudo=" + conteudo + ", datahora=" + datahora
-				+ ", usuario=" + usuario + "]";
+				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + "]";
 	}
 		
 }
