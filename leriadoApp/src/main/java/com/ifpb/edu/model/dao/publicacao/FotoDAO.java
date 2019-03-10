@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Foto;
+import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public interface FotoDAO {
@@ -21,4 +22,5 @@ public interface FotoDAO {
 	void criaFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 	void mudarFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 	void removerFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
+	void criaFotoNoticia(Noticia noticia) throws DataAccessException; 
 }
