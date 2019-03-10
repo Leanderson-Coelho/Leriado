@@ -22,5 +22,6 @@ public interface FotoDAO {
 	void criaFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 	void mudarFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
 	void removerFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException;
-	void criaFotoNoticia(Noticia noticia) throws DataAccessException; 
+	void criaFotoNoticia(Noticia noticia) throws DataAccessException;
+	void removerFotoNoticia(Noticia noticia, Foto foto) throws DataAccessException;
 }

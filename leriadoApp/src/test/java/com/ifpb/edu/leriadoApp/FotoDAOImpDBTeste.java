@@ -132,5 +132,17 @@ public class FotoDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void removerFotoNoticiaTeste() {
+		Noticia noticia = new Noticia();
+		noticia.setId(5);
+		foto.setId(14);
+		try {
+			fotoDAO.removerFotoNoticia(noticia, foto);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

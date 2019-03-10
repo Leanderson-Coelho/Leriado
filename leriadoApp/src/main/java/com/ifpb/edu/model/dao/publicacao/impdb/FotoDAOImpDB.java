@@ -189,7 +189,6 @@ public class FotoDAOImpDB implements FotoDAO {
 		} catch (Exception e) {
 			throw new DataAccessException("Falha ao remover a foto do perfil");
 		}
-
 	}
 
 	private Boolean fotoExiste(Foto foto) throws DataAccessException {
@@ -223,5 +222,20 @@ public class FotoDAOImpDB implements FotoDAO {
 		}
 
 	}
+
+	@Override
+	public void removerFotoNoticia(Noticia noticia, Foto foto) throws DataAccessException {
+		try {
+			String query = "DELETE FROM fotonoticia WHERE (noticiaid = ?) AND (fotoid = ?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, noticia.getId());
+			stm.setInt(2, foto.getId());
+			stm.execute();
+		} catch (Exception e) {
+			throw new DataAccessException("Falha ao remover a foto da notícia.");
+		}		
+	}
+	
+	
 
 }
