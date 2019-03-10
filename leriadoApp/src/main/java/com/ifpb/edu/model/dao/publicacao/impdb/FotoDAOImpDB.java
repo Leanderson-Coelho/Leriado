@@ -121,8 +121,26 @@ public class FotoDAOImpDB implements FotoDAO {
 
 	@Override
 	public List<Foto> lista(int inicio, int quant) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Foto> fotos = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM foto "					
+					+ " ORDER BY publicacaoid DESC "
+					+ " OFFSET ? LIMIT ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, inicio);
+			stm.setInt(2, quant);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Foto foto = new Foto();
+				foto.setId(rs.getInt("publicacaoid"));
+				foto.setArquivo(rs.getString("arquivo"));
+				new PublicacaoDAOImpDB().buscar(foto);
+				fotos.add(foto);				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar fotos");
+		}
+		return fotos;
 	}
 
 }

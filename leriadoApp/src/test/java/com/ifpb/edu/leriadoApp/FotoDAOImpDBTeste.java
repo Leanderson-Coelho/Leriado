@@ -73,7 +73,7 @@ public class FotoDAOImpDBTeste {
 	@Test
 	public void listaTeste() {
 		try {
-			List<Foto> lista = fotoDAO.lista();
+			List<Foto> lista = fotoDAO.lista(0,2);
 			for (Foto foto : lista) {
 				System.out.println(foto.getConteudo());
 				System.out.println(foto.getArquivo());				
