@@ -3,11 +3,13 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.FotoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.publicacao.Foto;
+import com.ifpb.edu.model.domain.publicacao.Link;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
@@ -99,8 +101,22 @@ public class FotoDAOImpDB implements FotoDAO {
 
 	@Override
 	public List<Foto> lista() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Foto> fotos = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM foto";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Foto foto = new Foto();
+				foto.setId(rs.getInt("publicacaoid"));
+				foto.setArquivo(rs.getString("arquivo"));
+				new PublicacaoDAOImpDB().buscar(foto);
+				fotos.add(foto);				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar fotos");
+		}
+		return fotos;
 	}
 
 	@Override

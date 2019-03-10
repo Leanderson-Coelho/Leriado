@@ -1,6 +1,7 @@
 package com.ifpb.edu.leriadoApp;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Foto;
+import com.ifpb.edu.model.domain.publicacao.Link;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class FotoDAOImpDBTeste {
@@ -64,6 +66,19 @@ public class FotoDAOImpDBTeste {
 		try {
 			System.out.println(fotoDAO.quant());
 		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void listaTeste() {
+		try {
+			List<Foto> lista = fotoDAO.lista();
+			for (Foto foto : lista) {
+				System.out.println(foto.getConteudo());
+				System.out.println(foto.getArquivo());				
+			}
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
