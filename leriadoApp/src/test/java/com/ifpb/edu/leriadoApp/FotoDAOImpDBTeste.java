@@ -104,5 +104,15 @@ public class FotoDAOImpDBTeste {
 		}
 		
 	}
+	
+	@Test
+	public void removerFotoPerfilTeste() {
+		try {
+			foto.setId(10);
+			fotoDAO.removerFotoPerfil(usuario, foto);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}		
+	}
 
 }

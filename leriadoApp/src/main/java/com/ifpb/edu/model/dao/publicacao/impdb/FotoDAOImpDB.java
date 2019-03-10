@@ -181,7 +181,16 @@ public class FotoDAOImpDB implements FotoDAO {
 
 	@Override
 	public void removerFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "DELETE FROM fotoperfil "
+					+ " WHERE (usuarioid = ?) AND (fotoid = ?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuario.getId());
+			stm.setInt(2, foto.getId());
+			stm.execute();					
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao remover a foto do perfil");
+		}
 		
 	}
 
