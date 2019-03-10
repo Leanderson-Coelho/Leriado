@@ -84,7 +84,16 @@ public class FotoDAOImpDB implements FotoDAO {
 
 	@Override
 	public int quant() throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM foto";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao buscar a quantidade de fotos");
+		}
 		return 0;
 	}
 

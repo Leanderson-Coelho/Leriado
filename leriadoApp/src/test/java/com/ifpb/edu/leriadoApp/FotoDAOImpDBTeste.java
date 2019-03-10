@@ -58,5 +58,14 @@ public class FotoDAOImpDBTeste {
 		}
 		
 	}
+	
+	@Test
+	public void quantTeste() {
+		try {
+			System.out.println(fotoDAO.quant());
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
