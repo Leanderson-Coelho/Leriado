@@ -217,7 +217,7 @@ public class FotoDAOImpDB implements FotoDAO {
 				stm.setInt(2, foto.getId());
 				stm.execute();
 			}
-		} catch (Exception e) {
+		} catch (Exception e) {			
 			throw new DataAccessException("Falha ao inserir fotos na notícia");
 		}
 
