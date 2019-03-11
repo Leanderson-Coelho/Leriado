@@ -66,5 +66,14 @@ public class NoticiaDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void quantTeste() {
+		try {
+			System.out.println(noticiaDAO.quant());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

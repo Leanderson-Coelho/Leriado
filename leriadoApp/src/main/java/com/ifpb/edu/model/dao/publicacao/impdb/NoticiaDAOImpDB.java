@@ -85,7 +85,16 @@ public class NoticiaDAOImpDB implements NoticiaDAO {
 
 	@Override
 	public int quant() throws DataAccessException {
-		// TODO Auto-generated method stub
+		try {
+			String query = "SELECT COUNT(*) FROM noticia";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next())
+				return rs.getInt(1);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DataAccessException("Falha ao buscar a quantidade de noticias.");
+		}
 		return 0;
 	}
 
