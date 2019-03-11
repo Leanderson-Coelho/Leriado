@@ -56,5 +56,15 @@ public class NoticiaDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void buscaTeste() {
+		try {
+			noticiaDAO.buscar(12,noticia);
+			System.out.println(noticia);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

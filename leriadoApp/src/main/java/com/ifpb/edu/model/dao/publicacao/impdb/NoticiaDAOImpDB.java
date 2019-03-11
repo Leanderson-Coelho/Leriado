@@ -2,11 +2,11 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.NoticiaDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
-import com.ifpb.edu.model.domain.publicacao.Foto;
 import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
@@ -52,20 +52,35 @@ public class NoticiaDAOImpDB implements NoticiaDAO {
 
 	@Override
 	public Noticia buscar(int id) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		Noticia noticia = new Noticia();
+		noticia.setId(id);
+		buscar(noticia);
+		return noticia;
 	}
 
 	@Override
 	public void buscar(Noticia noticia) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		int id = noticia.getId();
+		buscar(id, noticia);
 	}
 
 	@Override
 	public void buscar(int id, Noticia noticia) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		try {
+			String query = "SELECT * FROM noticia "
+					+ " WHERE publicacaoid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				noticia.setId(id);
+				noticia.setTitulo(rs.getString("titulo"));
+				new PublicacaoDAOImpDB().buscar(noticia);
+			} else
+				throw new Exception();
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao buscar notícia.");
+		}
 	}
 
 	@Override
