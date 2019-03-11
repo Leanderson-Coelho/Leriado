@@ -3,10 +3,12 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.NoticiaDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
+import com.ifpb.edu.model.domain.publicacao.Link;
 import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
@@ -100,14 +102,46 @@ public class NoticiaDAOImpDB implements NoticiaDAO {
 
 	@Override
 	public List<Noticia> lista() throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Noticia> noticias = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM noticia";
+			PreparedStatement stm = connection.prepareStatement(query);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Noticia noticia = new Noticia();
+				noticia.setId(rs.getInt("publicacaoid"));
+				noticia.setTitulo(rs.getString("titulo"));
+				new PublicacaoDAOImpDB().buscar(noticia);
+				noticias.add(noticia);				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar notícias");
+		}
+		return noticias;
 	}
 
 	@Override
 	public List<Noticia> lista(int inicio, int quant) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Noticia> noticias = new ArrayList<>();
+		try {
+			String query = "SELECT * FROM noticia "					
+					+ " ORDER BY publicacaoid DESC "
+					+ " OFFSET ? LIMIT ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, inicio);
+			stm.setInt(2, quant);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Noticia noticia = new Noticia();
+				noticia.setId(rs.getInt("publicacaoid"));
+				noticia.setTitulo(rs.getString("titulo"));
+				new PublicacaoDAOImpDB().buscar(noticia);
+				noticias.add(noticia);				
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar notícias");
+		}
+		return noticias;
 	}
 
 }

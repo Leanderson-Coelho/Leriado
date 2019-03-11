@@ -75,5 +75,19 @@ public class NoticiaDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void listaTeste() {
+		List<Noticia> noticias = new ArrayList<Noticia>();
+		try {
+			noticias = noticiaDAO.lista(1,3);
+			for (Noticia noticia : noticias) {
+				System.out.println(noticia.getTitulo());
+				System.out.println(noticia.getConteudo());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
