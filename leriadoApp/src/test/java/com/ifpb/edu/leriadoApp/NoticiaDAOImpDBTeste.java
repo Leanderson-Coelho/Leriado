@@ -46,5 +46,15 @@ public class NoticiaDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void excluiTeste() {
+		noticia.setId(22);
+		try {
+			noticiaDAO.exclui(noticia);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

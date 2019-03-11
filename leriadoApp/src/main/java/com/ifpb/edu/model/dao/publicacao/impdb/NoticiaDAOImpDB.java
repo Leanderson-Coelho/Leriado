@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.NoticiaDAO;
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.publicacao.Foto;
 import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -36,8 +37,17 @@ public class NoticiaDAOImpDB implements NoticiaDAO {
 
 	@Override
 	public void exclui(Noticia noticia) throws DataAccessException {
-		// TODO Auto-generated method stub
-
+		try {
+			new TextoDAOImpDB().buscar(noticia);			
+			if (noticia.getTipoTexto() != TipoTexto.NOTICIA)
+				throw new Exception();
+			String query = "DELETE FROM texto " + "WHERE id = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, noticia.getId());
+			stm.executeUpdate();
+		} catch (Exception e) {
+			throw new DataAccessException("Falha ao excluir notícia");
+		}
 	}
 
 	@Override
