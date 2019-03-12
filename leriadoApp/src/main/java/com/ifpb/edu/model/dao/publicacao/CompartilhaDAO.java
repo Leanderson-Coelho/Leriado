@@ -24,4 +24,6 @@ public interface CompartilhaDAO {
 	List<Compartilha> lista(Grupo grupo, int inicio, int quant) throws DataAccessException;
 	List<Compartilha> lista(Usuario usuario, int inicio, int quant) throws DataAccessException;
 	List<Compartilha> lista(Publicacao publicacao, int inicio, int quant) throws DataAccessException;
+	int quantFeed(Usuario usuario) throws DataAccessException;
+	List<Compartilha> feed(Usuario usuario, int inicio, int quant)throws DataAccessException;
 }

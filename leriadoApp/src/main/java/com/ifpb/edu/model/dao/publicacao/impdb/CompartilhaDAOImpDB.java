@@ -327,5 +327,29 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 		}
 		return comp;
 	}
+
+	@Override
+	public int quantFeed(Usuario usuario) throws DataAccessException {
+		try {
+			String query = "SELECT COUNT(*) FROM compartilha C WHERE " + 
+					"EXISTS (SELECT FROM segue S WHERE (S.seguidoid = C.usuarioid) AND (S.segueid = ?)) OR " + 
+					"EXISTS (SELECT FROM participagrupo P WHERE (C.grupoid = P.grupoid) AND (P.usuarioid = ?)) "; 
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuario.getId());
+			stm.setInt(2, usuario.getId());
+			ResultSet rs = stm.executeQuery();
+			if(rs.next())
+				return rs.getInt(1);
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao recuperar a quantidade de publicções no feed");
+		}
+		return 0;
+	}
+
+	@Override
+	public List<Compartilha> feed(Usuario usuario, int inicio, int quant) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

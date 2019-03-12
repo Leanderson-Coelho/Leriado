@@ -86,5 +86,15 @@ public class CompartilhaDAOImpDBTeste {
 		}
 	}
 	
+	@Test
+	public void quantFeedTeste() {
+		usuario.setId(1);
+		try {
+			System.out.println(compartilhaDAO.quantFeed(usuario));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }
