@@ -216,7 +216,7 @@ public class UsuarioController implements Command{
 			if(!(msgErro==null)) {
 				request.setAttribute("msgsErro", msgsErro);
 				try {
-					request.getRequestDispatcher("cadastro.jsp").forward(request, response);
+					request.getRequestDispatcher("index.jsp").forward(request, response);
 					return;
 				} catch (ServletException | IOException e) {
 					//erro 501

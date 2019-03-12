@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -95,6 +96,9 @@
           <section>
             <h4>Comece um Leriado</h4>
             <h5>É na poíva, e sempre será.</h5>
+            <c:forEach var="erros" items=${requestScope.msgsErro}>
+            	
+            </c:forEach>
             <h6 class="red lighten-2">${requestScope.msgsErro}</h6>
             <form method="POST" action="Leriado?command=UsuarioController&acao=cadastrar" class="col s12">
               <div class="row">
