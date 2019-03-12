@@ -96,5 +96,18 @@ public class CompartilhaDAOImpDBTeste {
 		}
 	}
 	
+	@Test
+	public void feedTeste() {
+		usuario.setId(1);
+		try {
+			List<Compartilha> comps = compartilhaDAO.feed(usuario, 0, 100);
+			for (Compartilha compartilha : comps) {
+				System.out.println(compartilha.getPublicacao().getConteudo());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 }
