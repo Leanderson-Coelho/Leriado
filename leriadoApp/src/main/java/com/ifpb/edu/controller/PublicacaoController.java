@@ -1,12 +1,12 @@
-package com.ifpb.edu.controller.publicacao;
+package com.ifpb.edu.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ifpb.edu.controller.Command;
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.publicacao.impdb.CompartilhaDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
@@ -26,6 +26,8 @@ public class PublicacaoController implements Command{
 		case "feed":
 			feed(request,response);
 			break;
+		default:
+			
 		}		
 	}
 
@@ -33,12 +35,18 @@ public class PublicacaoController implements Command{
 		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB();
 		Usuario usuario = null;
 		List<Compartilha> comps = new ArrayList<Compartilha>();
-		try {
-			int numPagina = Integer.parseInt(request.getParameter("pag"));
-			usuario = (Usuario)request.getAttribute("usuarioLogado");			
-			comps = compartilhaDAO.feed(usuario, numPagina, 10);
+		try {			
+			int numPagina = 0;
+			if (request.getParameter("pag")!=null) 
+				numPagina = Integer.parseInt(request.getParameter("pag"));			
+			usuario = (Usuario)request.getSession(true).getAttribute("usuarioLogado");
+			if(usuario==null)
+				response.sendRedirect("index.jsp");
+			
+			comps = compartilhaDAO.feed(usuario, numPagina, 10);			
 			request.setAttribute("feed", comps);
-			response.sendRedirect("feed.jsp");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/publicacao.jsp");
+			dispatcher.include(request, response);			
 		}catch (Exception e) {
 			throw new CommandException(500, "Falha ao montar o feed");
 		}
