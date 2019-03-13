@@ -157,7 +157,7 @@ public class UsuarioController implements Command{
 		try {
 			usuarioDao.remover(usuario.getId());
 			request.getSession().invalidate();
-			response.sendRedirect("index.html");
+			response.sendRedirect("index.jsp");
 		} catch (SQLException e) {
 			//erro 501
 			e.printStackTrace();
