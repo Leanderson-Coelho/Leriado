@@ -250,7 +250,7 @@ public class UsuarioController implements Command{
 	private void logout(HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().invalidate();
 		try {
-			response.sendRedirect("index.html");
+			response.sendRedirect("index.jsp");
 		} catch (IOException e) {
 			// erro 401
 			e.printStackTrace();
