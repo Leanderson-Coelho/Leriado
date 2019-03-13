@@ -64,10 +64,6 @@ public class Validator {
 		if(nome.length()<2) {
 			return "Nome deve conter mais de uma letra";
 		}
-		Pattern p = Pattern.compile("^[A-Z]{2,}$", Pattern.CASE_INSENSITIVE);
-		if(!p.matcher(nome).matches()) {
-			return "Nome inválido";
-		}
 		return null;
 	}
 	
@@ -80,10 +76,6 @@ public class Validator {
 		}
 		if(sobrenome.length()<2) {
 			return "Nome deve conter mais de uma letra";
-		}
-		Pattern p = Pattern.compile("^[A-Z]{2,}$", Pattern.CASE_INSENSITIVE);
-		if(!p.matcher(sobrenome).matches()) {
-			return "Nome inválido";
 		}
 		return null;
 	}
