@@ -9,8 +9,11 @@
 <body>
 <h1>Página de ${sessionScope.usuarioLogado.nome}</h1>
 <c:forEach var="compartilha" items="${feed}">
-	<div>
+	<div>	
 	<h2>${compartilha.usuario.nome}</h2>
+	<c:if teste="${compartilha.publicacao.tipoTexto eq 'NOTICIA' }">
+	<h3>Notícia</h3>	
+	</c:if>
 	<p>${compartilha.publicacao.conteudo}</p>	
 	<p>${compartilha.dataHora}</p>
 	</div>
