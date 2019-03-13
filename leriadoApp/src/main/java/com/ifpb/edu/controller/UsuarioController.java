@@ -214,7 +214,7 @@ public class UsuarioController implements Command{
 		
 		for(String msgErro : msgsErro) {
 			if(!(msgErro==null)) {
-				request.setAttribute("msgsErro", msgsErro);
+				request.setAttribute("msgErro", msgErro);
 				try {
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 					return;
@@ -224,6 +224,19 @@ public class UsuarioController implements Command{
 			}
 		}
 		
+		/*
+		for(String msgErro : msgsErro) {
+			if(!(msgErro==null)) {
+				request.setAttribute("msgsErro", msgsErro);
+				try {
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+					return;
+				} catch (ServletException | IOException e) {
+					//erro 501
+				}
+			}
+		}
+		*/
 		try {
 			usuarioDao.criar(usuario);
 			request.getRequestDispatcher("logado.jsp").forward(request, response);

@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -95,18 +96,18 @@
           <section>
             <h4>Comece um Leriado</h4>
             <h5>É na poíva, e sempre será.</h5>
-            <c:forEach var="erros" items=${requestScope.msgsErro}>
-            	
-            </c:forEach>
+            <c:if test="${msgErro != null}">
+            	<h5 class="red-text">${msgErro}</h5>
+            </c:if>
             <h6 class="red lighten-2">${requestScope.msgsErro}</h6>
             <form method="POST" action="Leriado?command=UsuarioController&acao=cadastrar" class="col s12">
               <div class="row">
                 <div class="col s6 input-field">
-                  <input type="text" name="nome" id="nome" required pattern="^[A-Za-z]{2,}$"/>
+                  <input type="text" name="nome" id="nome" required />
                   <label for="nome">Nome</label>
                 </div>
                 <div class="col s6 input-field">
-                  <input type="text" name="sobrenome" id="sobrenome" required pattern="^[A-Za-z]{2,}$"/>
+                  <input type="text" name="sobrenome" id="sobrenome" required/>
                   <label for="sobrenome">Sobrenome</label>
                 </div>
               </div>
