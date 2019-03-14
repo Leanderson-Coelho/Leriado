@@ -35,7 +35,8 @@
     <nav>
       <div class="container">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo "><img class="logo" src="img/logo.png"/></a>
+          <!-- <a href="#" class="brand-logo "><img class="logo" src="img/logo.png"/></a> -->
+          <h1 class="text-white brand-logo">Leriado</h1>
           <ul class="right hide-on-med-and-down">
             <form method="post" action="Leriado?command=UsuarioController&acao=login">
               <div class="row">
