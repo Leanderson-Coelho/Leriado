@@ -30,7 +30,7 @@
 </head>
 
 <body>
-  <jsp:include page="header.html"/>
+  <jsp:include page="restrito/header.html"/>
   <!-- CONTEUDO -->
   <div class="row orange lighten-5 separador"></div>
   <div class="orange lighten-5">
@@ -140,6 +140,6 @@
       </div>
     </div>
   </div>
-  <jsp:include page="footer.html"/>
+  <jsp:include page="restrito/footer.html"/>
 </body>
 </html>
