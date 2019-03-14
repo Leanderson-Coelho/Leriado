@@ -13,6 +13,7 @@ public class ConnectionFactory {
 	private static String url;
 	private static String driver;
 	private static ConnectionFactory instance = null;
+	private static Connection connection = null;
 	
 	private ConnectionFactory() {
 	}
@@ -42,10 +43,6 @@ public class ConnectionFactory {
 		user = properties.getProperty("database.user");
 		password = properties.getProperty("database.password");
 		driver = properties.getProperty("database.driver");
-		
-	}
-	public Connection getConnection(){
-		Connection connection = null;
 		try {
 			Class.forName(driver);
 			connection = DriverManager.getConnection(url, user, password);
@@ -54,6 +51,17 @@ public class ConnectionFactory {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public Connection getConnection(){
+//		Connection connection = null;
+//		try {
+//			Class.forName(driver);
+//			connection = DriverManager.getConnection(url, user, password);
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		return connection;
 	}
 }
