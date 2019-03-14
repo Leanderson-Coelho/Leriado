@@ -53,11 +53,25 @@
 	</c:if>			
 	<small>${compartilha.dataHora}</small>
 	</div>	
+
 </c:forEach>
-<select>
-<c:forEach var="pag" begin="1" end="${feedQtd}" >
-	<option>Página ${pag}</option>
-</c:forEach>
+
+<script>
+	function mudarpagina(obj){
+	    location.href = obj.value;
+	};
+</script>
+<select id="selecao" onchange="mudarpagina(this)">
+	<c:forEach var="i" begin="0" end="${feedQtd-1}" >
+		<option 
+		<c:if test="${i==pag}">
+			selected
+		</c:if>
+		<c:if test="${i!=pag}"> 
+			value="Leriado?command=PublicacaoController&acao=feed&pag=${i}"
+		</c:if>
+		>Página ${i+1}</option>
+	</c:forEach>
 </select>
 </body>
 </html>

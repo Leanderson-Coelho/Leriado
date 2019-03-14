@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Supplier;
 
 import com.ifpb.edu.model.dao.publicacao.ComentarioDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
@@ -27,7 +27,7 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
 		Texto texto = null;
 		try {
-			texto = textoDAO.buscar(comentario.getResponde().getId()).orElseThrow();
+			texto = textoDAO.buscar(comentario.getResponde().getId()).orElseThrow(null);
 			comentario.setResponde(texto);
 			textoDAO.cria(comentario);
 			String query = "INSERT INTO comentario (textoid,respondeid) "
@@ -87,7 +87,7 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
 		try {
 			int it = texto.getId();
-			texto = textoDAO.buscar(it).orElseThrow();
+			texto = textoDAO.buscar(it).orElseThrow(null);
 			String query = "SELECT textoid FROM comentario "
 					+ "WHERE respondeid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
@@ -112,7 +112,7 @@ public class ComentarioDAOImpDB implements ComentarioDAO{
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
 		try {
 			int it = texto.getId();
-			texto = textoDAO.buscar(it).orElseThrow();
+			texto = textoDAO.buscar(it).orElseThrow(null);
 			String query = "SELECT textoid FROM comentario "
 					+ "WHERE respondeid = ? "
 					+ "OFFSET ? LIMIT ? ";

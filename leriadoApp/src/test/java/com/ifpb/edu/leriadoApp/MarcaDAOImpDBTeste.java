@@ -48,7 +48,7 @@ public class MarcaDAOImpDBTeste {
 		MarcaDAOImpDB marcaDAO = new MarcaDAOImpDB();		
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();
 		try {
-			Texto texto = textoDAO.buscar(1).orElseThrow();
+			Texto texto = textoDAO.buscar(1).orElseThrow(null);
 			System.out.println(texto.getConteudo());
 			List<Marca> marcacoes = marcaDAO.listaMarca(texto);
 			for (Marca marca : marcacoes) {

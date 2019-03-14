@@ -35,20 +35,21 @@ public class PublicacaoController implements Command{
 		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB();
 		Usuario usuario = null;
 		int numPagina = 0;
-		int numPublPag = 5;
+		int numPublPag = 2;
 		int qtdPub;
 		try {			
 			
 			usuario = (Usuario)request.getSession(true).getAttribute("usuarioLogado");
 			if(usuario==null)
-				response.sendRedirect("index.jsp");
-			qtdPub = compartilhaDAO.quantFeed(usuario);
+				response.sendRedirect("index.jsp");			
 			if (request.getParameter("pag")!=null) 
 				numPagina = Integer.parseInt(request.getParameter("pag"));
 			if (request.getServletContext().getInitParameter("numPublicacoesPagina")!=null)
-				numPublPag = Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
-			
-			request.setAttribute("feed", compartilhaDAO.feed(usuario, numPagina, numPublPag));
+				numPublPag = 2;//Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
+			qtdPub = compartilhaDAO.quantFeed(usuario);
+			qtdPub = (int)Math.round((double)qtdPub / numPublPag);
+			request.setAttribute("pag", numPagina);
+			request.setAttribute("feed", compartilhaDAO.feed(usuario, numPagina * numPublPag, numPublPag));
 			request.setAttribute("feedQtd", qtdPub);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/publicacao.jsp");
 			dispatcher.include(request, response);			

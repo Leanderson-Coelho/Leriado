@@ -42,7 +42,7 @@ public class TextoDAOImpDBTeste {
 	public void editaTextoTeste() {				
 		try {
 
-			Texto texto = textoDAO.buscar(3).orElseThrow();
+			Texto texto = textoDAO.buscar(3).orElseThrow(null);
 			texto.setConteudo("Modificação do texto");
 			textoDAO.edita(texto);
 		} catch (DataAccessException e) {		
