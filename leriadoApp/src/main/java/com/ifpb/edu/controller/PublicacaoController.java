@@ -34,17 +34,22 @@ public class PublicacaoController implements Command{
 	private void feed(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB();
 		Usuario usuario = null;
-		List<Compartilha> comps = new ArrayList<Compartilha>();
+		int numPagina = 0;
+		int numPublPag = 5;
+		int qtdPub;
 		try {			
-			int numPagina = 0;
-			if (request.getParameter("pag")!=null) 
-				numPagina = Integer.parseInt(request.getParameter("pag"));			
+			
 			usuario = (Usuario)request.getSession(true).getAttribute("usuarioLogado");
 			if(usuario==null)
 				response.sendRedirect("index.jsp");
+			qtdPub = compartilhaDAO.quantFeed(usuario);
+			if (request.getParameter("pag")!=null) 
+				numPagina = Integer.parseInt(request.getParameter("pag"));
+			if (request.getServletContext().getInitParameter("numPublicacoesPagina")!=null)
+				numPublPag = Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
 			
-			comps = compartilhaDAO.feed(usuario, numPagina, 10);			
-			request.setAttribute("feed", comps);
+			request.setAttribute("feed", compartilhaDAO.feed(usuario, numPagina, numPublPag));
+			request.setAttribute("feedQtd", qtdPub);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/publicacao.jsp");
 			dispatcher.include(request, response);			
 		}catch (Exception e) {

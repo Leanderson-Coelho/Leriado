@@ -24,6 +24,7 @@
 <body>
 <h1><%=request.getServletContext().getInitParameter("tituloAplicacao")%></h1>
 <h2>Página de ${sessionScope.usuarioLogado.nome}</h2>
+<button><a href="Leriado?command=UsuarioController&acao=logout">Logout</a></button>
 <c:forEach var="compartilha" items="${feed}">
 	<div class="divPublicacao">
 	<span><b>${compartilha.usuario.nome}</b></span>	
@@ -53,7 +54,10 @@
 	<small>${compartilha.dataHora}</small>
 	</div>	
 </c:forEach>
-<button><a href="Leriado?command=UsuarioController&acao=logout">Logout</a></button>
-
+<select>
+<c:forEach var="pag" begin="1" end="${feedQtd}" >
+	<option>Página ${pag}</option>
+</c:forEach>
+</select>
 </body>
 </html>
