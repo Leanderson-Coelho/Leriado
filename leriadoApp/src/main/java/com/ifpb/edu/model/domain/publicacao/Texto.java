@@ -13,16 +13,18 @@ public class Texto {
 	private LocalDateTime datahora = LocalDateTime.now();
 	private Usuario usuario;
 	private TipoTexto tipoTexto;
+	private int curtidas;
 	
 	public Texto() {}
 
-	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto) {		
+	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto, int curtidas) {		
 		this.id = id;
 		this.ativo = ativo;
 		this.conteudo = conteudo;
 		this.datahora = datahora;
 		this.usuario = usuario;
 		this.tipoTexto = tipoTexto;
+		this.curtidas = curtidas;
 	}
 	
 	public Texto(String conteudo, Usuario usuario) {
@@ -79,10 +81,18 @@ public class Texto {
 		this.tipoTexto = tipoTexto;
 	}
 
+	public int getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(int curtidas) {
+		this.curtidas = curtidas;
+	}
+
 	@Override
 	public String toString() {
 		return "Texto [id=" + id + ", ativo=" + ativo + ", conteudo=" + conteudo + ", datahora=" + datahora
-				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + "]";
+				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + ", curtidas=" + curtidas + "]";
 	}
 		
 }

@@ -3,6 +3,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,17 +41,15 @@ public class TextoDAOImpDB implements TextoDAO {
 		}
 	}
 	
-	
-//	private Texto criaTipo(TipoTexto tipoTexto) throws DataAccessException{
-//		switch (tipoTexto) {
-//		case PUBLICACAO: return new Publicacao();
-//		case COMENTARIO: return new Comentario();
-//		case NOTICIA: return new Noticia();
-//		case FOTO: return new Foto();
-//		case LINK: return new Link();
-//		default: throw new DataAccessException("Tipo de publicação inválido");			
-//		}
-//	}
+	private void lerTabela(Texto texto, ResultSet rs) throws DataAccessException, SQLException{
+		texto.setId(rs.getInt("id"));
+		texto.setAtivo(rs.getBoolean("ativo"));
+		texto.setConteudo(rs.getString("conteudo"));
+		texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
+		texto.setUsuario(new UsuarioDaoImpl().buscarPorId(rs.getInt("usuario.id")));
+		texto.setTipoTexto(tipoPeloNome(rs.getString("tipo")));
+		texto.setCurtidas(new CurteDAOImpDB().quant(texto));
+	}
 
 	@Override
 	public int cria(Texto texto) throws DataAccessException{			
@@ -109,28 +108,13 @@ public class TextoDAOImpDB implements TextoDAO {
 
 	@Override
 	public Optional<Texto> buscar(int id) throws DataAccessException {
-		Optional<Texto> texto = Optional.empty();
+		Texto texto = new Texto();
 		try {
-			UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
-			String query = "SELECT * , tipotexto(id) AS tipo FROM texto "
-					+ "WHERE id = ?";
-			PreparedStatement stm = connection.prepareStatement(query);
-			stm.setInt(1,id);
-			ResultSet rs = stm.executeQuery();
-			if(rs.next()) {
-				texto = Optional.of(new Texto(
-						rs.getInt("id"), 
-						rs.getBoolean("ativo"),
-						rs.getString("conteudo"),
-						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")),
-						tipoPeloNome(rs.getNString("tipo"))));
-			}
-			
+			buscar(id, texto);
 		}catch (Exception e) {
 			throw new DataAccessException("Falha ao buscar texto");
 		} 
-		return texto;
+		return Optional.of(texto);
 	}
 
 	@Override
@@ -153,12 +137,7 @@ public class TextoDAOImpDB implements TextoDAO {
 			stm.setInt(1, id);
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
-				texto.setId(id);
-				texto.setAtivo(rs.getBoolean("ativo"));
-				texto.setConteudo(rs.getString("conteudo"));
-				texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
-				texto.setUsuario(usuarioDAO.buscarPorId(rs.getInt("usuarioid")));
-				texto.setTipoTexto(tipoPeloNome(rs.getString("tipo")));
+				lerTabela(texto, rs);				
 			} else
 				throw new Exception();
 		} catch (Exception e) {
@@ -209,18 +188,14 @@ public class TextoDAOImpDB implements TextoDAO {
 		List<Texto> textos = new ArrayList<Texto>();
 		UsuarioDaoImpl usuarioDAO = new UsuarioDaoImpl();
 		try {
-			String query = "SELECT *, tipotexto(id) AS tipo  FROM texto ";
+			String query = "SELECT *, tipotexto(id) AS tipo FROM texto ";
 			Statement stm = connection.createStatement();
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {			
 				Usuario usuario = usuarioDAO.buscarPorId(rs.getInt("usuarioid"));
-				textos.add(new Texto(
-						rs.getInt("id"),
-						rs.getBoolean("ativo"),
-						rs.getString("conteudo"),
-						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuario,
-						tipoPeloNome(rs.getString("tipo"))));
+				Texto texto = new Texto();
+				lerTabela(texto, rs);
+				textos.add(texto);
 			}
 						
 		}catch (Exception e) {
@@ -241,13 +216,9 @@ public class TextoDAOImpDB implements TextoDAO {
 			stm.setInt(2, quant);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {				
-				textos.add(new Texto(
-						rs.getInt("id"),
-						rs.getBoolean("ativo"),
-						rs.getString("conteudo"),
-						rs.getTimestamp("datahora").toLocalDateTime(),
-						usuarioDAO.buscarPorId(rs.getInt("usuarioid")),
-						tipoPeloNome(rs.getString("tipo"))));
+				Texto texto = new Texto();
+				lerTabela(texto, rs);
+				textos.add(texto);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();			

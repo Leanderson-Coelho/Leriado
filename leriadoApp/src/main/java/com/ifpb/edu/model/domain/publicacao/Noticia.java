@@ -14,8 +14,8 @@ public class Noticia extends Publicacao{
 		super();
 	}
 
-	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia, List<Foto> fotos) {
-		super(id, ativo, conteudo, datahora, usuario, relevancia);
+	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia, int curtidas, List<Foto> fotos) {
+		super(id, ativo, conteudo, datahora, usuario, relevancia, curtidas);
 		this.titulo = titulo;
 		this.fotos = fotos;
 	}

@@ -13,8 +13,8 @@ public class Publicacao extends Texto{
 		super();
 	}
 
-	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia) {
-		super(id, ativo, conteudo, datahora, usuario,TipoTexto.PUBLICACAO);
+	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia, int curtidas) {
+		super(id, ativo, conteudo, datahora, usuario,TipoTexto.PUBLICACAO,curtidas);
 		this.relevancia = relevancia;
 	}
 

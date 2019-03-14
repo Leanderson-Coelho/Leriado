@@ -1,8 +1,5 @@
 package com.ifpb.edu.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.publicacao.impdb.CompartilhaDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
-import com.ifpb.edu.model.domain.publicacao.Compartilha;
-import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public class PublicacaoController implements Command{
 	
@@ -53,7 +48,7 @@ public class PublicacaoController implements Command{
 			request.setAttribute("pag", numPagina);
 			request.setAttribute("feed", compartilhaDAO.feed(usuario, numPagina * numPublPag, numPublPag));
 			request.setAttribute("feedQtd", qtdPub);
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/publicacao.jsp");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/restrito/publicacao.jsp");
 			dispatcher.include(request, response);			
 		}catch (Exception e) {
 			e.printStackTrace();
