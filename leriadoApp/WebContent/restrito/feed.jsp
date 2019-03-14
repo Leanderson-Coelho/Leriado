@@ -6,19 +6,19 @@
 <head>
     <meta charset="UTF-8">
     <!-- JQUERY -->
-    <script src="js/JQuery.js"></script>
+    <script src="../js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
-    <script src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
+    <script src="../js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
     <!-- MASCARAS JQUERY CONFIG -->
-    <script src="js/mascaras.js"></script>
+    <script src="../js/mascaras.js"></script>
     <!-- MATERIALIZE CSS-->
-    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="../css/materialize.css">
     <!-- MATERIALIZE JS -->
-    <script src="js/materialize.js"></script>
+    <script src="../js/materialize.js"></script>
     <!-- ICONS MATERIALIZA -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- CUSTOM -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/custom.css">
     <title>Document</title>
 </head>
 
@@ -29,15 +29,15 @@
     <!-- CONTEUDO -->
     <div class="row">
         <!-- PERFIL -->
-        <div class="col s2 red lighten-4">
+        <div class="col s2 red lighten-1">
             PERFIL
         </div>
         <!-- FEED -->
-        <div class="col s8 blue lighten-4">
+        <div class="col s8 blue lighten-1">
             FEED
         </div>
         <!-- AMIGOS -->
-        <div class="col s2 green lighten-4">
+        <div class="col s2 green lighten-1">
             AMIGOS
         </div>
     </div>

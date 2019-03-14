@@ -60,7 +60,7 @@ public class UsuarioController implements Command{
 			if(usuarioDao.login(login, senha)) {
 				usuario.setSenha("");
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
-				response.sendRedirect("logado.jsp");
+				response.sendRedirect("restrito/logado.jsp");
 			}else {
 				request.setAttribute("erro", "Senha ou login inválido");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -145,7 +145,7 @@ public class UsuarioController implements Command{
 			e.printStackTrace();
 		}
 		try {
-			response.sendRedirect("logado.jsp");
+			response.sendRedirect("restrito/logado.jsp");
 		} catch (IOException e) {
 			// erro 401
 			e.printStackTrace();
@@ -240,7 +240,7 @@ public class UsuarioController implements Command{
 		*/
 		try {
 			usuarioDao.criar(usuario);
-			request.getRequestDispatcher("logado.jsp").forward(request, response);
+			request.getRequestDispatcher("restrito/logado.jsp").forward(request, response);
 			return;
 		} catch (SQLException | ServletException | IOException e) {
 			//erro 501
