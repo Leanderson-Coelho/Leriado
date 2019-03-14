@@ -8,19 +8,49 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
-<title>Insert title here</title>
+<title>Leriado</title>
+<style type="text/css">
+      body{
+        background-color: #CCC;
+      }
+      .divPublicacao{
+        background-color: #fff;
+        width: 890px;
+        margin: 25px 20px;
+        padding: 10px;
+      }
+    </style>
 </head>
 <body>
 <h1>Página de ${sessionScope.usuarioLogado.nome}</h1>
 <c:forEach var="compartilha" items="${feed}">
-	<div>
-	<h2>${compartilha.usuario.nome}</h2>
-	<c:if test="${compartilha.publicacao.tipoTexto eq 'NOTICIA'}">		
+	<div class="divPublicacao">
+	<span><b>${compartilha.usuario.nome}</b></span>	
+	<small> >> Grupo:${compartilha.grupo.nome}</small>	
+	<c:if test="${compartilha.publicacao.tipoTexto eq 'NOTICIA'}">
+		<!-- NOTÍCIA -->		
 		<h3><c:out value="${compartilha.publicacao.titulo}"/></h3>
+		<p>${compartilha.publicacao.conteudo}</p>
+		<c:forEach var="foto" items="${compartilha.publicacao.fotos}">
+			<img alt="${foto.conteudo}" src="${foto.arquivo}">
+		</c:forEach>
+		
 	</c:if>
-	<p>${compartilha.publicacao.conteudo}</p>		
-	<p>${compartilha.dataHora}</p>
-	</div>
+	<c:if test="${compartilha.publicacao.tipoTexto eq 'PUBLICACAO'}">
+		<!-- PUBLICACAO -->
+		<p>${compartilha.publicacao.conteudo}</p>
+	</c:if>
+	<c:if test="${compartilha.publicacao.tipoTexto eq 'FOTO'}">
+		<!-- FOTO -->		
+		<img alt="${compartilha.publicacao.conteudo}" src="${compartilha.publicacao.arquivo}">
+		<p>${compartilha.publicacao.conteudo}</p>
+	</c:if>
+	<c:if test="${compartilha.publicacao.tipoTexto eq 'LINK'}">
+		<!-- LINK -->		
+		<p>${compartilha.publicacao.conteudo}</p>
+	</c:if>			
+	<small>${compartilha.dataHora}</small>
+	</div>	
 </c:forEach>-->
 <button><a href="Leriado?command=UsuarioController&acao=logout">Logout</a></button>
 

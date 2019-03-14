@@ -78,6 +78,7 @@ public class NoticiaDAOImpDB implements NoticiaDAO {
 				noticia.setId(id);
 				noticia.setTitulo(rs.getString("titulo"));
 				new PublicacaoDAOImpDB().buscar(noticia);
+				new FotoDAOImpDB().buscaFotoNoticia(noticia);
 			} else
 				throw new Exception();
 		}catch (Exception e) {

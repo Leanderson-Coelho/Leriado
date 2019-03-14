@@ -53,7 +53,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			}			
 			Grupo grupo = new GrupoDaoImpl().busca(rs.getInt("grupoid"));
 			Usuario usuario = new UsuarioDaoImpl().buscarPorId(rs.getInt("usuarioid"));
-			return new Compartilha(LocalDateTime.now(), usuario, publicacao, grupo);
+			return new Compartilha(rs.getTimestamp("datahora").toLocalDateTime(), usuario, publicacao, grupo);
 		} catch (Exception e) {
 			throw new DataAccessException("Tipo de publicação inválido");
 		}

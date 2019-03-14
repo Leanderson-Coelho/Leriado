@@ -222,6 +222,26 @@ public class FotoDAOImpDB implements FotoDAO {
 		}
 
 	}
+	
+	@Override
+	public void buscaFotoNoticia(Noticia noticia) throws DataAccessException {
+		List<Foto> fotos = new ArrayList<Foto>();
+		FotoDAOImpDB fotoDAO = new FotoDAOImpDB();
+		try {
+			String query = "SELECT * FROM fotonoticia "
+					+ "WHERE (noticiaid = ?)";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, noticia.getId());
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				fotos.add(fotoDAO.buscar(rs.getInt("fotoid")));				
+			}
+			noticia.setFotos(fotos);			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao listar fotos da notícia");
+		}
+		
+	}
 
 	@Override
 	public void removerFotoNoticia(Noticia noticia, Foto foto) throws DataAccessException {

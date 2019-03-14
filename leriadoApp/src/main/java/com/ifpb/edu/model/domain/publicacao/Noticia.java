@@ -44,11 +44,13 @@ public class Noticia extends Publicacao{
 
 	@Override
 	public String toString() {
-		return "Noticia [titulo=" + titulo + ", getRelevancia()=" + getRelevancia()
+		return "Noticia [titulo=" + titulo + ", fotos=" + fotos + ", getRelevancia()=" + getRelevancia()
 				+ ", toString()=" + super.toString() + ", getId()=" + getId() + ", getAtivo()=" + getAtivo()
 				+ ", getConteudo()=" + getConteudo() + ", getDatahora()=" + getDatahora() + ", getUsuario()="
-				+ getUsuario() + "]";
+				+ getUsuario() + ", getTipoTexto()=" + getTipoTexto() + "]";
 	}
+
+	
 	
 	
 }
