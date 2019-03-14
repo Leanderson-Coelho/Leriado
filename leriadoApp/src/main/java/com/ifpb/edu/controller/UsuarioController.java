@@ -62,10 +62,11 @@ public class UsuarioController implements Command{
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
 				response.sendRedirect("restrito/logado.jsp");
 			}else {
-				System.out.println(senha+' '+login);
-				throw new CommandException(401, "Senha ou email inválido");
+				request.setAttribute("erro", "Senha ou login inválido");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+//				throw new CommandException(401, "Senha ou email inválido");
 			}
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException | ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
