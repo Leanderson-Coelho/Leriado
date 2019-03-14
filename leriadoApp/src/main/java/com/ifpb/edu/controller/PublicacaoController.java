@@ -34,17 +34,23 @@ public class PublicacaoController implements Command{
 	private void feed(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB();
 		Usuario usuario = null;
-		List<Compartilha> comps = new ArrayList<Compartilha>();
+		int numPagina = 0;
+		int numPublPag = 4;
+		int qtdPub;
 		try {			
-			int numPagina = 0;
-			if (request.getParameter("pag")!=null) 
-				numPagina = Integer.parseInt(request.getParameter("pag"));			
+			
 			usuario = (Usuario)request.getSession(true).getAttribute("usuarioLogado");
 			if(usuario==null)
-				response.sendRedirect("index.jsp");
-			
-			comps = compartilhaDAO.feed(usuario, numPagina, 10);			
-			request.setAttribute("feed", comps);
+				response.sendRedirect("index.jsp");			
+			if (request.getParameter("pag")!=null) 
+				numPagina = Integer.parseInt(request.getParameter("pag"));
+			if (request.getServletContext().getInitParameter("numPublicacoesPagina")!=null)
+				numPublPag = 4;//Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
+			qtdPub = compartilhaDAO.quantFeed(usuario);
+			qtdPub = (int)Math.ceil((double)qtdPub / (double)numPublPag);
+			request.setAttribute("pag", numPagina);
+			request.setAttribute("feed", compartilhaDAO.feed(usuario, numPagina * numPublPag, numPublPag));
+			request.setAttribute("feedQtd", qtdPub);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/publicacao.jsp");
 			dispatcher.include(request, response);			
 		}catch (Exception e) {
