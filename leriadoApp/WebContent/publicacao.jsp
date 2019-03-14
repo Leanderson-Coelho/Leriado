@@ -22,7 +22,8 @@
     </style>
 </head>
 <body>
-<h1>Página de ${sessionScope.usuarioLogado.nome}</h1>
+<h1><%=request.getServletContext().getInitParameter("tituloAplicacao")%></h1>
+<h2>Página de ${sessionScope.usuarioLogado.nome}</h2>
 <c:forEach var="compartilha" items="${feed}">
 	<div class="divPublicacao">
 	<span><b>${compartilha.usuario.nome}</b></span>	
@@ -32,7 +33,7 @@
 		<h3><c:out value="${compartilha.publicacao.titulo}"/></h3>
 		<p>${compartilha.publicacao.conteudo}</p>
 		<c:forEach var="foto" items="${compartilha.publicacao.fotos}">
-			<img alt="${foto.conteudo}" src="${foto.arquivo}">
+			<img alt="${foto.conteudo}" src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${foto.arquivo}">
 		</c:forEach>
 		
 	</c:if>
@@ -42,7 +43,7 @@
 	</c:if>
 	<c:if test="${compartilha.publicacao.tipoTexto eq 'FOTO'}">
 		<!-- FOTO -->		
-		<img alt="${compartilha.publicacao.conteudo}" src="${compartilha.publicacao.arquivo}">
+		<img alt="${compartilha.publicacao.conteudo}" src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${compartilha.publicacao.arquivo}">
 		<p>${compartilha.publicacao.conteudo}</p>
 	</c:if>
 	<c:if test="${compartilha.publicacao.tipoTexto eq 'LINK'}">
@@ -51,7 +52,7 @@
 	</c:if>			
 	<small>${compartilha.dataHora}</small>
 	</div>	
-</c:forEach>-->
+</c:forEach>
 <button><a href="Leriado?command=UsuarioController&acao=logout">Logout</a></button>
 
 </body>
