@@ -38,18 +38,15 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 				break;
 			case "NOTICIA": 
 				tipoTexto = TipoTexto.NOTICIA;
-				//publicacao = new NoticiaDAOImpDB().buscar(rs.getInt("publicacaoid"));
-				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				publicacao = new NoticiaDAOImpDB().buscar(rs.getInt("publicacaoid"));				
 				break;				
 			case "FOTO": 
 				tipoTexto = TipoTexto.FOTO;
-				//publicacao = new FotoDAOImpDB().buscar(rs.getInt("publicacaoid"));
-				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				publicacao = new FotoDAOImpDB().buscar(rs.getInt("publicacaoid"));				
 				break;
 			case "LINK": 
 				tipoTexto = TipoTexto.LINK;
-				//publicacao = new LinkDAOImpDB().buscar(rs.getInt("publicacaoid"));
-				publicacao = new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid"));
+				publicacao = new LinkDAOImpDB().buscar(rs.getInt("publicacaoid"));
 				break;
 			default: 
 				throw new Exception();			
@@ -350,7 +347,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 	public List<Compartilha> feed(Usuario usuario, int inicio, int quant) throws DataAccessException {
 		List<Compartilha> comps = new ArrayList<Compartilha>();
 		try {
-			String query = "SELECT * FROM compartilha C WHERE " + 
+			String query = "SELECT *, tipotexto(publicacaoid) AS tipo FROM compartilha C WHERE " + 
 					"EXISTS (SELECT FROM segue S WHERE (S.seguidoid = C.usuarioid) AND (S.segueid = ?)) OR " + 
 					"EXISTS (SELECT FROM participagrupo P WHERE (C.grupoid = P.grupoid) AND (P.usuarioid = ?)) " +
 					"ORDER BY C.datahora DESC " +
@@ -362,11 +359,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			stm.setInt(4, quant);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
-				comps.add(new Compartilha(
-						rs.getTimestamp("dataHora").toLocalDateTime(), 
-						new UsuarioDaoImpl().buscarPorId(rs.getInt("usuarioid")), 
-						new PublicacaoDAOImpDB().buscar(rs.getInt("publicacaoid")), 
-						new GrupoDaoImpl().busca(rs.getInt("grupoid"))));
+				comps.add(lerTabela(rs));				
 			}
 		}catch (Exception e) {
 			throw new DataAccessException("Falha ao recuperar o feed");

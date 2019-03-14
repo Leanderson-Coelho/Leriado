@@ -1,3 +1,7 @@
+<%@page import="org.apache.taglibs.standard.tag.common.core.ForEachSupport"%>
+<%@page import="com.ifpb.edu.model.domain.publicacao.Compartilha"%>
+<%@page import="java.util.List"%>
+<%@page import="com.ifpb.edu.model.domain.publicacao.Noticia"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -9,15 +13,15 @@
 <body>
 <h1>Página de ${sessionScope.usuarioLogado.nome}</h1>
 <c:forEach var="compartilha" items="${feed}">
-	<div>	
+	<div>
 	<h2>${compartilha.usuario.nome}</h2>
-	<c:if teste="${compartilha.publicacao.tipoTexto eq 'NOTICIA' }">
-	<h3>Notícia</h3>	
+	<c:if test="${compartilha.publicacao.tipoTexto eq 'NOTICIA'}">		
+		<h3><c:out value="${compartilha.publicacao.titulo}"/></h3>
 	</c:if>
-	<p>${compartilha.publicacao.conteudo}</p>	
+	<p>${compartilha.publicacao.conteudo}</p>		
 	<p>${compartilha.dataHora}</p>
 	</div>
-</c:forEach>
+</c:forEach>-->
 <button><a href="Leriado?command=UsuarioController&acao=logout">Logout</a></button>
 
 </body>

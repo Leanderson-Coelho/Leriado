@@ -6,10 +6,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.dao.publicacao.impdb.CompartilhaDAOImpDB;
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Compartilha;
+import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.domain.publicacao.Publicacao;
 
 public class CompartilhaDAOImpDBTeste {
@@ -29,8 +31,8 @@ public class CompartilhaDAOImpDBTeste {
 	
 	@Test
 	public void criaTeste() {		
-		publicacao.setId(1);
-		usuario.setId(3);
+		publicacao.setId(6);
+		usuario.setId(2);
 		grupo.setId(1);	
 		try {			
 			compartilhaDAO.cria(new Compartilha(LocalDateTime.now(), usuario, publicacao, grupo));					
@@ -102,7 +104,8 @@ public class CompartilhaDAOImpDBTeste {
 		try {
 			List<Compartilha> comps = compartilhaDAO.feed(usuario, 0, 100);
 			for (Compartilha compartilha : comps) {
-				System.out.println(compartilha.getPublicacao().getConteudo());
+				if(compartilha.getPublicacao().getTipoTexto()==TipoTexto.NOTICIA)
+					System.out.println(((Noticia) compartilha.getPublicacao()).getTitulo());
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
