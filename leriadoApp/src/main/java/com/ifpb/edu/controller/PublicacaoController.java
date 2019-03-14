@@ -40,8 +40,10 @@ public class PublicacaoController implements Command{
 		try {			
 			
 			usuario = (Usuario)request.getSession(true).getAttribute("usuarioLogado");
-			if(usuario==null)
-				response.sendRedirect("index.jsp");			
+			if(usuario==null) {
+				response.sendRedirect("index.jsp");
+				return;
+			}
 			if (request.getParameter("pag")!=null) 
 				numPagina = Integer.parseInt(request.getParameter("pag"));
 			if (request.getServletContext().getInitParameter("numPublicacoesPagina")!=null)
@@ -54,6 +56,7 @@ public class PublicacaoController implements Command{
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/publicacao.jsp");
 			dispatcher.include(request, response);			
 		}catch (Exception e) {
+			e.printStackTrace();
 			throw new CommandException(500, "Falha ao montar o feed");
 		}
 	}
