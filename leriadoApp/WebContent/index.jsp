@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -30,50 +30,7 @@
 </head>
 
 <body>
-  <!-- MENU DESKTOP-->
-  <header>
-    <nav>
-      <div class="container">
-        <div class="nav-wrapper">
-          <!-- <a href="#" class="brand-logo "><img class="logo" src="img/logo.png"/></a> -->
-          <h1 class="text-white brand-logo">Leriado</h1>
-          <ul class="right hide-on-med-and-down">
-            <form method="post" action="Leriado?command=UsuarioController&acao=login">
-              <div class="row">
-                <div class="input-field col l4">
-                  <input class="validate camposLogin" type="text" id="emailLogin" name="login" required pattern="^[\w\.\-]+@([\w\-]+\.)+[A-Za-z]{2,4}$" />
-                  <label for="emailLogin">Email</label>
-                </div>
-                <div class="input-field col l4">
-                  <input class="camposLogin" type="password" id="senha" name="senha" required min="8" />
-                  <label>Senha</label>
-                </div>
-                <div class="input-field col l4">
-                  <button type="submit" class="btn waves-effect waves-light">Enviar</button>
-                </div>
-              </div>
-            </form>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <!-- MENU MOBILE -->
-  <div class="row container hide-on-large-only">
-    <form action="" method="">
-      <div class="input-field col s12">
-        <input class="validate" name="email" id="email" type="email" />
-        <label for="email">Email</label>
-      </div>
-      <div class="input-field col s12">
-        <input type="password" name="senha" id="senha" />
-        <label for="senha">Senha</label>
-      </div>
-      <div class="input-field col s2">
-          <button type="submit" class="btn waves-effect waves-light center">Enviar</button>
-      </div>
-    </form>
-  </div>
+  <jsp:include page="header.html"/>
   <!-- CONTEUDO -->
   <div class="row orange lighten-5 separador"></div>
   <div class="orange lighten-5">
@@ -183,14 +140,6 @@
       </div>
     </div>
   </div>
-  <!-- RODAPÉ -->
-  <footer class="page-footer">
-    <div class="footer-copyright">
-      <div class="container center">
-          LERIADO © 2019
-      </div>
-    </div>
-  </footer>
+  <jsp:include page="footer.html"/>
 </body>
-
 </html>
