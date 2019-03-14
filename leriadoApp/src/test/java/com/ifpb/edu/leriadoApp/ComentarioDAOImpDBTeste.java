@@ -35,7 +35,7 @@ public class ComentarioDAOImpDBTeste {
 		ComentarioDAOImpDB comentarioDAO = new ComentarioDAOImpDB();
 		TextoDAOImpDB textoDAO = new TextoDAOImpDB();		
 		try {
-			Texto texto = textoDAO.buscar(1).orElseThrow();			
+			Texto texto = textoDAO.buscar(1).orElseThrow(null);			
 			comentarios = comentarioDAO.lista(texto,0,2);
 			System.out.println("Texto:");
 			System.out.println(texto.getConteudo());

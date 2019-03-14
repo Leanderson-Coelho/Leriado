@@ -9,4 +9,17 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <context-param>
+  	<param-name>tituloAplicacao</param-name>
+  	<param-value>Leriado</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>pastaImagensUsuario</param-name>
+  	<param-value>userimg</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>numPublicacoesPagina</param-name>
+  	<param-value>5</param-value>
+  </context-param>
+  
 </web-app>
