@@ -4,6 +4,7 @@
 <%@page import="com.ifpb.edu.model.domain.publicacao.Noticia"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,8 +51,12 @@
 	<c:if test="${compartilha.publicacao.tipoTexto eq 'LINK'}">
 		<!-- LINK -->		
 		<p>${compartilha.publicacao.conteudo}</p>
-	</c:if>			
-	<small>${compartilha.dataHora}</small>
+	</c:if>	
+	
+	<small>
+		<fmt:parseDate value="${compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+		<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
+	</small>
 	</div>	
 
 </c:forEach>

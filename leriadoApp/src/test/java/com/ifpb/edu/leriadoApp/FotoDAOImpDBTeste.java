@@ -87,7 +87,7 @@ public class FotoDAOImpDBTeste {
 	@Test
 	public void fotoPerfilTeste() {
 		try {
-			foto = fotoDAO.buscarFotoPerfil(usuario).orElseThrow();
+			foto = fotoDAO.buscarFotoPerfil(usuario).orElseThrow(null);
 			System.out.println(foto.getId());
 			System.out.println(foto.getConteudo());
 			System.out.println(foto.getArquivo());
