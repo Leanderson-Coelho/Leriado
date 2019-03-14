@@ -29,15 +29,15 @@
     <!-- CONTEUDO -->
     <div class="row">
         <!-- PERFIL -->
-        <div class="col s2 red lighten-4">
+        <div class="col s2 red lighten-1">
             PERFIL
         </div>
         <!-- FEED -->
-        <div class="col s8 blue lighten-4">
+        <div class="col s8 blue lighten-1">
             FEED
         </div>
         <!-- AMIGOS -->
-        <div class="col s2 green lighten-4">
+        <div class="col s2 green lighten-1">
             AMIGOS
         </div>
     </div>
