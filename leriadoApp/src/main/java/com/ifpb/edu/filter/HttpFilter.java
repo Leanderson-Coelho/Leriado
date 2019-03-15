@@ -25,4 +25,10 @@ public abstract class HttpFilter implements Filter{
 	/* O método abstrato obriga as classes que extender de HttpFilter implementar o seu doFilter que foi renomeado para filtrarRequisição */
 	public abstract void filtrarRequisicao(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException;
 	
+	
+	public void limparHeader(HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setDateHeader("Expires", 0);
+	}
 }

@@ -28,9 +28,7 @@ public class AutenticacaoFilter extends HttpFilter{
 //			request.getSession().setAttribute("msgErro", new String("É necessário efetuar o login para acessar a página!"));
 			response.sendRedirect("/leriadoApp/index.jsp");
 		}
-		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-        response.setDateHeader("Expires", 0);
+		limparHeader(response);
 		chain.doFilter(request, response);
 		
 	}
