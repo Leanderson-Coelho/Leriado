@@ -1,3 +1,4 @@
+<%@page import="com.ifpb.edu.model.domain.publicacao.Texto"%>
 <%@page import="org.apache.taglibs.standard.tag.common.core.ForEachSupport"%>
 <%@page import="com.ifpb.edu.model.domain.publicacao.Compartilha"%>
 <%@page import="java.util.List"%>
@@ -17,8 +18,11 @@
       .divPublicacao{
         background-color: #fff;
         width: 890px;
-        margin: 25px 20px;
-        padding: 10px;
+        margin: 2px;
+        padding: 1px 30px 50px 30px;
+      }
+      .data{
+      	color: #AAA;
       }
     </style>
 </head>
@@ -28,8 +32,18 @@
 <button><a href="Leriado?command=UsuarioController&acao=logout">Logout</a></button>
 <c:forEach var="compartilha" items="${feed}">
 	<div class="divPublicacao">
-	<span><b>${compartilha.usuario.nome}</b></span>	
-	<small> >> Grupo:${compartilha.grupo.nome}</small>	
+	<h3><b>${compartilha.usuario.nome}</b>
+	<c:if test="${compartilha.usuario.id != compartilha.publicacao.usuario.id}">
+		<small>compartilhou a publicação de</small> ${compartilha.publicacao.usuario.nome}
+	</c:if>
+	</h3>
+	<p>	
+		<small class="data">
+			<fmt:parseDate value="${compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+			<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />			
+		</small>	
+		<small> >> <a href="#">${compartilha.grupo.nome}</a></small>
+	</p>
 	<c:if test="${compartilha.publicacao.tipoTexto eq 'NOTICIA'}">
 		<!-- NOTÍCIA -->		
 		<h3><c:out value="${compartilha.publicacao.titulo}"/></h3>
@@ -51,13 +65,36 @@
 	<c:if test="${compartilha.publicacao.tipoTexto eq 'LINK'}">
 		<!-- LINK -->		
 		<p>${compartilha.publicacao.conteudo}</p>
-	</c:if>	
-	
+	</c:if>
 	<small>
-		<fmt:parseDate value="${compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
-		<fmt:formatDate pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
+	<p>	
+	<c:if test="${compartilha.publicacao.curtidas > 0}">	
+		${compartilha.publicacao.curtidas} curtidas
+	</c:if>
+	<c:if test="${compartilha.publicacao.compartilhamentos > 0}">	
+		${compartilha.publicacao.compartilhamentos} compartilhamentos
+	</c:if>
+	</p>
 	</small>
+	<p>
+	<button type="button">Curtir</button>	
+	<button type="button">Compartilhar</button>
+	</p>	
+	<form>
+	<input type="text"><button type="button">comentar</button>
+	</form>
+	<ul>
+	<c:forEach var="comentario" items="${compartilha.publicacao.comentarios}">
+		<li><b>${comentario.usuario.nome}</b> ${comentario.conteudo}
+		<c:if test="${comentario.curtidas>0}">
+		 - ${comentario.curtidas} curtidas. 
+		 </c:if>
+		<br><button type="button">Curtir</button></li>
+	</c:forEach>
+	</ul>
+		
 	</div>	
+	
 
 </c:forEach>
 

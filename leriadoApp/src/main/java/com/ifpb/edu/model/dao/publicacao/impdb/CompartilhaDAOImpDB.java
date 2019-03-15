@@ -48,13 +48,13 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 				tipoTexto = TipoTexto.LINK;
 				publicacao = new LinkDAOImpDB().buscar(rs.getInt("publicacaoid"));
 				break;
-			default: 
+			default:				
 				throw new Exception();			
 			}			
 			Grupo grupo = new GrupoDaoImpl().busca(rs.getInt("grupoid"));
 			Usuario usuario = new UsuarioDaoImpl().buscarPorId(rs.getInt("usuarioid"));
 			return new Compartilha(rs.getTimestamp("datahora").toLocalDateTime(), usuario, publicacao, grupo);
-		} catch (Exception e) {
+		} catch (Exception e) {			
 			throw new DataAccessException("Tipo de publicação inválido");
 		}
 	}
@@ -361,7 +361,7 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 			while (rs.next()) {
 				comps.add(lerTabela(rs));				
 			}
-		}catch (Exception e) {
+		}catch (Exception e) {			
 			throw new DataAccessException("Falha ao recuperar o feed");
 		}
 		return comps;

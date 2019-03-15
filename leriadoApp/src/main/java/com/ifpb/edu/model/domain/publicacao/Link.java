@@ -12,8 +12,8 @@ public class Link extends Publicacao{
 		super();		
 	}
 
-	public Link(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia, int curtidas, String link) {
-		super(id, ativo, conteudo, datahora, usuario, relevancia, curtidas);
+	public Link(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas, int relevancia, int compartilhamentos, String link) {
+		super(id, ativo, conteudo, datahora, usuario, curtidas, relevancia, compartilhamentos);
 		this.link = link;
 	}
 
