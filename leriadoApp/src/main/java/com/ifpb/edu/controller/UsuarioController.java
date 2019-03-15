@@ -213,6 +213,7 @@ public class UsuarioController implements Command{
 				msgsErro.add(2, "Email já cadastrado");
 			}
 		} catch (SQLException e1) {
+			e1.printStackTrace();
 			//erro 501
 		}
 		
@@ -223,6 +224,7 @@ public class UsuarioController implements Command{
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 					return;
 				} catch (ServletException | IOException e) {
+					e.printStackTrace();
 					//erro 501
 				}
 			}
@@ -243,9 +245,11 @@ public class UsuarioController implements Command{
 		*/
 		try {
 			usuarioDao.criar(usuario);
+			request.getSession().setAttribute("usuarioLogado", usuarioDao.buscarPorEmail(usuario.getEmail()));
 			request.getRequestDispatcher("restrito/logado.jsp").forward(request, response);
 			return;
-		} catch (SQLException | ServletException | IOException e) {
+		} catch (SQLException | IOException | ServletException e) {
+			e.printStackTrace();
 			//erro 501
 		}
 		
