@@ -64,7 +64,6 @@ public class UsuarioController implements Command{
 			}else {
 				request.setAttribute("erro", "Senha ou login inválido");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
-//				throw new CommandException(401, "Senha ou email inválido");
 			}
 		} catch (SQLException | IOException | ServletException e) {
 			// TODO Auto-generated catch block

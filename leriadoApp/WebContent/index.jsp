@@ -30,7 +30,7 @@
 </head>
 
 <body>
-  <jsp:include page="restrito/header.html"/>
+  <jsp:include page="restrito/header.jsp"/>
   <!-- CONTEUDO -->
   <div class="row orange lighten-5 separador"></div>
   <div class="orange lighten-5">
@@ -75,7 +75,7 @@
                   <label for="email">Email</label>
                 </div>
                 <div class="col s6 input-field">
-                  <input type="password" name="senha" id="senhaDesktop" required min="8"/>
+                  <input type="password" name="senha" id="senhaDesktop" required pattern=".{8,}"/>
                   <label for="senhaDesktop">Senha</label>
                 </div>
               </div>
