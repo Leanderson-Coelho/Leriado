@@ -30,7 +30,7 @@ public class PublicacaoController implements Command{
 		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB();
 		Usuario usuario = null;
 		int numPagina = 0;
-		int numPublPag = 4;
+		int numPublPag = 5;
 		int qtdPub;
 		try {			
 			
@@ -42,7 +42,7 @@ public class PublicacaoController implements Command{
 			if (request.getParameter("pag")!=null) 
 				numPagina = Integer.parseInt(request.getParameter("pag"));
 			if (request.getServletContext().getInitParameter("numPublicacoesPagina")!=null)
-				numPublPag = 4;//Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
+				numPublPag = Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
 			qtdPub = compartilhaDAO.quantFeed(usuario);
 			qtdPub = (int)Math.ceil((double)qtdPub / (double)numPublPag);
 			request.setAttribute("pag", numPagina);
