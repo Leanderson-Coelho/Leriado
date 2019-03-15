@@ -1,27 +1,33 @@
 package com.ifpb.edu.filter;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class AutenticacaoFilter implements Filter{
+@WebFilter(filterName="AutenticacaoFilter", urlPatterns = "/restrito/*")
+public class AutenticacaoFilter extends HttpFilter{
+	private static Logger log = Logger.getLogger("AutenticacaoFilter");
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		log.info("Iniciou AutenticacaoFilter");
 		
 	}
-
+	
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		
+	public void filtrarRequisicao(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+		log.info("filtrando requisição");
+		if(request.getSession().getAttribute("usuarioLogado") == null) {
+			request.getSession().setAttribute("msgErro", new String("É necessário efetuar o login para acessar a página!"));
+			response.sendRedirect("/leriadoApp/index.jsp");
+		}
+		chain.doFilter(request, response);
 	}
 
 	@Override
@@ -29,5 +35,4 @@ public class AutenticacaoFilter implements Filter{
 		// TODO Auto-generated method stub
 		
 	}
-
 }
