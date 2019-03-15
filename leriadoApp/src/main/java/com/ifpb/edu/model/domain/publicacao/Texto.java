@@ -1,6 +1,8 @@
 package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
@@ -13,9 +15,12 @@ public class Texto {
 	private LocalDateTime datahora = LocalDateTime.now();
 	private Usuario usuario;
 	private TipoTexto tipoTexto;
-	private int curtidas;
+	private int curtidas = 0;
+	private List<Comentario> comentarios;
 	
-	public Texto() {}
+	public Texto() {
+		comentarios = new ArrayList<Comentario>();
+	}
 
 	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto, int curtidas) {		
 		this.id = id;
@@ -89,10 +94,20 @@ public class Texto {
 		this.curtidas = curtidas;
 	}
 
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
 	@Override
 	public String toString() {
 		return "Texto [id=" + id + ", ativo=" + ativo + ", conteudo=" + conteudo + ", datahora=" + datahora
-				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + ", curtidas=" + curtidas + "]";
+				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + ", comentarios="
+				+ comentarios + "]";
 	}
-		
+
+	
 }
