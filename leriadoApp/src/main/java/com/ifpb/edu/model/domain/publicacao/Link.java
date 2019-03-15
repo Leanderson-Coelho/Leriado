@@ -4,16 +4,17 @@ import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Usuario;
 
-public class Link extends Publicacao{
-	
+public class Link extends Publicacao {
+
 	private String link;
 
 	public Link() {
-		super();		
+		super();
 	}
 
-	public Link(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas, int relevancia, int compartilhamentos, String link) {
-		super(id, ativo, conteudo, datahora, usuario, curtidas, relevancia, compartilhamentos);
+	public Link(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas,
+			int quantComentarios, int relevancia, int compartilhamentos, String link) {
+		super(id, ativo, conteudo, datahora, usuario, curtidas, quantComentarios, relevancia, compartilhamentos);
 		this.link = link;
 	}
 
@@ -37,5 +38,5 @@ public class Link extends Publicacao{
 				+ ", getDatahora()=" + getDatahora() + ", getUsuario()=" + getUsuario() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + "]";
 	}
-	
+
 }

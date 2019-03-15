@@ -1,14 +1,12 @@
 package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
 
 public class Texto {
-	
+
 	private int id = 0;
 	private Boolean ativo = true;
 	private String conteudo;
@@ -16,13 +14,13 @@ public class Texto {
 	private Usuario usuario;
 	private TipoTexto tipoTexto;
 	private int curtidas = 0;
-	private List<Comentario> comentarios;
-	
+	private int quantComentarios = 0;
+
 	public Texto() {
-		comentarios = new ArrayList<Comentario>();
 	}
 
-	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto, int curtidas) {		
+	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto,
+			int curtidas, int quantComentarios) {
 		this.id = id;
 		this.ativo = ativo;
 		this.conteudo = conteudo;
@@ -30,8 +28,9 @@ public class Texto {
 		this.usuario = usuario;
 		this.tipoTexto = tipoTexto;
 		this.curtidas = curtidas;
+		this.quantComentarios = quantComentarios;
 	}
-	
+
 	public Texto(String conteudo, Usuario usuario) {
 		super();
 		this.conteudo = conteudo;
@@ -94,20 +93,19 @@ public class Texto {
 		this.curtidas = curtidas;
 	}
 
-	public List<Comentario> getComentarios() {
-		return comentarios;
+	public int getQuantComentarios() {
+		return quantComentarios;
 	}
 
-	public void setComentarios(List<Comentario> comentarios) {
-		this.comentarios = comentarios;
+	public void setQuantComentarios(int quantComentarios) {
+		this.quantComentarios = quantComentarios;
 	}
 
 	@Override
 	public String toString() {
 		return "Texto [id=" + id + ", ativo=" + ativo + ", conteudo=" + conteudo + ", datahora=" + datahora
-				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + ", comentarios="
-				+ comentarios + "]";
+				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + ", curtidas=" + curtidas + ", quantComentarios="
+				+ quantComentarios + "]";
 	}
 
-	
 }
