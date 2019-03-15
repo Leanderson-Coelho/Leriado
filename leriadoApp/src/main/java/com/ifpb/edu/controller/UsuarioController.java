@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ import com.ifpb.edu.validadores.Validator;
 
 public class UsuarioController implements Command{
 	private UsuarioDao usuarioDao;
+	
+	private static Logger log = Logger.getLogger("UsuarioController");
 	
 	public UsuarioController() {
 		usuarioDao = new UsuarioDaoImpl();
@@ -54,6 +57,7 @@ public class UsuarioController implements Command{
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		try {
+			log.info("------->  Verificando login");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			Usuario usuario = usuarioDao.buscarPorEmail(login);

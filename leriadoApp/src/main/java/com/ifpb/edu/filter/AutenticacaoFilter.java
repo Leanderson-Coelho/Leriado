@@ -23,11 +23,16 @@ public class AutenticacaoFilter extends HttpFilter{
 	@Override
 	public void filtrarRequisicao(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 		log.info("filtrando requisição");
-		if(request.getSession().getAttribute("usuarioLogado") == null) {
-			request.getSession().setAttribute("msgErro", new String("É necessário efetuar o login para acessar a página!"));
+		
+		if(request.getSession().getAttribute("usuarioLogado") == null || request.getSession(false) == null) {
+//			request.getSession().setAttribute("msgErro", new String("É necessário efetuar o login para acessar a página!"));
 			response.sendRedirect("/leriadoApp/index.jsp");
 		}
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setDateHeader("Expires", 0);
 		chain.doFilter(request, response);
+		
 	}
 
 	@Override
