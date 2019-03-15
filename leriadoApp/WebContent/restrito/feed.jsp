@@ -24,7 +24,7 @@
 
 <body>
     <!-- MENU -->
-    <jsp:include page="header.html"/>
+    <jsp:include page="headerOn.jsp"/>
     <div class="row"></div>
     <!-- CONTEUDO -->
     <div class="row">
@@ -41,6 +41,5 @@
             AMIGOS
         </div>
     </div>
-    <jsp:include page="footer.html"/>
 </body>
 </html>
