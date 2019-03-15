@@ -13,11 +13,6 @@ import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.TextoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
-import com.ifpb.edu.model.domain.publicacao.Comentario;
-import com.ifpb.edu.model.domain.publicacao.Foto;
-import com.ifpb.edu.model.domain.publicacao.Link;
-import com.ifpb.edu.model.domain.publicacao.Noticia;
-import com.ifpb.edu.model.domain.publicacao.Publicacao;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
@@ -46,7 +41,7 @@ public class TextoDAOImpDB implements TextoDAO {
 		texto.setAtivo(rs.getBoolean("ativo"));
 		texto.setConteudo(rs.getString("conteudo"));
 		texto.setDatahora(rs.getTimestamp("datahora").toLocalDateTime());
-		texto.setUsuario(new UsuarioDaoImpl().buscarPorId(rs.getInt("usuario.id")));
+		texto.setUsuario(new UsuarioDaoImpl().buscarPorId(rs.getInt("usuarioid")));
 		texto.setTipoTexto(tipoPeloNome(rs.getString("tipo")));
 		texto.setCurtidas(new CurteDAOImpDB().quant(texto));
 	}

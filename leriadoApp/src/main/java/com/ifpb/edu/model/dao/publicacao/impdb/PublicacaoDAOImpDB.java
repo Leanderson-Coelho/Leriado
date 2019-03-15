@@ -3,11 +3,13 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.PublicacaoDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
+import com.ifpb.edu.model.domain.publicacao.Comentario;
 import com.ifpb.edu.model.domain.publicacao.Publicacao;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
@@ -18,6 +20,14 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 	
 	public PublicacaoDAOImpDB() {
 		connection = ConnectionFactory.getInstance().getConnection();
+	}
+	
+	private void lerTabela(Publicacao publicacao, ResultSet rs) throws DataAccessException, SQLException {
+		new TextoDAOImpDB().buscar(rs.getInt("textoid"), publicacao);
+		publicacao.setRelevancia(rs.getInt("relevancia"));
+		List<Comentario> comentarios = new ComentarioDAOImpDB().lista(publicacao); 
+		publicacao.setComentarios(comentarios);	
+		publicacao.setCompartilhamentos(new CompartilhaDAOImpDB().quant(publicacao));
 	}
 
 	@Override
@@ -98,7 +108,7 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 			stm.setInt(1, id);
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
-				publicacao.setRelevancia(rs.getInt("relevancia"));
+				lerTabela(publicacao, rs);				
 			} else 
 				throw new Exception();
 		}catch (Exception e) {
@@ -133,9 +143,7 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				Publicacao publicacao = new Publicacao();
-				publicacao.setId(rs.getInt("textoid"));
-				textoDAO.buscar(publicacao);
-				publicacao.setRelevancia(rs.getInt("relevancia"));
+				lerTabela(publicacao, rs);
 				publicacoes.add(publicacao);
 			}
 		}catch (Exception e) {
@@ -158,9 +166,7 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				Publicacao publicacao = new Publicacao();
-				publicacao.setId(rs.getInt("textoid"));
-				textoDAO.buscar(publicacao);
-				publicacao.setRelevancia(rs.getInt("relevancia"));
+				lerTabela(publicacao, rs);
 				publicacoes.add(publicacao);
 			}
 		}catch (Exception e) {

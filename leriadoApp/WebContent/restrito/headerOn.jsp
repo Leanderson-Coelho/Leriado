@@ -1,20 +1,13 @@
-<script>
-        $('.dropdown-trigger').dropdown();
-        </script>
 <!-- MENU DESKTOP-->
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
 <header>
     <nav>
         <div class="container">
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo "><img class="logo" src="../img/logo.png" /></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="#"><i class="material-icons right">face</i>${usuarioLogado.nome }</a></li>
+                    <li><a href="/leriadoApp/Leriado?command=UsuarioController&acao=logout"><i class="material-icons right">exit_to_app</i>Sair</a>
+                    </li>
                 </ul>
             </div>
         </div>

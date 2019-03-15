@@ -16,5 +16,5 @@ public interface TextoDAO {
 	int quant() throws DataAccessException;
 	TipoTexto tipo(Texto texto) throws DataAccessException;
 	List<Texto> lista() throws DataAccessException;
-	List<Texto>lista(int inicio,int quant) throws DataAccessException;
+	List<Texto>lista(int inicio,int quant) throws DataAccessException;	
 }
