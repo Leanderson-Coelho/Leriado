@@ -64,7 +64,7 @@ public class UsuarioController implements Command{
 			if(usuarioDao.login(login, senha)) {
 				usuario.setSenha("");
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
-				response.sendRedirect("restrito/logado.jsp");
+				response.sendRedirect("restrito/home.jsp");
 			}else {
 				request.setAttribute("erro", "Senha ou login inválido");
 				request.getRequestDispatcher("index.jsp").forward(request, response);

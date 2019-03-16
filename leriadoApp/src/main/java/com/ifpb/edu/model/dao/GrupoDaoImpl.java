@@ -79,6 +79,22 @@ public class GrupoDaoImpl implements GrupoDao{
 		return null;
 	}
 	
+	public int buscaIdPorNome(String nome) throws DataAccessException {
+		try {
+			String query = "SELECT id FROM grupo "
+					+ "WHERE nome = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setString(1, nome);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Fala ao buscar grupo");
+		}
+		return -1;
+	}
+	
 	
 
 }

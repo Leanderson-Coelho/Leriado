@@ -12,5 +12,6 @@ public interface GrupoDao {
 	void adicionarUsuario(int idGrupo, int idUsuario) throws SQLException;
 	void removerUsuario(int idGrupo, int idUsuario) throws SQLException;
 	Grupo busca(int id)throws DataAccessException;
+	public int buscaIdPorNome(String nome) throws DataAccessException;
 	
 }
