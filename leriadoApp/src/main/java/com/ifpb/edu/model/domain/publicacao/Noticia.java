@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.ifpb.edu.model.domain.Usuario;
 
-public class Noticia extends Publicacao{
-	
+public class Noticia extends Publicacao {
+
 	private String titulo;
 	private List<Foto> fotos;
 
@@ -14,14 +14,16 @@ public class Noticia extends Publicacao{
 		super();
 	}
 
-	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas, int relevancia, int compartilhamentos, List<Foto> fotos) {
-		super(id, ativo, conteudo, datahora, usuario, curtidas, relevancia,compartilhamentos);
+	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario,
+			int relevancia, int compartilhamentos, List<Foto> fotos) {
+		super(id, ativo, conteudo, datahora, usuario, relevancia, compartilhamentos);
 		this.titulo = titulo;
 		this.fotos = fotos;
 	}
 
-	public Noticia(String titulo, String conteudo, Usuario usuario, int relevancia, List<Foto> fotos) {
-		super(conteudo, usuario, relevancia);
+	public Noticia(String titulo, String conteudo, Usuario usuario, int relevancia, int compartilhamentos,
+			List<Foto> fotos) {
+		super(conteudo, usuario, relevancia, compartilhamentos);
 		this.titulo = titulo;
 		this.fotos = fotos;
 	}
@@ -33,7 +35,7 @@ public class Noticia extends Publicacao{
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
+
 	public List<Foto> getFotos() {
 		return fotos;
 	}
@@ -50,7 +52,4 @@ public class Noticia extends Publicacao{
 				+ getUsuario() + ", getTipoTexto()=" + getTipoTexto() + "]";
 	}
 
-	
-	
-	
 }

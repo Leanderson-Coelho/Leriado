@@ -6,20 +6,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PreDestroy;
-
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.dao.publicacao.MarcaDAO;
-import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Marca;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
-public class MarcaDAOImpDB implements MarcaDAO{
-	
+public class MarcaDAOImpDB implements MarcaDAO {
+
 	private Connection connection;
-	
+
 	public MarcaDAOImpDB() {
 		connection = ConnectionFactory.getInstance().getConnection();
 	}
@@ -31,41 +28,39 @@ public class MarcaDAOImpDB implements MarcaDAO{
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, marca.getTexto().getId());
 			stm.setInt(2, marca.getUsuario().getId());
-			stm.executeUpdate();			
-		}catch (Exception e) {
+			stm.executeUpdate();
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao marcar usuário");
 		}
-		
+
 	}
-	
+
 	@Override
 	public void exclui(Marca marca) throws DataAccessException {
 		try {
-			String query = "DELETE FROM marca "
-					+ "WHERE (textoid = ?) AND (ususarioid = ?) ";
+			String query = "DELETE FROM marca " + "WHERE (textoid = ?) AND (ususarioid = ?) ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, marca.getTexto().getId());
 			stm.setInt(2, marca.getUsuario().getId());
 			stm.executeUpdate();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao excluir marca.");
 		}
-		
+
 	}
 
 	@Override
 	public boolean existe(int textoId, int usuarioId) throws DataAccessException {
 		try {
-			String query = "SELECT EXISTS "
-					+ "(SELECT FROM marca WHERE (textoid = ?) AND (usuarioid = ?))";
+			String query = "SELECT EXISTS " + "(SELECT FROM marca WHERE (textoid = ?) AND (usuarioid = ?))";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, textoId);
 			stm.setInt(2, usuarioId);
 			ResultSet rs = stm.executeQuery();
 			if (rs.next()) {
-				return rs.getBoolean(1); 
-			}			
-		}catch (Exception e) {
+				return rs.getBoolean(1);
+			}
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao consultar marca");
 		}
 		return false;
@@ -79,16 +74,15 @@ public class MarcaDAOImpDB implements MarcaDAO{
 		try {
 			int ti = texto.getId();
 			texto = textoDAO.buscar(ti).orElseThrow(null);
-			String query = "SELECT usuarioid FROM marca "
-					+ "WHERE  textoid = ? ";
+			String query = "SELECT usuarioid FROM marca " + "WHERE  textoid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, ti);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				marcacoes.add(new Marca(texto, usuarioDAO.buscarPorId(rs.getInt("usuarioid"))));
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao listar marcações");
 		}
 		return marcacoes;

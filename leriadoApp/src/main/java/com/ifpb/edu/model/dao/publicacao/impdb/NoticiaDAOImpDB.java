@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.NoticiaDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
-import com.ifpb.edu.model.domain.publicacao.Link;
 import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
 import com.ifpb.edu.model.jdbc.DataAccessException;
