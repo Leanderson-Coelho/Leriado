@@ -1,11 +1,12 @@
 <%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <!-- JQUERY -->
     <script src="../js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
@@ -20,7 +21,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- CUSTOM -->
     <link rel="stylesheet" href="../css/custom.css">
-    <title>Document</title>
+    <title><%=request.getServletContext().getInitParameter("tituloAplicacao")%></title>
     <script>
         $(document).ready(function () {
             $('.modal').modal();
