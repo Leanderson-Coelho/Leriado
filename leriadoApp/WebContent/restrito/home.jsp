@@ -108,18 +108,18 @@
             <div class="grey lighten-5" style="padding-bottom: 1px;">
 				<div class="container">
 					<div class="row">
-						<form>
+						<form method="post" action="/leriadoApp/Leriado?command=FeedController&acao=publicacao" enctype="multipart/form-data">
 							<div class="col s12">
-								<input type="text"
+								<input type="text" name="titulo"
 									placeholder="Digite um titulo para sua publicação"
-									class="center-align">
+			 						class="center-align">
 							</div>
 							<div class="input-field col s12">
-								<textarea class="materialize-textarea" placeholder="Sua publicação aqui"></textarea>
+								<textarea class="materialize-textarea" placeholder="Sua publicação aqui" name="conteudo"></textarea>
 							</div>
 							<div class="col 5s file-field input-field">
 								<div class="col btn-floating">
-									<input type="file" multiple>
+									<input type="file" name="files" multiple>
 									<i class="material-icons">add_circle_outline</i>
 								</div>
 								<div class="col file-path-wrapper">
@@ -127,7 +127,7 @@
 								</div>
 							</div>
 							<div class="col s5 offset">
-								<input type="url" placeholder="Link">
+								<input type="url" placeholder="Link" name="link">
 							</div>
 							<div class="col s12 center-align">
 								<button class="green lighten-2 z-depth-1" type="submit"

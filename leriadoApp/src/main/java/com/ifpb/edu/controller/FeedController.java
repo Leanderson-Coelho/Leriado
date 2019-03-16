@@ -1,11 +1,16 @@
 package com.ifpb.edu.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.publicacao.impdb.CompartilhaDAOImpDB;
@@ -15,6 +20,11 @@ import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.FeedComentario;
 import com.ifpb.edu.model.domain.publicacao.FeedPublicacao;
 
+@MultipartConfig(
+		fileSizeThreshold = 1024*1024*10,
+		maxFileSize = 1024*1024*10,
+		maxRequestSize = 1024*1024*10*10
+		)
 public class FeedController implements Command {
 
 	public FeedController() {
@@ -28,9 +38,39 @@ public class FeedController implements Command {
 		case "feed":
 			feed(request, response);
 			break;
+		case "publicacao":
+			publicacao(request, response);
+			break;
 		default:
 
 		}
+	}
+
+	private void publicacao(HttpServletRequest request, HttpServletResponse response) {
+		String initPath = "/home/ian/Projetos_Programas/Java/"; //define local onde será armazenado
+		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
+		String titulo = request.getParameter("titulo");
+		String conteudo = request.getParameter("conteudo");
+		String link = request.getParameter("link");
+		
+		File file = new File(initPath+pathDocLeriado);
+		if(!file.exists()) {
+			file.mkdir();		
+		}
+		
+		Integer id = 0;
+		try {
+			for(Part part:request.getParts()) {
+				if(part.getContentType()!=null) {//se ele tiver um tipo então é porque ele é um arquivo :)
+					//escreve a imagem no HD    obs.: o split("/") é pra dividir o tipo do arquivo que vem desta forma image/png
+					part.write(initPath+pathDocLeriado+File.separator+(id++).toString()+"."+part.getContentType().split("/")[1]);
+				}
+			}
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	private void feed(HttpServletRequest request, HttpServletResponse response) throws CommandException {
