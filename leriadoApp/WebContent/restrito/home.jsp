@@ -7,19 +7,19 @@
 <head>
     <meta charset="UTF-8">
     <!-- JQUERY -->
-    <script src="../js/JQuery.js"></script>
+    <script src="js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
-    <script src="../js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
+    <script src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
     <!-- MASCARAS JQUERY CONFIG -->
-    <script src="../js/mascaras.js"></script>
+    <script src="js/mascaras.js"></script>
     <!-- MATERIALIZE CSS-->
-    <link rel="stylesheet" href="../css/materialize.css">
+    <link rel="stylesheet" href="css/materialize.css">
     <!-- MATERIALIZE JS -->
-    <script src="../js/materialize.js"></script>
+    <script src="js/materialize.js"></script>
     <!-- ICONS MATERIALIZA -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- CUSTOM -->
-    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="css/custom.css">
     <title>Document</title>
     <script>
         $(document).ready(function () {
@@ -30,7 +30,7 @@
 
 <body>
     <!-- MENU -->
-    <jsp:include page="headerOn.jsp" />
+    <jsp:include page="headerOnHome.jsp" />
     <!-- CONTEUDO -->
     <div class="row">
         <!-- PERFIL -->
@@ -41,14 +41,16 @@
                     <ul class="collection">
                         <!-- USUARIO -->
                         <li class="collection-item avatar">
-                            <img src="../userimg/b136693d02a2ce0468ab51be43f0e04f" class="circle">
+                            <img src="userimg/b136693d02a2ce0468ab51be43f0e04f" class="circle">
                             <p>${usuarioLogado.nome} ${usuarioLogado.sobrenome}</p>
                             <c:if test="${msg!=null}">
                                 <p class="red-text">${msg}</p>
                             </c:if>
                         </li>
                         <!-- GRUPOS -->
-                        <a class="collection-item modal-trigger" href="#modal1">Aprendendo Redis</a>
+                        <c:forEach var="grupo" items="${gruposParticipa }">
+                        	<a class="collection-item modal-trigger" href="#">${grupo}</a>
+                        </c:forEach>
                     </ul>
                     <!-- GERENCIA GRUPO -->
                     <div id="modal1" class="modal modal-fixed-footer">
@@ -109,7 +111,7 @@
             </div>
             <!-- ISLEIMAR FEED -->
             <div class="row">
-
+				
             </div>
         </div>
         <!-- AMIGOS -->
