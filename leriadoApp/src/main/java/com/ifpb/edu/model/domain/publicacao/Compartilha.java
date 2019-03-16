@@ -19,7 +19,7 @@ public class Compartilha {
 		this.usuario = usuario;
 		this.publicacao = publicacao;
 		this.grupo = grupo;
-	}
+	}	
 
 	public LocalDateTime getDataHora() {
 		return dataHora;

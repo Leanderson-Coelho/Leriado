@@ -120,19 +120,53 @@ INSERT INTO participagrupo(usuarioid,grupoid)
 INSERT INTO participagrupo(usuarioid,grupoid)
 	VALUES(2,2);
 INSERT INTO participagrupo(usuarioid,grupoid)
-	VALUES(2,3);
-INSERT INTO participagrupo(usuarioid,grupoid)
 	VALUES(3,1);
+INSERT INTO participagrupo(usuarioid,grupoid)
+	VALUES(3,3);
 
 /*POVOANDO TABELA COMPARTILHA*/
 INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
 	VALUES(1,1,1);
 INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
-	VALUES(2,5,1);
+	VALUES(1,1,3);
 INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
 	VALUES(1,6,1);
 INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,6,2);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,6,3);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,7,1);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,7,2);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,7,3);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,8,1);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,8,2);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(1,8,3);
+
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(2,4,1);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(2,4,2);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(2,1,2);
+
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(3,5,1);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(3,5,3);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(3,1,3);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
 	VALUES(3,7,1);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(3,7,2);
+INSERT INTO compartilha(usuarioid,publicacaoid,grupoid)
+	VALUES(3,7,3);
 
 
 /*POVOANDO TABELA FOTONOTICIA*/

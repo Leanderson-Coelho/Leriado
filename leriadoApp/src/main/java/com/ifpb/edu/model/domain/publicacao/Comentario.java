@@ -5,19 +5,19 @@ import java.time.LocalDateTime;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
 
-public class Comentario extends Texto{
-	
+public class Comentario extends Texto {
+
 	private Texto responde;
 
 	public Comentario() {
 		super();
 	}
 
-	public Comentario(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, Texto responde, int curtidas) {
-		super(id, ativo, conteudo, datahora, usuario,TipoTexto.COMENTARIO, curtidas);
+	public Comentario(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, Texto responde) {
+		super(id, ativo, conteudo, datahora, usuario, TipoTexto.COMENTARIO);
 		this.responde = responde;
 	}
-	
+
 	public Comentario(String conteudo, Usuario usuario, Texto responde) {
 		super(conteudo, usuario);
 		this.responde = responde;
@@ -37,5 +37,5 @@ public class Comentario extends Texto{
 				+ ", getConteudo()=" + getConteudo() + ", getDatahora()=" + getDatahora() + ", getUsuario()="
 				+ getUsuario() + "]";
 	}
-		
+
 }

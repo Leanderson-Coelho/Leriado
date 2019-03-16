@@ -1,27 +1,26 @@
 package com.ifpb.edu.model.domain.publicacao;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.Usuario;
 
-public class Publicacao extends Texto{
-	
-	private int relevancia = 1;	
+public class Publicacao extends Texto {
+
+	private int relevancia = 1;
 	private int compartilhamentos = 0;
 
-	public Publicacao() {		
+	public Publicacao() {
 	}
 
-	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas, int relevancia, int compartilhamentos) {
-		super(id, ativo, conteudo, datahora, usuario,TipoTexto.PUBLICACAO, curtidas);
+	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia,
+			int compartilhamentos) {
+		super(id, ativo, conteudo, datahora, usuario, TipoTexto.PUBLICACAO);
 		this.relevancia = relevancia;
-		this.compartilhamentos = compartilhamentos; 
+		this.compartilhamentos = compartilhamentos;
 	}
 
-	public Publicacao(String conteudo, Usuario usuario, int relevancia) {
+	public Publicacao(String conteudo, Usuario usuario, int relevancia, int compartilhamentos) {
 		super(conteudo, usuario);
 		this.relevancia = relevancia;
 	}
@@ -46,10 +45,7 @@ public class Publicacao extends Texto{
 	public String toString() {
 		return "Publicacao [relevancia=" + relevancia + ", compartilhamentos=" + compartilhamentos + ", getId()="
 				+ getId() + ", getAtivo()=" + getAtivo() + ", getConteudo()=" + getConteudo() + ", getDatahora()="
-				+ getDatahora() + ", getUsuario()=" + getUsuario() + ", getTipoTexto()=" + getTipoTexto()
-				+ ", getCurtidas()=" + getCurtidas() + ", getComentarios()=" + getComentarios() + ", toString()="
-				+ super.toString() + "]";
+				+ getDatahora() + ", getUsuario()=" + getUsuario() + ", getTipoTexto()=" + getTipoTexto() + "]";
 	}
 
-		
 }

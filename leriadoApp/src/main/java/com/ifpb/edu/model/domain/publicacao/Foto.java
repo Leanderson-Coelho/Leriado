@@ -4,21 +4,22 @@ import java.time.LocalDateTime;
 
 import com.ifpb.edu.model.domain.Usuario;
 
-public class Foto extends Publicacao{
-	
+public class Foto extends Publicacao {
+
 	private String arquivo;
 
 	public Foto() {
 		super();
 	}
 
-	public Foto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas, int relevancia, int compartilhamentos, String arquivo) {
-		super(id, ativo, conteudo, datahora, usuario, curtidas, relevancia, compartilhamentos);
+	public Foto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia,
+			int compartilhamentos, String arquivo) {
+		super(id, ativo, conteudo, datahora, usuario, relevancia, compartilhamentos);
 		this.arquivo = arquivo;
 	}
 
-	public Foto(String conteudo, Usuario usuario, int relevancia, String arquivo) {
-		super(conteudo, usuario, relevancia);
+	public Foto(String conteudo, Usuario usuario, int relevancia, int compartilhamentos, String arquivo) {
+		super(conteudo, usuario, relevancia, compartilhamentos);
 		this.arquivo = arquivo;
 	}
 
@@ -36,10 +37,5 @@ public class Foto extends Publicacao{
 				+ ", getId()=" + getId() + ", getAtivo()=" + getAtivo() + ", getConteudo()=" + getConteudo()
 				+ ", getDatahora()=" + getDatahora() + ", getUsuario()=" + getUsuario() + "]";
 	}
-	
-	
-	
-	
-	
 
 }

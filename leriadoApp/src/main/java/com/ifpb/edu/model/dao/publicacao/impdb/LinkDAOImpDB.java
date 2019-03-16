@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.taglibs.standard.lang.jstl.ELException;
-
 import com.ifpb.edu.model.dao.publicacao.LinkDAO;
 import com.ifpb.edu.model.dao.publicacao.TipoTexto;
 import com.ifpb.edu.model.domain.publicacao.Link;
@@ -38,7 +36,7 @@ public class LinkDAOImpDB implements LinkDAO {
 	@Override
 	public void exclui(Link link) throws DataAccessException {
 		try {
-			new TextoDAOImpDB().buscar(link);			
+			new TextoDAOImpDB().buscar(link);
 			if (link.getTipoTexto() != TipoTexto.LINK)
 				throw new Exception();
 			String query = "DELETE FROM texto " + "WHERE id = ? ";
@@ -67,8 +65,7 @@ public class LinkDAOImpDB implements LinkDAO {
 	@Override
 	public void buscar(int id, Link link) throws DataAccessException {
 		try {
-			String query = "SELECT * FROM link "
-					+ " WHERE publicacaoid = ? ";
+			String query = "SELECT * FROM link " + " WHERE publicacaoid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, id);
 			ResultSet rs = stm.executeQuery();
@@ -78,7 +75,7 @@ public class LinkDAOImpDB implements LinkDAO {
 				new PublicacaoDAOImpDB().buscar(link);
 			} else
 				throw new Exception();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao buscar link");
 		}
 	}
@@ -91,7 +88,7 @@ public class LinkDAOImpDB implements LinkDAO {
 			ResultSet rs = stm.executeQuery();
 			if (rs.next())
 				return rs.getInt(1);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DataAccessException("Falha ao buscar a quantidade de links");
 		}
@@ -110,9 +107,9 @@ public class LinkDAOImpDB implements LinkDAO {
 				link.setId(rs.getInt("publicacaoid"));
 				link.setLink(rs.getString("link"));
 				new PublicacaoDAOImpDB().buscar(link);
-				links.add(link);				
+				links.add(link);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao listar links");
 		}
 		return links;
@@ -122,9 +119,7 @@ public class LinkDAOImpDB implements LinkDAO {
 	public List<Link> lista(int inicio, int quant) throws DataAccessException {
 		List<Link> links = new ArrayList<>();
 		try {
-			String query = "SELECT * FROM link "					
-					+ " ORDER BY publicacaoid DESC "
-					+ " OFFSET ? LIMIT ? ";
+			String query = "SELECT * FROM link " + " ORDER BY publicacaoid DESC " + " OFFSET ? LIMIT ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, inicio);
 			stm.setInt(2, quant);
@@ -134,9 +129,9 @@ public class LinkDAOImpDB implements LinkDAO {
 				link.setId(rs.getInt("publicacaoid"));
 				link.setLink(rs.getString("link"));
 				new PublicacaoDAOImpDB().buscar(link);
-				links.add(link);				
+				links.add(link);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new DataAccessException("Falha ao listar links");
 		}
 		return links;
