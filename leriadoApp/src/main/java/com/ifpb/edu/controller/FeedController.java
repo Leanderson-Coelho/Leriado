@@ -109,7 +109,7 @@ public class FeedController implements Command {
 		}
 	}
 
-	private void comenta(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+	private void comenta(HttpServletRequest request, HttpServletResponse response) throws CommandException {		
 		Usuario usuario = null;
 		int textoId;
 		try {
@@ -117,16 +117,22 @@ public class FeedController implements Command {
 			if (usuario == null) {
 				response.sendRedirect("index.jsp");
 				return;
-			}
-			if (request.getParameter("comentario") != null) {
+			}		
+			
+			if (request.getParameter("comentario") == null) {
 				response.sendRedirect("index.jsp");
 				return;
 			}
-			if (request.getParameter("textoid") != null) {
+			
+			if (request.getParameter("textoid") == null) {
 				response.sendRedirect("index.jsp");
 				return;
 			}
-			textoId = Integer.parseInt(request.getParameter("textoid"), -1);
+			try {
+				textoId = Integer.parseInt(request.getParameter("textoid"));
+			} catch (NumberFormatException e) {
+				textoId = -1;
+			}			
 			if (textoId == -1) {
 				response.sendRedirect("index.jsp");
 				return;
@@ -134,11 +140,9 @@ public class FeedController implements Command {
 			Texto texto = new Texto();
 			texto.setId(textoId);
 			new ComentarioDAOImpDB().cria(new Comentario(request.getParameter("comentario"), usuario, texto));
-
-			System.out.println(request.getHeader("Referer"));
 			response.sendRedirect(request.getHeader("Referer"));
-		} catch (Exception e) {
-			throw new CommandException(500, "Falha ao montar o feed");
+		} catch (Exception e) {			
+			throw new CommandException(500, "Falha ao publicar comentário.");
 		}
 	}
 }

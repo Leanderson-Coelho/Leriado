@@ -1,12 +1,11 @@
-<%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
     <!-- JQUERY -->
     <script src="../js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
@@ -54,16 +53,16 @@
                     <!-- GERENCIA GRUPO -->
                     <div id="modal1" class="modal modal-fixed-footer">
                         <div class="modal-content ">
-                            <h4>GerÃªnciar Grupo</h4>
+                            <h4>Gerênciar Grupo</h4>
                             <div class="row">
                                 <div class="col s12">
-                                    <p class="green-text">Adicionar usuÃ¡rio:</p>
+                                    <p class="green-text">Adicionar usuário:</p>
                                     <form action="/leriadoApp/Leriado?command=GrupoController&acao=adicionarUsuario" method="post">
                                         <input hidden type="text" value="Aprendendo Redis" name="nomeGrupo" />
                                         <div class="col s6 input-field">
                                             <i class="material-icons prefix">account_circle</i>
                                             <input type="email" name="email" id="email" />
-                                            <label for="email">Email do novo usuÃ¡rio</label>
+                                            <label for="email">Email do novo usuário</label>
                                         </div>
                                         <div class="col s6 input-field">
                                             <button class="btn waves-effect waves-light z-depth-0" type="submit"
@@ -77,13 +76,13 @@
                             <div class="divider"></div>
                             <div class="row">
                                 <div class="col s12">
-                                    <p class="red-text">Remover usuÃ¡rio:</p>
+                                    <p class="red-text">Remover usuário:</p>
                                     <form>
                                         <input hidden type="text" value="Aprendendo Redis" name="nomeGrupo" />
                                         <div class="col s6 input-field">
                                             <i class="material-icons prefix">account_circle</i>
                                             <input type="email" name="emailRemover" id="emailRemover" />
-                                            <label for="emailRemover">Email do usuÃ¡rio</label>
+                                            <label for="emailRemover">Email do usuário</label>
                                         </div>
                                         <div class="col s6 input-field">
                                             <button class="btn waves-effect waves-light z-depth-0 red" type="submit"
@@ -104,18 +103,18 @@
         </div>
         <!-- FEED -->
         <div class="col s8 green lighten-5">
-            <!-- IAN FAZER PUBLICAÃ‡Ã‚O -->
+            <!-- IAN FAZER PUBLICAÇÂO -->
             <div class="grey lighten-5" style="padding-bottom: 1px;">
 				<div class="container">
 					<div class="row">
 						<form method="post" action="/leriadoApp/Leriado?command=FeedController&acao=publicacao" enctype="multipart/form-data">
 							<div class="col s12">
 								<input type="text" name="titulo"
-									placeholder="Digite um titulo para sua publicaÃ§Ã£o"
+									placeholder="Digite um titulo para sua publicação"
 			 						class="center-align">
 							</div>
 							<div class="input-field col s12">
-								<textarea class="materialize-textarea" placeholder="Sua publicaÃ§Ã£o aqui" name="conteudo"></textarea>
+								<textarea class="materialize-textarea" placeholder="Sua publicação aqui" name="conteudo"></textarea>
 							</div>
 							<div class="col 5s file-field input-field">
 								<div class="col btn-floating">
