@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName="SessaoFilter", urlPatterns= {"/index.jsp","/Leriado?command=UsuarioController&acao=login"})
+@WebFilter(filterName="SessaoFilter", urlPatterns= {"/index.jsp"})
 public class SessaoFiltro extends HttpFilter{
 	private static Logger log = Logger.getLogger("SessaoFilter");
 
