@@ -1,12 +1,11 @@
-<%@ page language="java" isELIgnored="false" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
     <!-- JQUERY -->
     <script src="js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
@@ -106,18 +105,18 @@
         </div>
         <!-- FEED -->
         <div class="col s8 green lighten-5">
-            <!-- IAN FAZER PUBLICAÃ‡Ã‚O -->
+            <!-- IAN FAZER PUBLICAÇÂO -->
             <div class="grey lighten-5" style="padding-bottom: 1px;">
 				<div class="container">
 					<div class="row">
 						<form method="post" action="/leriadoApp/Leriado?command=FeedController&acao=publicacao" enctype="multipart/form-data">
 							<div class="col s12">
 								<input type="text" name="titulo"
-									placeholder="Digite um titulo para sua publicaÃ§Ã£o"
+									placeholder="Digite um titulo para sua publicação"
 			 						class="center-align">
 							</div>
 							<div class="input-field col s12">
-								<textarea class="materialize-textarea" placeholder="Sua publicaÃ§Ã£o aqui" name="conteudo"></textarea>
+								<textarea class="materialize-textarea" placeholder="Sua publicação aqui" name="conteudo"></textarea>
 							</div>
 							<div class="col 5s file-field input-field">
 								<div class="col btn-floating">
