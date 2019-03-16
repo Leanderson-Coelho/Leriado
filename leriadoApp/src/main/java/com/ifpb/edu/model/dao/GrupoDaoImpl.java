@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.jdbc.ConnectionFactory;
@@ -94,7 +96,22 @@ public class GrupoDaoImpl implements GrupoDao{
 		}
 		return -1;
 	}
-	
-	
 
+	@Override
+	public List<Grupo> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException {
+		List<Grupo> gruposUsuarioParticipa = new ArrayList<>();
+		try {
+			String query = "SELECT grupoid FROM participagrupo "
+					+ "WHERE usuarioid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, idUsuario);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				gruposUsuarioParticipa.add(busca(rs.getInt(1)));
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Fala ao buscar grupo");
+		}
+		return gruposUsuarioParticipa;
+	}
 }
