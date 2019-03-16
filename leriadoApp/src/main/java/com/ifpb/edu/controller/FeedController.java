@@ -1,12 +1,7 @@
 package com.ifpb.edu.controller;
 
-<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
-=======
-import java.io.IOException;
-import java.io.PrintWriter;
->>>>>>> bPublicacao
 import java.util.ArrayList;
 import java.util.List;
 
