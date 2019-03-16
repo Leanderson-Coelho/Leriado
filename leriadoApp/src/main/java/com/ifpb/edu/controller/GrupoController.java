@@ -2,8 +2,12 @@ package com.ifpb.edu.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,14 +19,36 @@ import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
-public class GrupoController implements Command{
+
+@WebServlet("/GrupoController")
+public class GrupoController extends HttpServlet implements Command{
 	
 	private UsuarioDao usuarioDao;
 	private GrupoDao grupoDao;
+	private Logger log = Logger.getLogger("GrupoController");
 	
 	public GrupoController() {
 		usuarioDao = new UsuarioDaoImpl();
 		grupoDao = new GrupoDaoImpl();
+	}
+	
+	public void doPost(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.getRequestDispatcher("/montarGruposParticipa").include(request, response);
+		} catch (ServletException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
+		} catch (IOException | ServletException e) {
+			// erro 404
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -31,6 +57,9 @@ public class GrupoController implements Command{
 		switch(acao) {
 			case "home":
 				home(request,response);
+				break;
+			case "gerarGrupos":
+				gerarGrupos(request, response);
 				break;
 			case "adicionarUsuario":
 				adicionarUsuario(request,response);
@@ -74,15 +103,12 @@ public class GrupoController implements Command{
 	}
 
 	private void home(HttpServletRequest request, HttpServletResponse response) {
-		//TODO
 		
 		
-		try {
-			response.sendRedirect("restrito/home.jsp");
-		} catch (IOException e) {
-			// erro 404
-			e.printStackTrace();
-		}
+	}
+
+	private void gerarGrupos(HttpServletRequest request, HttpServletResponse response) {
+		
 		
 	}
 
