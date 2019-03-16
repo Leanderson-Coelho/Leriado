@@ -13,22 +13,17 @@ public class Texto {
 	private LocalDateTime datahora = LocalDateTime.now();
 	private Usuario usuario;
 	private TipoTexto tipoTexto;
-	private int curtidas = 0;
-	private int quantComentarios = 0;
 
 	public Texto() {
 	}
 
-	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto,
-			int curtidas, int quantComentarios) {
+	public Texto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, TipoTexto tipoTexto) {
 		this.id = id;
 		this.ativo = ativo;
 		this.conteudo = conteudo;
 		this.datahora = datahora;
 		this.usuario = usuario;
-		this.tipoTexto = tipoTexto;
-		this.curtidas = curtidas;
-		this.quantComentarios = quantComentarios;
+		this.tipoTexto = tipoTexto;		
 	}
 
 	public Texto(String conteudo, Usuario usuario) {
@@ -85,27 +80,11 @@ public class Texto {
 		this.tipoTexto = tipoTexto;
 	}
 
-	public int getCurtidas() {
-		return curtidas;
-	}
-
-	public void setCurtidas(int curtidas) {
-		this.curtidas = curtidas;
-	}
-
-	public int getQuantComentarios() {
-		return quantComentarios;
-	}
-
-	public void setQuantComentarios(int quantComentarios) {
-		this.quantComentarios = quantComentarios;
-	}
-
 	@Override
 	public String toString() {
 		return "Texto [id=" + id + ", ativo=" + ativo + ", conteudo=" + conteudo + ", datahora=" + datahora
-				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + ", curtidas=" + curtidas + ", quantComentarios="
-				+ quantComentarios + "]";
+				+ ", usuario=" + usuario + ", tipoTexto=" + tipoTexto + "]";
 	}
 
+	
 }

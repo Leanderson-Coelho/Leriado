@@ -13,14 +13,14 @@ public class Publicacao extends Texto {
 	public Publicacao() {
 	}
 
-	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas,
-			int quantComentarios, int relevancia, int compartilhamentos) {
-		super(id, ativo, conteudo, datahora, usuario, TipoTexto.PUBLICACAO, curtidas, quantComentarios);
+	public Publicacao(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia,
+			int compartilhamentos) {
+		super(id, ativo, conteudo, datahora, usuario, TipoTexto.PUBLICACAO);
 		this.relevancia = relevancia;
 		this.compartilhamentos = compartilhamentos;
 	}
 
-	public Publicacao(String conteudo, Usuario usuario, int relevancia) {
+	public Publicacao(String conteudo, Usuario usuario, int relevancia, int compartilhamentos) {
 		super(conteudo, usuario);
 		this.relevancia = relevancia;
 	}
@@ -45,8 +45,7 @@ public class Publicacao extends Texto {
 	public String toString() {
 		return "Publicacao [relevancia=" + relevancia + ", compartilhamentos=" + compartilhamentos + ", getId()="
 				+ getId() + ", getAtivo()=" + getAtivo() + ", getConteudo()=" + getConteudo() + ", getDatahora()="
-				+ getDatahora() + ", getUsuario()=" + getUsuario() + ", getTipoTexto()=" + getTipoTexto()
-				+ ", getCurtidas()=" + getCurtidas() + ", getQuantComentarios()=" + getQuantComentarios() + "]";
+				+ getDatahora() + ", getUsuario()=" + getUsuario() + ", getTipoTexto()=" + getTipoTexto() + "]";
 	}
 
 }

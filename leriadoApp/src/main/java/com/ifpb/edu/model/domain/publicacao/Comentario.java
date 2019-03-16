@@ -13,9 +13,8 @@ public class Comentario extends Texto {
 		super();
 	}
 
-	public Comentario(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, Texto responde,
-			int curtidas, int quantComentarios) {
-		super(id, ativo, conteudo, datahora, usuario, TipoTexto.COMENTARIO, curtidas, quantComentarios);
+	public Comentario(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, Texto responde) {
+		super(id, ativo, conteudo, datahora, usuario, TipoTexto.COMENTARIO);
 		this.responde = responde;
 	}
 

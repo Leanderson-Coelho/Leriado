@@ -12,14 +12,13 @@ public class Link extends Publicacao {
 		super();
 	}
 
-	public Link(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int curtidas,
-			int quantComentarios, int relevancia, int compartilhamentos, String link) {
-		super(id, ativo, conteudo, datahora, usuario, curtidas, quantComentarios, relevancia, compartilhamentos);
+	public Link(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia, int compartilhamentos, String link) {
+		super(id, ativo, conteudo, datahora, usuario, relevancia, compartilhamentos);
 		this.link = link;
 	}
 
-	public Link(String conteudo, Usuario usuario, int relevancia, String link) {
-		super(conteudo, usuario, relevancia);
+	public Link(String conteudo, Usuario usuario, int relevancia , int compartilhamentos, String link) {
+		super(conteudo, usuario, relevancia, compartilhamentos);
 		this.link = link;
 	}
 

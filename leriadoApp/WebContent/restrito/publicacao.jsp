@@ -1,9 +1,4 @@
-<%@page import="com.ifpb.edu.model.domain.publicacao.Texto"%>
-<%@page
-	import="org.apache.taglibs.standard.tag.common.core.ForEachSupport"%>
-<%@page import="com.ifpb.edu.model.domain.publicacao.Compartilha"%>
-<%@page import="java.util.List"%>
-<%@page import="com.ifpb.edu.model.domain.publicacao.Noticia"%>
+<%@page	import="org.apache.taglibs.standard.tag.common.core.ForEachSupport"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -11,19 +6,17 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<title>Leriado</title>
+<title><%=request.getServletContext().getInitParameter("tituloAplicacao")%></title>
 <style type="text/css">
 body {
 	background-color: #CCC;
 }
-
 .divPublicacao {
 	background-color: #fff;
 	width: 800px;
 	margin: 2px;
 	padding: 1px 30px 50px 30px;
 }
-
 .data {
 	color: #AAA;
 }
@@ -32,63 +25,61 @@ body {
 <body>
 	<h1><%=request.getServletContext().getInitParameter("tituloAplicacao")%></h1>
 	<h2>Página de ${sessionScope.usuarioLogado.nome}</h2>
-	<button>
-		<a href="Leriado?command=UsuarioController&acao=logout">Logout</a>
-	</button>
-	<c:forEach var="compartilha" items="${feed}">
-		<div class="divPublicacao">
+	<a href="Leriado?command=UsuarioController&acao=logout"><button>Logout</button></a>	
+	<c:forEach var="feed" items="${feedPublicacao}">
+		<div class="divPublicacao">			
 			<h3>
-				<b>${compartilha.usuario.nome}</b>
-				<c:if
-					test="${compartilha.usuario.id != compartilha.publicacao.usuario.id}">
-					<small>compartilhou a publicação de</small> ${compartilha.publicacao.usuario.nome}
-	</c:if>
+				<b>${feed.compartilha.usuario.nome}</b>
+				<c:if test="${!feed.seuConteudo}">
+					<small>compartilhou a publicação de</small> ${feed.compartilha.publicacao.usuario.nome}
+				</c:if> 
 			</h3>
 			<p>
 				<small class="data"> <fmt:parseDate
-						value="${compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm"
+						value="${feed.compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm"
 						var="parsedDateTime" type="both" /> <fmt:formatDate
 						pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
-				</small> <small> >> <a href="#">${compartilha.grupo.nome}</a></small>
+				</small> <small> >> <a href="#">${feed.compartilha.grupo.nome}</a></small>
 			</p>
-			<c:if test="${compartilha.publicacao.tipoTexto eq 'NOTICIA'}">
+			<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'NOTICIA'}">
 				<!-- NOTÍCIA -->
 				<h3>
-					<c:out value="${compartilha.publicacao.titulo}" />
+					<c:out value="${feed.compartilha.publicacao.titulo}" />
 				</h3>
-				<p>${compartilha.publicacao.conteudo}</p>
-				<c:forEach var="foto" items="${compartilha.publicacao.fotos}">
+				<p>${feed.compartilha.publicacao.conteudo}</p>
+				<c:forEach var="foto" items="${feed.compartilha.publicacao.fotos}">
 					<img alt="${foto.conteudo}"
 						src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${foto.arquivo}">
 				</c:forEach>
 
 			</c:if>
-			<c:if test="${compartilha.publicacao.tipoTexto eq 'PUBLICACAO'}">
+			<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'PUBLICACAO'}">
 				<!-- PUBLICACAO -->
-				<p>${compartilha.publicacao.conteudo}</p>
+				<p>${feed.compartilha.publicacao.conteudo}</p>
 			</c:if>
-			<c:if test="${compartilha.publicacao.tipoTexto eq 'FOTO'}">
+			<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'FOTO'}">
 				<!-- FOTO -->
-				<img alt="${compartilha.publicacao.conteudo}"
-					src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${compartilha.publicacao.arquivo}">
-				<p>${compartilha.publicacao.conteudo}</p>
+				<img alt="${feed.compartilha.publicacao.conteudo}"
+					src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${feed.compartilha.publicacao.arquivo}">
+				<p>${feed.compartilha.publicacao.conteudo}</p>
 			</c:if>
-			<c:if test="${compartilha.publicacao.tipoTexto eq 'LINK'}">
+			<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'LINK'}">
 				<!-- LINK -->
-				<p>${compartilha.publicacao.conteudo}</p>
-			</c:if>
-			<small>
+				<p>${feed.compartilha.publicacao.conteudo}</p>
+			</c:if>			
 				<p>
-					<c:if test="${compartilha.publicacao.curtidas > 0}">	
-		${compartilha.publicacao.curtidas} curtidas
-	</c:if>
-					<c:if test="${compartilha.publicacao.compartilhamentos > 0}">	
-		${compartilha.publicacao.compartilhamentos} compartilhamentos
-	</c:if>
-				</p>
-			</small>
+				<small>
+					<c:if test="${feed.quantCurtidas > 0}">${feed.quantCurtidas} curtidas	</c:if>
+					<c:if test="${feed.quantCompartilhamentos > 0}">${feed.quantCompartilhamentos} compartilhamentos</c:if>
+				</small>
+				</p>			
 			<p>
-				<button type="button">Curtir</button>
+				<c:if test="${!feed.curtido}">
+					<button type="button">Curtir</button>
+				</c:if>
+				<c:if test="${feed.curtido}">
+					<button type="button">Descurtir</button>
+				</c:if>
 				<button type="button">Compartilhar</button>
 			</p>
 			<form>
@@ -96,13 +87,18 @@ body {
 				<button type="button">comentar</button>
 			</form>
 			<ul>
-				<c:forEach var="comentario"
-					items="${compartilha.publicacao.comentarios}">
-					<li><b>${comentario.usuario.nome}</b> ${comentario.conteudo} <c:if
-							test="${comentario.curtidas>0}">
-		 - ${comentario.curtidas} curtidas. 
+				<c:forEach var="feedComentario"	items="${feed.feedComentarios}">
+					<li><b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo} <c:if
+							test="${feedComentario.quantCurtidas>0}">
+		 - ${feedComentario.quantCurtidas} curtidas. 
 		 </c:if> <br>
-					<button type="button">Curtir</button></li>
+					<c:if test="${!feedComentario.curtido}">
+					<button type="button">Curtir</button>
+				</c:if>
+				<c:if test="${feedComentario.curtido}">
+					<button type="button">Descurtir</button>
+				</c:if>
+					</li>
 				</c:forEach>
 			</ul>
 
