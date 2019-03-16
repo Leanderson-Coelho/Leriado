@@ -1,5 +1,6 @@
 package com.ifpb.edu.controller;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.ifpb.edu.controller.exception.CommandException;
 
 @WebServlet("/Leriado")
+@MultipartConfig(
+		fileSizeThreshold = 1024*1024*10,
+		maxFileSize = 1024*1024*10,
+		maxRequestSize = 1024*1024*10*10
+		)
 public class FrontController extends HttpServlet{
 	
 	private void execute(HttpServletRequest request,HttpServletResponse response) {
