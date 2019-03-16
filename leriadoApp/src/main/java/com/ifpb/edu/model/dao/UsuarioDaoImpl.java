@@ -36,6 +36,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		statement.setString(12, usuario.getNumero());
 		statement.setString(13, usuario.getCep());
 		ResultSet rs = statement.executeQuery();
+		rs.next();
 		usuario.setId(rs.getInt(1));
 	}
 
