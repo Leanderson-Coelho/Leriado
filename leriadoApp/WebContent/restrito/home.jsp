@@ -109,8 +109,8 @@
 
             </div>
             <!-- ISLEIMAR FEED -->
-            <div class="row">
-
+            <div class="row grey lighten-3">
+				<c:import url="/Leriado?command=FeedController&acao=feed"/>
             </div>
         </div>
         <!-- AMIGOS -->

@@ -37,7 +37,8 @@ public class FeedController implements Command {
 		Usuario usuario = null;
 		FeedPublicacaoDAOImpDB feedPublicacaoDAO = null;
 		List<FeedPublicacao> feedPublicacao = null; 
-		int numPagina = 0;
+		int numPagina = 1;
+		int qtdPag = 1;
 		int numPublPag = 5;
 		int qtdPub;
 		try {						
@@ -47,18 +48,21 @@ public class FeedController implements Command {
 				return;
 			}			
 			if (request.getParameter("pag")!=null) 
-				numPagina = Integer.parseInt(request.getParameter("pag"));
+				numPagina = Integer.parseInt(request.getParameter("pag"));			
 			if (request.getServletContext().getInitParameter("numPublicacoesPagina")!=null)
 				numPublPag = Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
 			feedPublicacaoDAO = new FeedPublicacaoDAOImpDB(usuario);
 			qtdPub = feedPublicacaoDAO.quantFeed();
-			qtdPub = (int)Math.ceil((double)qtdPub / (double)numPublPag);
-			feedPublicacao = feedPublicacaoDAO.listaFeed(numPagina * numPublPag, numPublPag);
+			qtdPag = (int)Math.ceil((double)qtdPub / (double)numPublPag); 
+			numPagina = (numPagina<1)?1:numPagina;
+			numPagina = (numPagina>qtdPag)?qtdPag:numPagina;			
+			feedPublicacao = feedPublicacaoDAO.listaFeed((numPagina-1) * numPublPag, numPublPag);
 			feedPublicacaoDAO.carregarComentarios(feedPublicacao);
 			request.setAttribute("pag", numPagina);
-			request.setAttribute("feedPublicacao", feedPublicacao);
+			request.setAttribute("qtdPag", qtdPag);
 			request.setAttribute("feedQtd", qtdPub);
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/restrito/publicacao.jsp");
+			request.setAttribute("feedPublicacao", feedPublicacao);			
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/restrito/feed.jsp");
 			dispatcher.include(request, response);			
 		}catch (Exception e) {
 			e.printStackTrace();

@@ -15,7 +15,7 @@
   </context-param>
   <context-param>
   	<param-name>pastaImagensUsuario</param-name>
-  	<param-value>userimg</param-value>
+  	<param-value>/leriadoApp/userimg</param-value>
   </context-param>
   <context-param>
   	<param-name>numPublicacoesPagina</param-name>
