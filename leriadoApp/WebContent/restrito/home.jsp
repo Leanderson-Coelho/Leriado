@@ -43,7 +43,9 @@
                         <li class="collection-item avatar">
                             <img src="../userimg/b136693d02a2ce0468ab51be43f0e04f" class="circle">
                             <p>${usuarioLogado.nome} ${usuarioLogado.sobrenome}</p>
-                            
+                            <c:if test="${msg!=null}">
+                                <p class="red-text">${msg}</p>
+                            </c:if>
                         </li>
                         <!-- GRUPOS -->
                         <a class="collection-item modal-trigger" href="#modal1">Aprendendo Redis</a>
@@ -101,9 +103,14 @@
         </div>
         <!-- FEED -->
         <div class="col s8 blue lighten-1">
-            <c:if test="${1==1}">
-                <p>1 é == 1</p>
-            </c:if>	
+            <!-- IAN FAZER PUBLICAÇÂO -->
+            <div class="row">
+
+            </div>
+            <!-- ISLEIMAR FEED -->
+            <div class="row">
+
+            </div>
         </div>
         <!-- AMIGOS -->
         <div class="col s2 green lighten-1">
