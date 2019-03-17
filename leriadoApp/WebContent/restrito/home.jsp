@@ -30,7 +30,7 @@
 
 <body>
     <!-- MENU -->
-    <jsp:include page="headerOnHome.jsp" />
+    <jsp:include page="headerOn.jsp" />
     <!-- CONTEUDO -->
     <div class="row">
         <!-- PERFIL -->
