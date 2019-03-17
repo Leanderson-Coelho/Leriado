@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -15,16 +16,22 @@ import javax.servlet.http.HttpServletResponse;
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.UsuarioDao;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
+import com.ifpb.edu.model.dao.publicacao.FotoDAO;
+import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
+import com.ifpb.edu.model.domain.publicacao.Foto;
+import com.ifpb.edu.model.jdbc.DataAccessException;
 import com.ifpb.edu.validadores.Validator;
 
 public class UsuarioController implements Command{
 	private UsuarioDao usuarioDao;
+	private FotoDAO fotoDao;
 	
 	private static Logger log = Logger.getLogger("UsuarioController");
 	
 	public UsuarioController() {
 		usuarioDao = new UsuarioDaoImpl();
+		fotoDao = new FotoDAOImpDB();
 	}
 	
 	@Override
@@ -64,12 +71,14 @@ public class UsuarioController implements Command{
 			if(usuarioDao.login(login, senha)) {
 				usuario.setSenha("");
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
-				request.getRequestDispatcher("/GrupoController").forward(request, response);
+				Optional<Foto> fotoPerfil = fotoDao.buscarFotoPerfil(usuario);
+				request.getSession(true).setAttribute("fotoPerfil",fotoPerfil);
+				response.sendRedirect("restrito/home.jsp");
 			}else {
 				request.setAttribute("erro", "Senha ou login inválido");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-		} catch (SQLException | IOException | ServletException e) {
+		} catch (SQLException | IOException | ServletException | DataAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -7,19 +7,19 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
     <!-- JQUERY -->
-    <script src="js/JQuery.js"></script>
+    <script src="../js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
-    <script src="js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
+    <script src="../js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
     <!-- MASCARAS JQUERY CONFIG -->
-    <script src="js/mascaras.js"></script>
+    <script src="../js/mascaras.js"></script>
     <!-- MATERIALIZE CSS-->
-    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="../css/materialize.css">
     <!-- MATERIALIZE JS -->
-    <script src="js/materialize.js"></script>
+    <script src="../js/materialize.js"></script>
     <!-- ICONS MATERIALIZA -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- CUSTOM -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/custom.css">
     <title><%=request.getServletContext().getInitParameter("tituloAplicacao")%></title>
     <script>
         $(document).ready(function () {
@@ -41,82 +41,32 @@
                     <ul class="collection">
                         <!-- USUARIO -->
                         <li class="collection-item avatar">
-                            <img src="userimg/b136693d02a2ce0468ab51be43f0e04f" class="circle">
+                            <img src="" class="circle">
                             <p>${usuarioLogado.nome} ${usuarioLogado.sobrenome}</p>
                             <c:if test="${msg!=null}">
                                 <p class="red-text">${msg}</p>
                             </c:if>
                         </li>
-                        <!-- GRUPOS -->
-                        <c:forEach var="grupo" items="${gruposParticipa }">
-                        	<a class="collection-item modal-trigger" href="#">${grupo}</a>
-                        </c:forEach>
+                        <c:import url="/Leriado?command=GrupoController&acao=grupos"/>           
                     </ul>
-                    <!-- GERENCIA GRUPO -->
-                    <div id="modal1" class="modal modal-fixed-footer">
-                        <div class="modal-content ">
-                            <h4>GerÃªnciar Grupo</h4>
-                            <div class="row">
-                                <div class="col s12">
-                                    <p class="green-text">Adicionar usuÃ¡rio:</p>
-                                    <form action="/leriadoApp/Leriado?command=GrupoController&acao=adicionarUsuario" method="post">
-                                        <input hidden type="text" value="Aprendendo Redis" name="nomeGrupo" />
-                                        <div class="col s6 input-field">
-                                            <i class="material-icons prefix">account_circle</i>
-                                            <input type="email" name="email" id="email" />
-                                            <label for="email">Email do novo usuÃ¡rio</label>
-                                        </div>
-                                        <div class="col s6 input-field">
-                                            <button class="btn waves-effect waves-light z-depth-0" type="submit"
-                                                name="action">Adicionar
-                                                <i class="material-icons right">send</i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="divider"></div>
-                            <div class="row">
-                                <div class="col s12">
-                                    <p class="red-text">Remover usuÃ¡rio:</p>
-                                    <form>
-                                        <input hidden type="text" value="Aprendendo Redis" name="nomeGrupo" />
-                                        <div class="col s6 input-field">
-                                            <i class="material-icons prefix">account_circle</i>
-                                            <input type="email" name="emailRemover" id="emailRemover" />
-                                            <label for="emailRemover">Email do usuÃ¡rio</label>
-                                        </div>
-                                        <div class="col s6 input-field">
-                                            <button class="btn waves-effect waves-light z-depth-0 red" type="submit"
-                                                name="action">Remover
-                                                <i class="material-icons right">send</i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
         <!-- FEED -->
         <div class="col s8 green lighten-5">
-            <!-- IAN FAZER PUBLICAÇÂO -->
+            <!-- IAN FAZER PUBLICAï¿½ï¿½O -->
             <div class="grey lighten-5" style="padding-bottom: 1px;">
 				<div class="container">
 					<div class="row">
 						<form method="post" action="/leriadoApp/Leriado?command=FeedController&acao=publicacao" enctype="multipart/form-data">
 							<div class="col s12">
 								<input type="text" name="titulo"
-									placeholder="Digite um titulo para sua publicação"
+									placeholder="Digite um titulo para sua publicaï¿½ï¿½o"
 			 						class="center-align">
 							</div>
 							<div class="input-field col s12">
-								<textarea class="materialize-textarea" placeholder="Sua publicação aqui" name="conteudo"></textarea>
+								<textarea class="materialize-textarea" placeholder="Sua publicaï¿½ï¿½o aqui" name="conteudo"></textarea>
 							</div>
 							<div class="col 5s file-field input-field">
 								<div class="col btn-floating">

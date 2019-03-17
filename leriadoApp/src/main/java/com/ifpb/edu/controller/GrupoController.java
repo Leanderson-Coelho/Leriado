@@ -32,7 +32,7 @@ public class GrupoController extends HttpServlet implements Command{
 		grupoDao = new GrupoDaoImpl();
 	}
 	
-	public void doPost(HttpServletRequest request,HttpServletResponse response) {
+	public void doGet(HttpServletRequest request,HttpServletResponse response) {
 		try {
 			request.getRequestDispatcher("/montarGruposParticipa").include(request, response);
 		} catch (ServletException e1) {
@@ -44,19 +44,40 @@ public class GrupoController extends HttpServlet implements Command{
 		}
 		
 		try {
-			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
-		} catch (IOException | ServletException e) {
+//			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
+			response.sendRedirect("restrito/home.jsp");
+		} catch (IOException  e) {
 			// erro 404
 			e.printStackTrace();
 		}
 	}
+	
+//	public void doPost(HttpServletRequest request,HttpServletResponse response) {
+//		try {
+//			request.getRequestDispatcher("/montarGruposParticipa").include(request, response);
+//		} catch (ServletException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		try {
+////			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
+//			response.sendRedirect("restrito/home.jsp");
+//		} catch (IOException  e) {
+//			// erro 404
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		String acao = request.getParameter("acao");
 		switch(acao) {
-			case "home":
-				home(request,response);
+			case "grupos":
+				grupos(request,response);
 				break;
 			case "gerarGrupos":
 				gerarGrupos(request, response);
@@ -102,9 +123,17 @@ public class GrupoController extends HttpServlet implements Command{
 		}
 	}
 
-	private void home(HttpServletRequest request, HttpServletResponse response) {
-		
-		
+	private void grupos(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
+			List<String> grupos = grupoDao.buscarGruposUsuarioParticipa(usuarioLogado.getId());
+			log.info("--> Grupos: "+grupos);
+			request.setAttribute("gruposParticipa", grupos);
+			request.getServletContext().getRequestDispatcher("/restrito/grupos.jsp").include(request, response);
+		} catch (DataAccessException | ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void gerarGrupos(HttpServletRequest request, HttpServletResponse response) {
