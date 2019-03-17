@@ -2,6 +2,7 @@ package com.ifpb.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,12 +15,16 @@ import javax.servlet.http.Part;
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.publicacao.impdb.ComentarioDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.FeedPublicacaoDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.LinkDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.NoticiaDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.PublicacaoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Comentario;
 import com.ifpb.edu.model.domain.publicacao.FeedPublicacao;
+import com.ifpb.edu.model.domain.publicacao.Foto;
 import com.ifpb.edu.model.domain.publicacao.Link;
+import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.domain.publicacao.Publicacao;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 import com.ifpb.edu.model.domain.publicacao.Texto;
@@ -58,56 +63,82 @@ public class FeedController implements Command {
 		}
 	}
 
-	private void foto(HttpServletRequest request, HttpServletResponse response) {
+	private void foto(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		String initPath = "/home/ian/Projetos_Programas/Java/"; //define local onde será armazenado
 		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
 		String conteudo = request.getParameter("conteudo");
+		
+		if(conteudo==null) {
+			String msgErro = "Erro no envio!!";
+			request.setAttribute("msgErro", msgErro);
+			feed(request, response);
+			return;
+		}
+		
 		File file = new File(initPath+pathDocLeriado);
 		if(!file.exists()) {
 			file.mkdir();		
 		}
 		
-		Integer id = 0;
+		FotoDAOImpDB dao = new FotoDAOImpDB();
+		Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		String nomeFoto = "";
+		
 		try {
 			for(Part part:request.getParts()) {
 				if(part.getContentType()!=null) {//se ele tiver um tipo então é porque ele é um arquivo :)
+					nomeFoto= dao.nomeFoto();
 					//escreve a imagem no HD    obs.: o split("/") é pra dividir o tipo do arquivo que vem desta forma image/png
-					part.write(initPath+pathDocLeriado+File.separator+(id++).toString()+"."+part.getContentType().split("/")[1]);
+					part.write(initPath+pathDocLeriado+File.separator+nomeFoto+"."+part.getContentType().split("/")[1]);
+					dao.cria(new Foto(conteudo, usuarioLogado, 1, nomeFoto));
 				}
 			}
-		} catch (IOException | ServletException e) {
+		} catch (IOException | ServletException | DataAccessException e) {
 			e.printStackTrace();
 		}
-		
+		feed(request, response);
 	}
 
-	private void noticia(HttpServletRequest request, HttpServletResponse response) {
+	private void noticia(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		
 		String initPath = "/home/ian/Projetos_Programas/Java/"; //define local onde será armazenado
 		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
 		String titulo = request.getParameter("titulo");
 		String conteudo = request.getParameter("conteudo");
-		String link = request.getParameter("link");
-
+		if(titulo.isEmpty() || titulo==null || conteudo.isEmpty() || conteudo==null) {
+			String msgErro = "Preencha os campos obrigatórios!";
+			request.setAttribute("msgErro", msgErro);
+			feed(request, response);
+			return;
+		}
+		
+		
 		File file = new File(initPath + pathDocLeriado);
 		if (!file.exists()) {
 			file.mkdir();
 		}
-
-		Integer id = 0;
+		NoticiaDAOImpDB dao = new NoticiaDAOImpDB();
+		FotoDAOImpDB fotoDao = new FotoDAOImpDB();
+		List<Foto> fotos = new ArrayList<>();
+		Usuario usuarioLogado = (Usuario)request.getSession().getAttribute("usuarioLogado");
+		
+		String fotoNome = "";
 		try {
 			for (Part part : request.getParts()) {
 				if (part.getContentType() != null) {// se ele tiver um tipo então é porque ele é um arquivo :)
+					fotoNome = fotoDao.nomeFoto();
 					// escreve a imagem no HD obs.: o split("/") é pra dividir o tipo do arquivo que
 					// vem desta forma image/png
-					part.write(initPath + pathDocLeriado + File.separator + (id++).toString() + "."
+					part.write(initPath + pathDocLeriado + File.separator + fotoDao.nomeFoto() + "."
 							+ part.getContentType().split("/")[1]);
+					fotos.add(new Foto("", usuarioLogado, 1, fotoNome)); 
 				}
 			}
-		} catch (IOException | ServletException e) {
+			dao.cria(new Noticia(titulo, conteudo, usuarioLogado, 1, fotos));
+		} catch (IOException | ServletException | DataAccessException e) {
 			e.printStackTrace();
 		}
-
+		feed(request, response);
 	}
 
 	private void link(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -137,7 +168,6 @@ public class FeedController implements Command {
 	private void mensagem(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		
 		String conteudo = request.getParameter("conteudo");
-		System.out.println(conteudo+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		if(conteudo.isEmpty() || conteudo==null) {
 			String msgErro = "Informe algo!";
 			request.setAttribute("msgErro", msgErro);

@@ -140,7 +140,7 @@
 												<div class="file-field input-field">
 													<div class="btn green">
 														<i class="material-icons">add</i> <input type="file"
-															name="files" multiple>
+															name="files">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text"
