@@ -46,7 +46,9 @@
 						<li class="collection-item avatar"><img
 							src="../userimg/${fotoPerfil.arquivo}" class="circle">
 							<p>${usuarioLogado.nome} ${usuarioLogado.sobrenome}</p>
+							Grupos:
 						</li>
+						
 						<div class="divider"></div>
 						<c:import url="/Leriado?command=GrupoController&acao=grupos" />
 						<div class="row collection-item"></div>
