@@ -71,5 +71,5 @@
 	</ul>
 </c:if>
 <c:if test="${gruposUsuarioAdministra eq null }">
-	<h6>Você não possui grupos</h6>
+	<h6>Você não é administrador de nenhum grupo.</h6>
 </c:if>

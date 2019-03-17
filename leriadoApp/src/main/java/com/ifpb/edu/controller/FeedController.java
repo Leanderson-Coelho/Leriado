@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.ifpb.edu.controller.exception.CommandException;
+import com.ifpb.edu.model.dao.GrupoDao;
+import com.ifpb.edu.model.dao.GrupoDaoImpl;
+import com.ifpb.edu.model.dao.publicacao.FeedPublicacaoDAO;
 import com.ifpb.edu.model.dao.publicacao.impdb.ComentarioDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.CurteDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.FeedPublicacaoDAOImpDB;
@@ -22,6 +26,7 @@ import com.ifpb.edu.model.dao.publicacao.impdb.LinkDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.NoticiaDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.PublicacaoDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.TextoDAOImpDB;
+import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Comentario;
 import com.ifpb.edu.model.domain.publicacao.Curte;
@@ -69,8 +74,37 @@ public class FeedController implements Command {
 		case "compartilhaGrupo":
 			compartilhaGrupo(request,response);
 			break;
+		case "publicacoesDoGrupo":
+			publicacoesDoGrupo(request,response);
+			
 		default:
 		
+		}
+	}
+
+	private void publicacoesDoGrupo(HttpServletRequest request, HttpServletResponse response) {
+		Logger log = Logger.getLogger("FeedContoller");
+		try {
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+			FeedPublicacaoDAO feedPublicacaoDao = new FeedPublicacaoDAOImpDB(usuario);
+			GrupoDao grupoDao = new GrupoDaoImpl();
+			Grupo grupo;
+			grupo = grupoDao.busca(grupoDao.buscaIdPorNome((String) request.getParameter("NomeGrupo")));
+			log.info("--> Grupo: "+grupo.toString());
+			int numPagina = 1;
+			int qtdPag = 1;
+			int numPublPag = 5;
+			int qtdPub;
+			qtdPub = feedPublicacaoDao.quantFeed();
+			qtdPag = (int) Math.ceil((double) qtdPub / (double) numPublPag);
+			numPagina = (numPagina > qtdPag) ? qtdPag : numPagina;
+			numPagina = (numPagina < 1) ? 1 : numPagina;
+			List<FeedPublicacao> publicacoesGrupo = feedPublicacaoDao.listaGrupo(grupo, (numPagina - 1) * numPublPag, numPublPag);
+			log.info("-->Feed: "+publicacoesGrupo.toString());
+			request.getServletContext().getRequestDispatcher("/restrito/feed.jsp").include(request, response);
+		} catch (DataAccessException | ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

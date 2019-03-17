@@ -161,7 +161,7 @@ public class UsuarioController implements Command{
 			e.printStackTrace();
 		}
 		try {
-			response.sendRedirect("restrito/logado.jsp");
+			response.sendRedirect("restrito/home.jsp");
 		} catch (IOException e) {
 			// erro 401
 			e.printStackTrace();
@@ -259,7 +259,7 @@ public class UsuarioController implements Command{
 		try {
 			usuarioDao.criar(usuario);
 			request.getSession().setAttribute("usuarioLogado", usuarioDao.buscarPorEmail(usuario.getEmail()));
-			request.getRequestDispatcher("restrito/logado.jsp").forward(request, response);
+			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
 			return;
 		} catch (SQLException | IOException | ServletException e) {
 			e.printStackTrace();
