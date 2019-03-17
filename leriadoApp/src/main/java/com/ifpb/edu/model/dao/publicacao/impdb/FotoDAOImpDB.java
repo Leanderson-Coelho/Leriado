@@ -164,7 +164,7 @@ public class FotoDAOImpDB implements FotoDAO {
 	}
 
 	@Override
-	public Optional<Foto> buscarFotoPerfil(Usuario usuario) throws DataAccessException {
+	public Foto buscarFotoPerfil(Usuario usuario) throws DataAccessException {
 		Foto foto = null;
 		try {
 			String query = "SELECT fotoid FROM fotoperfil " + " WHERE usuarioid = ? " + " ORDER BY datahora DESC"
@@ -178,7 +178,7 @@ public class FotoDAOImpDB implements FotoDAO {
 		} catch (Exception e) {
 			throw new DataAccessException("Falha ao recuperar foto perfil");
 		}
-		return Optional.of(foto);
+		return foto;
 	}
 
 	@Override
