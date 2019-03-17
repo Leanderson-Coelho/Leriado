@@ -74,7 +74,7 @@
 							<div class="container">
 								<div class="row">
 									<form method="post"
-										action="/leriadoApp/Leriado?command=FeedController&acao=mensagem"
+										action="/leriadoApp/Leriado?command=PublicacaoController&acao=mensagem"
 										enctype="multipart/form-data">
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
@@ -102,7 +102,7 @@
 							<div class="container">
 								<div class="row">
 									<form method="post"
-										action="/leriadoApp/Leriado?command=FeedController&acao=link"
+										action="/leriadoApp/Leriado?command=PublicacaoController&acao=link"
 										enctype="multipart/form-data">
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
@@ -133,7 +133,7 @@
 							<div class="container">
 								<div class="row">
 									<form method="post"
-										action="/leriadoApp/Leriado?command=FeedController&acao=foto"
+										action="/leriadoApp/Leriado?command=PublicacaoController&acao=foto"
 										enctype="multipart/form-data">
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
@@ -175,7 +175,7 @@
 							<div class="container">
 								<div class="row">
 									<form method="post"
-										action="/leriadoApp/Leriado?command=FeedController&acao=noticia"
+										action="/leriadoApp/Leriado?command=PublicacaoController&acao=noticia"
 										enctype="multipart/form-data">
 										<div class="col s12">
 											<input type="text" name="titulo"
