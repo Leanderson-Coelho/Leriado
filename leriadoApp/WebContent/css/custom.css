@@ -6,6 +6,17 @@ p {
 	margin-bottom: 25px;
 }
 
+.compartilhaPublicacao{
+	width: 600px;
+	height: 400px;
+	background: #000;
+	position: fixed;
+	top:0px;
+	opacity: 10%;
+	margin: 50%;
+	
+}
+
 label{
     color: #000;
 }

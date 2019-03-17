@@ -2,6 +2,7 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:forEach var="feed" items="${feedPublicacao}">	
  	<div class="divider"></div>
 	<div class="section white">			
@@ -65,10 +66,9 @@
 			</div>
 			<div class="col">
 				<!-- COMPARTILHA -->
-				<c:url value="./feed/compartilha.jsp" var = "campoCompartilha">
-					<c:param name="textoId" value="${feed.compartilha.publicacao.id}"/>					
-				</c:url>
-				<c:import url = "${campoCompartilha}"/>
+				<button data-target="modalCompartilha" 
+				class="btn modal-trigger" 
+				onclick="compartilharGrupo(${feed.compartilha.publicacao.id})">Compartilhar</button>			
 			</div>
 		</div>
 		<div class = "row">		
@@ -114,9 +114,40 @@
 		</div>
 	</div>
 </c:forEach>
+
+<!-- TELA PARA COMPARTILAR -->
+<div class="row">
+	<div class="row">
+		<!-- Modal Structure -->
+		<div id="modalCompartilha" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<form id="formCompartilha"
+					action="/leriadoApp/Leriado?command=FeedController&acao=compartilha"
+					method="POST">
+					<h4>Compartilhar em grupos</h4>
+					<p>Selecione os grupos que deseja compartilhar a publicação.</p>
+					<input hidden name="usuarioid" type="text" value="${usuarioId}" readonly>
+					<input hidden id="compartilhaTextoid" name="textoid" type="text" value="">
+					<c:forEach var="nomeGrupo"	items="${gruposParticipa}">
+						<p><label> <input type="checkbox" name="grupo" value="${nomeGrupo}" /> <span>${nomeGrupo}</span></label></p>
+					</c:forEach>					
+					<button class="btn waves-effect waves-light" type="submit"
+						name="action">
+						Compartilhar <i class="material-icons right">send</i>
+					</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- PAGINAÇÃO -->
 <div class="row white">
 <ul class="pagination">
-
 	<c:if test="${pag==1}">
 		<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
 	</c:if>
@@ -136,4 +167,10 @@
 	</c:if>
 </ul>
 </div>
+
+<script>
+function compartilharGrupo(e) {	  
+	document.getElementById("compartilhaTextoid").value = e;
+}
+</script>
 
