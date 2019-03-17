@@ -4,7 +4,7 @@
 	<input hidden name="textoid" type="text" value="${param.textoId}" readonly>		
 	<input hidden name="textocurtido" type="text" value="${param.textoCurtido}" readonly>
 	<div class="row">
-		<div class = "col s5">
+		<div class = "col">
 		<button class="waves-effect waves-light btn
 		<c:if test="${!param.textoCurtido}">grey</c:if>
 		<c:if test="${param.textoCurtido}">red</c:if>		 
