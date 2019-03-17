@@ -120,9 +120,9 @@ public class FeedController implements Command {
 				numPublPag = Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
 			feedPublicacaoDAO = new FeedPublicacaoDAOImpDB(usuario);
 			qtdPub = feedPublicacaoDAO.quantFeed();
-			qtdPag = (int) Math.ceil((double) qtdPub / (double) numPublPag);
-			numPagina = (numPagina < 1) ? 1 : numPagina;
+			qtdPag = (int) Math.ceil((double) qtdPub / (double) numPublPag);			
 			numPagina = (numPagina > qtdPag) ? qtdPag : numPagina;
+			numPagina = (numPagina < 1) ? 1 : numPagina;
 			feedPublicacao = feedPublicacaoDAO.listaFeed((numPagina - 1) * numPublPag, numPublPag);
 			feedPublicacaoDAO.carregarComentarios(feedPublicacao);
 			request.setAttribute("gruposParticipa",new GrupoDaoImpl().buscarGruposUsuarioParticipa(usuario.getId()));
@@ -134,6 +134,7 @@ public class FeedController implements Command {
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/restrito/feed.jsp");
 			dispatcher.include(request, response);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new CommandException(500, "Falha ao montar o feed");
 		}
 	}

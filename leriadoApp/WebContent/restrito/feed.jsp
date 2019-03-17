@@ -2,7 +2,12 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- FEED -->
 
+<c:if test="${feedQtd==0}">
+	<div class = "row center-align"><h4>Você não tem publicações para visualizar</h4></div>
+</c:if>
+<c:if test="${feedQtd>0}">
 <c:forEach var="feed" items="${feedPublicacao}">	
  	<div class="divider"></div>
 	<div class="section white">			
@@ -167,6 +172,8 @@
 	</c:if>
 </ul>
 </div>
+
+</c:if>
 
 <script>
 function compartilharGrupo(e) {	  
