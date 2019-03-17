@@ -2,6 +2,10 @@ p {
     font-weight: 300;
 }
 
+.listaComentario li{
+	margin-bottom: 25px;
+}
+
 label{
     color: #000;
 }

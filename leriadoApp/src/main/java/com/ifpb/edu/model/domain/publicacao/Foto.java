@@ -13,13 +13,13 @@ public class Foto extends Publicacao {
 	}
 
 	public Foto(int id, Boolean ativo, String conteudo, LocalDateTime datahora, Usuario usuario, int relevancia,
-			int compartilhamentos, String arquivo) {
-		super(id, ativo, conteudo, datahora, usuario, relevancia, compartilhamentos);
+			String arquivo) {
+		super(id, ativo, conteudo, datahora, usuario, relevancia);
 		this.arquivo = arquivo;
 	}
 
-	public Foto(String conteudo, Usuario usuario, int relevancia, int compartilhamentos, String arquivo) {
-		super(conteudo, usuario, relevancia, compartilhamentos);
+	public Foto(String conteudo, Usuario usuario, int relevancia, String arquivo) {
+		super(conteudo, usuario, relevancia);
 		this.arquivo = arquivo;
 	}
 

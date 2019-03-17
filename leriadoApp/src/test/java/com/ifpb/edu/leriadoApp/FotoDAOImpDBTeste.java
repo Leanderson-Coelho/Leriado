@@ -144,5 +144,15 @@ public class FotoDAOImpDBTeste {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void nomeFotoTest() {
+		System.out.println("Aqui!!!!");
+		try {
+			System.out.println(fotoDAO.nomeFoto());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

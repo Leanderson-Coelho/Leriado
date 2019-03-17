@@ -14,9 +14,14 @@ import javax.servlet.http.Part;
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.publicacao.impdb.ComentarioDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.FeedPublicacaoDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.LinkDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.PublicacaoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Comentario;
 import com.ifpb.edu.model.domain.publicacao.FeedPublicacao;
+import com.ifpb.edu.model.domain.publicacao.Link;
+import com.ifpb.edu.model.domain.publicacao.Publicacao;
+import com.ifpb.edu.model.jdbc.DataAccessException;
 import com.ifpb.edu.model.domain.publicacao.Texto;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10
@@ -34,8 +39,17 @@ public class FeedController implements Command {
 		case "feed":
 			feed(request, response);
 			break;
-		case "publicacao":
-			publicacao(request, response);
+		case "mensagem":
+			mensagem(request, response);
+			break;
+		case "link":
+			link(request, response);
+			break;
+		case "noticia":
+			noticia(request, response);
+			break;
+		case "foto":
+			foto(request, response);
 			break;
 		case "comenta":
 			comenta(request, response);
@@ -44,8 +58,32 @@ public class FeedController implements Command {
 		}
 	}
 
-	private void publicacao(HttpServletRequest request, HttpServletResponse response) {
-		String initPath = "/home/ian/Projetos_Programas/Java/"; // define local onde será armazenado
+	private void foto(HttpServletRequest request, HttpServletResponse response) {
+		String initPath = "/home/ian/Projetos_Programas/Java/"; //define local onde será armazenado
+		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
+		String conteudo = request.getParameter("conteudo");
+		File file = new File(initPath+pathDocLeriado);
+		if(!file.exists()) {
+			file.mkdir();		
+		}
+		
+		Integer id = 0;
+		try {
+			for(Part part:request.getParts()) {
+				if(part.getContentType()!=null) {//se ele tiver um tipo então é porque ele é um arquivo :)
+					//escreve a imagem no HD    obs.: o split("/") é pra dividir o tipo do arquivo que vem desta forma image/png
+					part.write(initPath+pathDocLeriado+File.separator+(id++).toString()+"."+part.getContentType().split("/")[1]);
+				}
+			}
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void noticia(HttpServletRequest request, HttpServletResponse response) {
+		
+		String initPath = "/home/ian/Projetos_Programas/Java/"; //define local onde será armazenado
 		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
 		String titulo = request.getParameter("titulo");
 		String conteudo = request.getParameter("conteudo");
@@ -70,6 +108,49 @@ public class FeedController implements Command {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void link(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		
+		String conteudo = request.getParameter("conteudo");
+		String link = request.getParameter("link");
+		
+		if(link.isEmpty() || link==null) {
+			String msgErro = "Informe um link!";
+			request.setAttribute("msgErro", msgErro);
+			feed(request, response);
+			return;
+		}
+		
+		Link l = new Link(conteudo, (Usuario)request.getSession().getAttribute("usuarioLogado"), 1, link);
+		LinkDAOImpDB dao = new LinkDAOImpDB();
+		try {
+			dao.cria(l);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		
+		feed(request, response);
+		
+	}
+
+	private void mensagem(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		
+		String conteudo = request.getParameter("conteudo");
+		if(conteudo.isEmpty() || conteudo==null) {
+			String msgErro = "Informe algo!";
+			request.setAttribute("msgErro", msgErro);
+			feed(request, response);
+			return;
+		}
+		PublicacaoDAOImpDB dao = new PublicacaoDAOImpDB();
+		Publicacao p = new Publicacao(conteudo, (Usuario)request.getSession().getAttribute("usuarioLogado"), 1);
+		try {
+			dao.cria(p);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		feed(request, response);
 	}
 
 	private void feed(HttpServletRequest request, HttpServletResponse response) throws CommandException {
