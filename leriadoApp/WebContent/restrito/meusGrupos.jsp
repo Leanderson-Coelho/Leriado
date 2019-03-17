@@ -1,11 +1,11 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
     <!-- JQUERY -->
     <script src="../js/JQuery.js"></script>
     <!-- MASCARAS JQUERY PLUGIN -->
@@ -48,12 +48,14 @@
                             </c:if>
                         </li>
                         <c:import url="/Leriado?command=GrupoController&acao=grupos" />
+                        <div class="row collection-item"></div>
                     </ul>
 
                 </div>
             </div>
         </div>
         <div class="col s12 l8 blue">
+        	<h3>Seus grupos</h3>
             <c:import url="/Leriado?command=GrupoController&acao=gerenciarGrupos" />
         </div>
         <!-- AMIGOS -->
