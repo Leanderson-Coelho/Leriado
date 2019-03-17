@@ -35,7 +35,7 @@
                         <div class="col s6 input-field">
                             <i class="material-icons prefix">account_circle</i>
                             <input type="email" name="emailRemover" id="emailRemover" />
-                            <label for="emailRemover">Email do usu√°rio</label>
+                            <label for="emailRemover">Email do usu·rio</label>
                         </div>
                         <div class="col s6 input-field">
                             <button class="btn waves-effect waves-light z-depth-0 red" type="submit"
