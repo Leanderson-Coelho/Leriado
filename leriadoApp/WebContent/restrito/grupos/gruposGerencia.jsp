@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:if test="${gruposUsuarioAdministra != null}">
+<c:if test="${gruposUsuarioAdministra ne null }">
 	<ul class="collapsible">
 		<c:forEach var="grupo" items="${gruposUsuarioAdministra }">
 			<li>
@@ -70,6 +70,6 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<c:if test="${gruposUsuarioAdministra == null}">
-	<h3>Você não possui grupos</h3>
+<c:if test="${gruposUsuarioAdministra eq null }">
+	<h6>Você não possui grupos</h6>
 </c:if>

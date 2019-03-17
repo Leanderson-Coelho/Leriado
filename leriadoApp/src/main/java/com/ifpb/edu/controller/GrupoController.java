@@ -52,6 +52,8 @@ public class GrupoController implements Command{
 		try {
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
 			List<Grupo> gruposUsuarioAdministra = grupoDao.admsGrupo(usuario.getId());
+			if(gruposUsuarioAdministra.isEmpty())
+				gruposUsuarioAdministra = null;
 			request.setAttribute("gruposUsuarioAdministra", gruposUsuarioAdministra);
 			request.getServletContext().getRequestDispatcher("/restrito/grupos/gruposGerencia.jsp").include(request, response);
 		} catch (DataAccessException | ServletException | IOException e) {
