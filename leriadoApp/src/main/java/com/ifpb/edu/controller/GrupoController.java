@@ -62,7 +62,15 @@ public class GrupoController implements Command{
 	}
 
 	private void removerUsuario(HttpServletRequest request, HttpServletResponse response) {
-		
+		int idGrupo = Integer.parseInt(request.getParameter("idGrupo"));
+		try {
+			Usuario usuario = usuarioDao.buscarPorEmail(request.getParameter("emailRemover"));
+			grupoDao.removerUsuario(idGrupo,usuario.getId());
+			response.sendRedirect("restrito/meusGrupos.jsp");
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -90,7 +98,7 @@ public class GrupoController implements Command{
 				}
 				
 				request.setAttribute("msg", new String("Usuário adicionado"));
-				response.sendRedirect("restrito/home.jsp");
+				response.sendRedirect("restrito/meusGrupos.jsp");
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
