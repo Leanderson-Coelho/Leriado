@@ -1,11 +1,36 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:if test="${gruposUsuarioAdministra != null}">
 	<ul class="collapsible">
 		<c:forEach var="grupo" items="${gruposUsuarioAdministra }">
 			<li>
 				<div class="collapsible-header">${grupo.nome}</div>
 				<div class="collapsible-body white">
+					<div class="row" >
+						<div class="col s12 l6">
+							<b>NOME: ${grupo.nome}</b>
+						</div>
+						<div class="col s12 l6">
+							<b>DATA E HORA DE CRIAÇÃO: <fmt:parseDate
+					value="${grupo.dataHora}" pattern="yyyy-MM-dd'T'HH:mm"
+					var="parsedDateTime" type="both" /> <fmt:formatDate
+					pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" /></b>
+						</div>
+					</div>
+					<div class="row" >
+						<div class="col s12 l6">
+							<b>DESCRIÇÃO: ${grupo.descricao}</b>
+						</div>
+						<div class="col s12 l6">
+							<c:if test="${grupo.foto == null}">
+								<b>SEM FOTO: </b><i class="material-icons">group</i>
+							</c:if>
+							<c:if test="${grupo.foto != null}">
+								<b>FOTO: </b><img src="../../userimg/${grupo.foto}"/>
+							</c:if>
+						</div>
+					</div>
 					<div class="row">
 						<p>Adicionar usuário</p>
 						<form action="/leriadoApp/Leriado?command=GrupoController&acao=adicionarUsuario" method="post">
