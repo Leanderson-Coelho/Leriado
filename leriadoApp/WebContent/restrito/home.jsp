@@ -141,8 +141,10 @@
 				</div>
 			</div>
             <!-- ISLEIMAR FEED -->
-            <div class="row grey lighten-3">
-				<c:import url="/Leriado?command=FeedController&acao=feed"/>
+            <div class="row white">
+            	<div class="col s12 ">
+					<c:import url="/Leriado?command=FeedController&acao=feed"/>
+            	</div>
             </div>
         </div>
         <!-- AMIGOS -->

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:forEach var="feed" items="${feedPublicacao}">	
  	<div class="divider"></div>
-	<div class="section grey lighten-3">			
+	<div class="section white">			
 		<h4>
 			<b>${feed.compartilha.usuario.nome}</b>
 			<c:if test="${!feed.seuConteudo}">
@@ -69,21 +69,31 @@
 			<c:param name="action" value="${feed.compartilha.publicacao.id}"/>
 		</c:url>
 		<c:import url = "${campoComenta}"/>
-		<ul>
-			<c:forEach var="feedComentario"	items="${feed.feedComentarios}">
-				<li><b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo} <c:if
+		<!-- COMENTÁRIOS -->
+		<div class = "row">
+			<div class = "col s1"></div>
+			<div class = "col s10">
+			<ul class = "listaComentario">
+				<c:forEach var="feedComentario"	items="${feed.feedComentarios}">
+				
+					<li>	
+						<b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo} <c:if
 						test="${feedComentario.quantCurtidas>0}">
-	 - ${feedComentario.quantCurtidas} curtidas. 
-	 </c:if> <br>
-				<c:if test="${!feedComentario.curtido}">
-				<button type="button">Curtir</button>
-			</c:if>
-			<c:if test="${feedComentario.curtido}">
-				<button type="button">Descurtir</button>
-			</c:if>
-				</li>
-			</c:forEach>
-		</ul>
+						- ${feedComentario.quantCurtidas} curtidas. 
+						</c:if> <br>
+						<c:if test="${!feedComentario.curtido}">
+						<button type="button">Curtir</button>
+						</c:if>
+						<c:if test="${feedComentario.curtido}">
+						<button type="button">Descurtir</button>
+						</c:if>
+						<div class="divider"></div>
+					</li>
+				</c:forEach>
+			</ul>
+			</div>
+			<div class = "col s1"></div>
+		</div>
 	</div>
 </c:forEach>
 <div class="row white">

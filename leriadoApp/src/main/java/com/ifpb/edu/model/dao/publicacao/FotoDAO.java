@@ -9,7 +9,7 @@ import com.ifpb.edu.model.domain.publicacao.Noticia;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
 public interface FotoDAO {
-	
+	String nomeFoto() throws DataAccessException;
 	void cria(Foto foto) throws DataAccessException;
 	void exclui(Foto foto) throws DataAccessException;
 	Foto buscar(int id) throws DataAccessException;

@@ -24,7 +24,6 @@ public class PublicacaoDAOImpDB implements PublicacaoDAO {
 	private void lerTabela(Publicacao publicacao, ResultSet rs) throws DataAccessException, SQLException {
 		new TextoDAOImpDB().buscar(rs.getInt("textoid"), publicacao);
 		publicacao.setRelevancia(rs.getInt("relevancia"));
-		publicacao.setCompartilhamentos(new CompartilhaDAOImpDB().quant(publicacao));
 	}
 
 	@Override
