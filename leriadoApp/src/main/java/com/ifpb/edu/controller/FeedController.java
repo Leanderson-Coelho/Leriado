@@ -130,14 +130,18 @@ public class FeedController implements Command {
 
 	private void feed(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		Usuario usuario = null;
+		Grupo grupo = null;
 		FeedPublicacaoDAOImpDB feedPublicacaoDAO = null;
+		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
 		List<FeedPublicacao> feedPublicacao = null;
 		int numPagina = 1;
 		int qtdPag = 1;
 		int numPublPag = 5;
 		int qtdPub;
-		try {
+		try {			
 			usuario = (Usuario) request.getSession(true).getAttribute("usuarioLogado");
+			if(request.getParameter("grp") != null)				
+				grupo = grupoDAO.busca(grupoDAO.buscaIdPorNome(request.getParameter("grp")));
 			if (usuario == null) {
 				response.sendRedirect("index.jsp");
 				return;
@@ -147,12 +151,24 @@ public class FeedController implements Command {
 			if (request.getServletContext().getInitParameter("numPublicacoesPagina") != null)
 				numPublPag = Integer.parseInt(request.getServletContext().getInitParameter("numPublicacoesPagina"));
 			feedPublicacaoDAO = new FeedPublicacaoDAOImpDB(usuario);
-			qtdPub = feedPublicacaoDAO.quantFeed();
+			if(grupo != null) {
+				feedPublicacao = feedPublicacaoDAO.listaGrupo(grupo,(numPagina - 1) * numPublPag, numPublPag);
+				qtdPub = feedPublicacaoDAO.quantFeed(grupo);
+			} else {
+				feedPublicacao = feedPublicacaoDAO.listaFeed((numPagina - 1) * numPublPag, numPublPag);
+				qtdPub = feedPublicacaoDAO.quantFeed();
+			}
+			
 			qtdPag = (int) Math.ceil((double) qtdPub / (double) numPublPag);			
 			numPagina = (numPagina > qtdPag) ? qtdPag : numPagina;
 			numPagina = (numPagina < 1) ? 1 : numPagina;
-			feedPublicacao = feedPublicacaoDAO.listaFeed((numPagina - 1) * numPublPag, numPublPag);
+			
 			feedPublicacaoDAO.carregarComentarios(feedPublicacao);
+			if(grupo!=null)
+				request.setAttribute("grp", "&grp="+grupo.getNome());
+			else
+				request.setAttribute("grp", "");
+				
 			request.setAttribute("gruposParticipa",new GrupoDaoImpl().buscarGruposUsuarioParticipa(usuario.getId()));
 			request.setAttribute("usuarioId", usuario.getId());
 			request.setAttribute("pag", numPagina);

@@ -22,7 +22,7 @@
 					value="${feed.compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm"
 					var="parsedDateTime" type="both" /> <fmt:formatDate
 					pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
-			</small> <small> >> <a href="#">${feed.compartilha.grupo.nome}</a></small>
+			</small> <small> >> <a href="home.jsp?grp=${feed.compartilha.grupo.nome}">${feed.compartilha.grupo.nome}</a></small>
 		</p>
 		<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'NOTICIA'}">
 			<!-- NOTÍCIA -->
@@ -149,7 +149,6 @@
 	</div>
 </div>
 
-
 <!-- PAGINAÇÃO -->
 <div class="row white">
 <ul class="pagination">
@@ -157,15 +156,15 @@
 		<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
 	</c:if>
 	<c:if test="${pag>1}">
-		<li class="waves-effect"><a href="home.jsp?pag=${pag-1}"><i class="material-icons">chevron_left</i></a></li>
+		<li class="waves-effect"><a href="home.jsp?pag=${pag-1}${grp}"><i class="material-icons">chevron_left</i></a></li>
 	</c:if>
 	
 	<c:forEach var="i" begin="1" end="${qtdPag}">
 		<c:if test="${pag==i}"><li class="active"><a>${i}</a></li></c:if>
-		<c:if test="${pag!=i}"><li class="waves-effect"><a href="home.jsp?pag=${i}">${i}</a></li></c:if>		
+		<c:if test="${pag!=i}"><li class="waves-effect"><a href="home.jsp?pag=${i}${grp}">${i}</a></li></c:if>		
 	</c:forEach>
 	<c:if test="${pag<qtdPag}">
-		<li class="waves-effect"><a href="home.jsp?pag=${pag+1}"><i class="material-icons">chevron_right</i></a></li>
+		<li class="waves-effect"><a href="home.jsp?pag=${pag+1}${grp}"><i class="material-icons">chevron_right</i></a></li>
 	</c:if>
 	<c:if test="${pag>=qtdPag}">
 		<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
