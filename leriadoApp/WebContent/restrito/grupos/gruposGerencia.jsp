@@ -25,12 +25,12 @@
 					</div>
 					<div class="row">
 						<p class="red-text">Remover usuário:</p>
-						<form>
-							<input hidden type="text" value="${grupo}" name="nomeGrupo" />
+						<form action="/leriadoApp/Leriado?command=GrupoController&acao=removerUsuario" method="post">
+							<input hidden type="text" value="${grupo.id}" name="idGrupo" />
 							<div class="col s8 l6 input-field">
 								<i class="material-icons prefix">account_circle</i> <input
 									type="email" name="emailRemover" id="emailRemover" /> <label
-									for="emailRemover">Email do usu�rio</label>
+									for="emailRemover">Email do usuário</label>
 							</div>
 							<div class="col s4 l6 input-field">
 								<button class="btn waves-effect waves-light z-depth-0 red"
