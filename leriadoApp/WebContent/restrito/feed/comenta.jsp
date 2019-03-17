@@ -8,7 +8,7 @@
 			<label for="textarea1">Comentar</label>
 		</div>
 		<div class="col s2">
-			<button class="waves-effect waves-teal btn-flat" type="submit" name="action">Comentar</button>
+			<button class="waves-effect waves-light btn red lighten-1" type="submit" name="action">Comentar</button>
 		</div>
 		<div class="col s1"></div>
 	</div>

@@ -24,28 +24,40 @@ public class CurteDAOImpDB implements CurteDAO{
 
 	@Override
 	public void cria(Curte curte) throws DataAccessException{
+		cria(curte.getTexto().getId(), curte.getUsuario().getId());
+	}
+		
+	@Override
+	public void cria(int textoId, int usuarioId) throws DataAccessException {
 		try {
 			String query = "INSERT INTO curte (textoid,usuarioid) "
 					+ "VALUES(?,?)";
 			PreparedStatement stm =  connection.prepareStatement(query);
-			stm.setInt(1,curte.getTexto().getId());
-			stm.setInt(2,curte.getUsuario().getId());			
+			stm.setInt(1,textoId);
+			stm.setInt(2,usuarioId);			
 			stm.executeUpdate();
-			}catch (Exception e) {
-				throw new DataAccessException("Falha ao criar curtida");
-			}		
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao criar curtida");
+		}
+		
 	}
-	
+
 	@Override
 	public void exclui(Curte curte) throws DataAccessException{
+		exclui(curte.getTexto().getId(), curte.getUsuario().getId());		
+	}
+	
+
+	@Override
+	public void exclui(int textoId, int usuarioId) throws DataAccessException {
 		try {
 			String query = "DELETE FROM curte "
 					+ "WHERE (textoid=?) AND (usuarioid=?) ";
 			PreparedStatement stm = connection.prepareStatement(query);
-			stm.setInt(1,curte.getTexto().getId());
-			stm.setInt(2, curte.getUsuario().getId());
+			stm.setInt(1,textoId);
+			stm.setInt(2, usuarioId);
 			stm.executeUpdate();			
-		}catch (Exception e) {
+		}catch (Exception e) {			
 			throw new DataAccessException("Falha ao excluir curtida");
 		}		
 	}

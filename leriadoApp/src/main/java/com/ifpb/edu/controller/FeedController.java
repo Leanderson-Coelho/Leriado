@@ -2,6 +2,7 @@ package com.ifpb.edu.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,16 @@ import javax.servlet.http.Part;
 
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.publicacao.impdb.ComentarioDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.CurteDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.FeedPublicacaoDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.LinkDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.NoticiaDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.PublicacaoDAOImpDB;
+import com.ifpb.edu.model.dao.publicacao.impdb.TextoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.domain.publicacao.Comentario;
+import com.ifpb.edu.model.domain.publicacao.Curte;
 import com.ifpb.edu.model.domain.publicacao.FeedPublicacao;
 import com.ifpb.edu.model.domain.publicacao.Foto;
 import com.ifpb.edu.model.domain.publicacao.Link;
@@ -59,8 +63,41 @@ public class FeedController implements Command {
 		case "comenta":
 			comenta(request, response);
 			break;
+		case "curte":
+			curte(request, response);
+			break;
 		default:
 		}
+	}
+
+	private void curte(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		Usuario usuario = null;
+		int textoId;
+		boolean curtido;
+		try {			
+			usuario = (Usuario) request.getSession(true).getAttribute("usuarioLogado");
+			if((usuario==null)||
+			   (request.getParameter("textoid")==null)||
+			   (request.getParameter("textocurtido")==null)){
+				response.sendRedirect("index.jsp");
+				return;				
+			}			
+			curtido = request.getParameter("textocurtido").equals("true");
+			textoId = Integer.parseInt(request.getParameter("textoid"));
+			
+			CurteDAOImpDB curteDAOImpDB = new CurteDAOImpDB();
+			if(!curtido) {
+				curteDAOImpDB.cria(textoId, usuario.getId());
+			} else {				
+				curteDAOImpDB.exclui(textoId,usuario.getId());				
+			}
+			
+			response.sendRedirect(request.getHeader("Referer"));					
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CommandException(500, "Falha ao curtir publicação.");
+		}
+		
 	}
 
 	private void foto(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -218,8 +255,7 @@ public class FeedController implements Command {
 			request.setAttribute("feedPublicacao", feedPublicacao);
 			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/restrito/feed.jsp");
 			dispatcher.include(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {			
 			throw new CommandException(500, "Falha ao montar o feed");
 		}
 	}
