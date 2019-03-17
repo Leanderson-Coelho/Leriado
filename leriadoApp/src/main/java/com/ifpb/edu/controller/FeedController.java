@@ -44,8 +44,7 @@ public class FeedController implements Command {
 			compartilha(request, response);
 			break;
 		case "publicacoesDoGrupo":
-			publicacoesDoGrupo(request,response);
-			
+			publicacoesDoGrupo(request,response);			
 		default:
 
 		}

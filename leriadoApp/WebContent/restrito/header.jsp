@@ -4,7 +4,7 @@
 		<div class="container">
 			<div class="nav-wrapper">
 				<a href="#" class="brand-logo "><img class="logo"
-					src="img/logo.png" /></a>
+					src="img/logobranco.png" /></a>
 				<ul class="right hide-on-med-and-down">
 					<form method="post"
 						action="Leriado?command=UsuarioController&acao=login">

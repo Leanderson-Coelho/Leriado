@@ -46,8 +46,16 @@ public class PublicacaoController implements Command {
 		case "foto":
 			foto(request, response);
 			break;
+		case "publica":
+			publica(request,response);
+			break;
 		default:
 		}
+	}
+
+	private void publica(HttpServletRequest request, HttpServletResponse response) {
+		//
+		
 	}
 
 	private void foto(HttpServletRequest request, HttpServletResponse response) throws CommandException {

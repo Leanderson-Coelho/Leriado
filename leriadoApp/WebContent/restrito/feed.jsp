@@ -9,8 +9,8 @@
 </c:if>
 <c:if test="${feedQtd>0}">
 <c:forEach var="feed" items="${feedPublicacao}">	
- 	<div class="divider"></div>
-	<div class="section white">			
+ 	<div class="divider"></div>			
+	<div class="row">	
 		<h5>
 			<b>${feed.compartilha.usuario.nome}</b>
 			<c:if test="${!feed.seuConteudo}">
@@ -60,6 +60,7 @@
 				<c:if test="${feed.quantCompartilhamentos > 0}">${feed.quantCompartilhamentos} compartilhamentos</c:if>
 			</small>
 			</p>
+		</div>
 		<div class="row">
 			<div class="col">
 				<!-- CURTIR -->
@@ -117,7 +118,6 @@
 			</div>
 			<div class = "col s1"></div>
 		</div>
-	</div>
 </c:forEach>
 
 <!-- TELA PARA COMPARTILAR -->
