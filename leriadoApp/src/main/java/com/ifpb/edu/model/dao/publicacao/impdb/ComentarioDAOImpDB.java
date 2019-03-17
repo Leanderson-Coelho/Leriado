@@ -85,7 +85,11 @@ public class ComentarioDAOImpDB implements ComentarioDAO {
 		try {
 			int it = texto.getId();
 			texto = textoDAO.buscar(it).orElseThrow(null);
-			String query = "SELECT textoid FROM comentario " + "WHERE respondeid = ? ";
+			String query = "SELECT textoid, " +
+					  " (SELECT datahora FROM texto T WHERE T.id = C.textoid) AS datahora  " +	
+					  " FROM comentario C" +
+					  " WHERE C.respondeid = ? " +
+					  " ORDER BY datahora DESC ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, texto.getId());
 			ResultSet rs = stm.executeQuery();

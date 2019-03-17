@@ -21,6 +21,8 @@
 	rel="stylesheet">
 <!-- CUSTOM -->
 <link rel="stylesheet" href="../css/custom.css">
+<script src="../js/custom.js"></script>
+
 <title><%=request.getServletContext().getInitParameter("tituloAplicacao")%></title>
 <script>
 	$(document).ready(function() {
