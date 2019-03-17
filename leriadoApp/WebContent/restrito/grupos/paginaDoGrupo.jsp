@@ -7,21 +7,21 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 <!-- JQUERY -->
-<script src="../js/JQuery.js"></script>
+<script src="../../js/JQuery.js"></script>
 <!-- MASCARAS JQUERY PLUGIN -->
-<script src="../js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
+<script src="../../js/jQuery-Mask-Plugin-master/src/jquery.mask.js"></script>
 <!-- MASCARAS JQUERY CONFIG -->
-<script src="../js/mascaras.js"></script>
+<script src="../../js/mascaras.js"></script>
 <!-- MATERIALIZE CSS-->
-<link rel="stylesheet" href="../css/materialize.css">
+<link rel="stylesheet" href="../../css/materialize.css">
 <!-- MATERIALIZE JS -->
-<script src="../js/materialize.js"></script>
+<script src="../../js/materialize.js"></script>
 <!-- ICONS MATERIALIZA -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <!-- CUSTOM -->
-<link rel="stylesheet" href="../css/custom.css">
-<script src="../js/custom.js"></script>
+<link rel="stylesheet" href="../../css/custom.css">
+<script src="../../js/custom.js"></script>
 
 <title><%=request.getServletContext().getInitParameter("tituloAplicacao")%></title>
 <script>
@@ -33,10 +33,32 @@
 	});
 </script>
 </head>
-
 <body>
-	<!-- MENU -->
-	<jsp:include page="headerOn.jsp" />
+	<!-- MENU DESKTOP-->
+	<header>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="container">
+					<div class="nav-wrapper">
+						<a href="/leriadoApp/restrito/home.jsp" class="brand-logo "><img
+							class="logo" src="../../img/logo.png" /></a>
+						<ul class="right hide-on-med-and-down">
+							<li><a href="#"><i class="material-icons right">face</i>${usuarioLogado.nome }</a></li>
+							<li><a href="/leriadoApp/restrito/meusGrupos.jsp"><i
+									class="material-icons right">group</i>Meus Grupos</a>
+							<li><a
+								href="/leriadoApp/Leriado?command=UsuarioController&acao=logout"><i
+									class="material-icons right">exit_to_app</i>Sair</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<!-- MENU MOBILE -->
+	<div class="row container hide-on-large-only"></div>
+
 	<!-- CONTEUDO -->
 	<div class="row">
 		<!-- PERFIL -->
@@ -47,10 +69,9 @@
 						<!-- USUARIO -->
 						<li class="collection-item avatar"><img
 							src="../userimg/${fotoPerfil.arquivo}" class="circle">
-							<p>${usuarioLogado.nome} ${usuarioLogado.sobrenome}</p>
-							Grupos que você participa:
-						</li>
-						
+							<p>${usuarioLogado.nome}${usuarioLogado.sobrenome}</p> Grupos que
+							você participa:</li>
+
 						<div class="divider"></div>
 						<c:import url="/Leriado?command=GrupoController&acao=grupos" />
 						<div class="row collection-item"></div>
@@ -213,13 +234,15 @@
 					</li>
 				</ul>
 			</div>
-			<!-- ISLEIMAR FEED -->
 			<div class="row grey lighten-3">
-				<c:import url="/Leriado?command=FeedController&acao=feed" />
+				<c:out value="${param.NomeGrupo }" />
+				<c:import
+					url="/Leriado?command=FeedController&acao=publicacoesDoGrupo" />
 			</div>
 		</div>
 		<!-- AMIGOS -->
-		<div class="col s2 green lighten-1">AMIGOS</div>
+			<div class="col s2 green lighten-1">AMIGOS</div>
 	</div>
+
 </body>
 </html>

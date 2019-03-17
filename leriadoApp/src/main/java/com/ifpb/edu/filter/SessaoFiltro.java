@@ -25,7 +25,7 @@ public class SessaoFiltro extends HttpFilter{
 			throws IOException, ServletException {
 		if(request.getSession().getAttribute("usuarioLogado") != null) {
 			log.severe("--> Requisição inválida");
-			response.sendRedirect("restrito/logado.jsp");
+			response.sendRedirect("restrito/home.jsp");
 		}
 		limparHeader(response);
 		chain.doFilter(request, response);
