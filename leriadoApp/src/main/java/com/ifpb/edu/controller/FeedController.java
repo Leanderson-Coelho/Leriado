@@ -66,8 +66,16 @@ public class FeedController implements Command {
 		case "curte":
 			curte(request, response);
 			break;
+		case "compartilhaGrupo":
+			compartilhaGrupo(request,response);
+			break;
 		default:
+		
 		}
+	}
+
+	private void compartilhaGrupo(HttpServletRequest request, HttpServletResponse response) {
+		
 	}
 
 	private void curte(HttpServletRequest request, HttpServletResponse response) throws CommandException {

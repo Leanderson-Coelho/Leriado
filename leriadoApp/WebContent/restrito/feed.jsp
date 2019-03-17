@@ -5,14 +5,14 @@
 <c:forEach var="feed" items="${feedPublicacao}">	
  	<div class="divider"></div>
 	<div class="section white">			
-		<h4>
+		<h5>
 			<b>${feed.compartilha.usuario.nome}</b>
 			<c:if test="${!feed.seuConteudo}">
 				<small>compartilhou a publicação de</small> ${feed.compartilha.publicacao.usuario.nome}
 			</c:if> 
-		</h4>
+		</h5>
 		<p>
-			<small class="blue-text text-darken-2"> <fmt:parseDate
+			<small class="grey-text text-darken-2"> <fmt:parseDate
 					value="${feed.compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm"
 					var="parsedDateTime" type="both" /> <fmt:formatDate
 					pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
@@ -63,8 +63,12 @@
 				</c:url>
 				<c:import url = "${campoCurtir}"/>
 			</div>
-			<div class = "col">
-				<button type="button">Compartilhar</button>
+			<div class="col">
+				<!-- COMPARTILHA -->
+				<c:url value="./feed/compartilha.jsp" var = "campoCompartilha">
+					<c:param name="textoId" value="${feed.compartilha.publicacao.id}"/>					
+				</c:url>
+				<c:import url = "${campoCompartilha}"/>
 			</div>
 		</div>
 		<div class = "row">		
@@ -86,7 +90,7 @@
 						<div class="row">
 							<!-- COMENTÁRIO -->							
 							<b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo}
-							<small class="blue-text text-darken-2"> <fmt:parseDate
+							<small class="grey-text text-darken-2"> <fmt:parseDate
 								value="${feedComentario.comentario.datahora}" pattern="yyyy-MM-dd'T'HH:mm"
 								var="parsedDateTime" type="both" /> <fmt:formatDate
 								pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
