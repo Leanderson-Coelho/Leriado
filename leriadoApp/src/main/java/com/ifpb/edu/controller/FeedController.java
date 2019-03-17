@@ -137,6 +137,7 @@ public class FeedController implements Command {
 	private void mensagem(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		
 		String conteudo = request.getParameter("conteudo");
+		System.out.println(conteudo+">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		if(conteudo.isEmpty() || conteudo==null) {
 			String msgErro = "Informe algo!";
 			request.setAttribute("msgErro", msgErro);

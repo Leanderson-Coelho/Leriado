@@ -7,16 +7,16 @@
     <!-- GERENCIA GRUPO -->
     <div id="${grupo}" class="modal modal-fixed-footer">
         <div class="modal-content ">
-            <h4>Gerênciar Grupo</h4>
+            <h4>GerÃªnciar Grupo</h4>
             <div class="row">
                 <div class="col s12">
-                    <p class="green-text">Adicionar usuário:</p>
+                    <p class="green-text">Adicionar usuï¿½rio:</p>
                     <form action="/leriadoApp/Leriado?command=GrupoController&acao=adicionarUsuario" method="post">
                         <input hidden type="text" value="${grupo}" name="nomeGrupo" />
                         <div class="col s6 input-field">
                             <i class="material-icons prefix">account_circle</i>
                             <input type="email" name="email" id="email" />
-                            <label for="email">Email do novo usuário</label>
+                            <label for="email">Email do novo usuï¿½rio</label>
                         </div>
                         <div class="col s6 input-field">
                             <button class="btn waves-effect waves-light z-depth-0" type="submit" name="action">Adicionar
@@ -29,13 +29,13 @@
             <div class="divider"></div>
             <div class="row">
                 <div class="col s12">
-                    <p class="red-text">Remover usuário:</p>
+                    <p class="red-text">Remover usuï¿½rio:</p>
                     <form>
                         <input hidden type="text" value="${grupo}" name="nomeGrupo" />
                         <div class="col s6 input-field">
                             <i class="material-icons prefix">account_circle</i>
                             <input type="email" name="emailRemover" id="emailRemover" />
-                            <label for="emailRemover">Email do usuário</label>
+                            <label for="emailRemover">Email do usuï¿½rio</label>
                         </div>
                         <div class="col s6 input-field">
                             <button class="btn waves-effect waves-light z-depth-0 red" type="submit"
