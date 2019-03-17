@@ -108,11 +108,35 @@ public class GrupoDaoImpl implements GrupoDao{
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
 				gruposUsuarioParticipa.add(busca(rs.getInt(1)).getNome());
-				System.out.println(".");
 			}
 		}catch (Exception e) {
 			throw new DataAccessException("Fala ao buscar grupo");
 		}
 		return gruposUsuarioParticipa;
+	}
+
+	@Override
+	public List<Grupo> admsGrupo(int idUsuario) throws DataAccessException {
+		List<Grupo> IDgruposUsuarioadministra = new ArrayList<>();
+		List<Grupo> gruposUsuarioAdministra;
+		try {
+			String query = "SELECT grupoid FROM admgrupo "
+					+ "WHERE usuarioid = ? ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, idUsuario);
+			ResultSet rs = stm.executeQuery();
+			while (rs.next()) {
+				Grupo gp = new Grupo();
+				gp.setId(rs.getInt(1));
+				IDgruposUsuarioadministra.add(gp);
+			}
+			gruposUsuarioAdministra = new ArrayList<>();
+			for(Grupo gp : IDgruposUsuarioadministra ) {
+				gruposUsuarioAdministra.add(busca(gp.getId()));
+			}
+		}catch (Exception e) {
+			throw new DataAccessException("Fala ao buscar grupo");
+		}
+		return gruposUsuarioAdministra;
 	}
 }
