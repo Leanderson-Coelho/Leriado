@@ -59,7 +59,7 @@
 		</div>
 		<!-- FEED -->
 		<div class="col s8 green lighten-5">
-			<!-- -----------------------------------IAN FAZER PUBLICAï¿½ï¿½O------------------------------------------- -->
+			<!-- -----------------------------------IAN FAZER publicação------------------------------------------- -->
 			<div class="grey lighten-5">
 				<ul class="collapsible">
 					<li class="active">
@@ -76,7 +76,7 @@
 										enctype="multipart/form-data">
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
-												placeholder="Sua publicaï¿½ï¿½o aqui" name="conteudo"></textarea>
+												placeholder="Sua publicação aqui" name="conteudo"></textarea>
 										</div>
 										<div class="col s12 center-align">
 											<button class="green lighten-2 z-depth-1 btn" type="submit"
@@ -104,7 +104,7 @@
 										enctype="multipart/form-data">
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
-												placeholder="Sua publicaï¿½ï¿½o aqui" name="conteudo"></textarea>
+												placeholder="Sua publicaçãoo aqui" name="conteudo"></textarea>
 										</div>
 										<div class="col s12 offset">
 											<input type="url" placeholder="Link" name="link">
@@ -135,7 +135,7 @@
 										enctype="multipart/form-data">
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
-												placeholder="Sua publicaï¿½ï¿½o aqui" name="conteudo"></textarea>
+												placeholder="Sua publicação aqui" name="conteudo"></textarea>
 										</div>
 										<div class="file-field input-field">
 											<div class="col s12">
@@ -165,11 +165,11 @@
 					</li>
 					<li>
 						<div class="collapsible-header">
-							<i class="material-icons">whatshot</i>Notï¿½cia
+							<i class="material-icons">whatshot</i>Notícia
 						</div>
 						<div class="collapsible-body">
 
-							<!-- Notï¿½cia -->
+							<!-- Notícia -->
 							<div class="container">
 								<div class="row">
 									<form method="post"
@@ -177,12 +177,12 @@
 										enctype="multipart/form-data">
 										<div class="col s12">
 											<input type="text" name="titulo"
-												placeholder="Digite um titulo para sua publicaï¿½ï¿½o"
+												placeholder="Digite um título para sua publicação"
 												class="center-align">
 										</div>
 										<div class="input-field col s12">
 											<textarea class="materialize-textarea"
-												placeholder="Sua publicaï¿½ï¿½o aqui" name="conteudo"></textarea>
+												placeholder="Sua publicação aqui" name="conteudo"></textarea>
 										</div>
 										<div class="file-field input-field">
 											<div class="col s12">
