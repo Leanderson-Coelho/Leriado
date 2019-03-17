@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,9 +17,7 @@ import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
-
-@WebServlet("/GrupoController")
-public class GrupoController extends HttpServlet implements Command{
+public class GrupoController implements Command{
 	
 	private UsuarioDao usuarioDao;
 	private GrupoDao grupoDao;
@@ -31,46 +27,6 @@ public class GrupoController extends HttpServlet implements Command{
 		usuarioDao = new UsuarioDaoImpl();
 		grupoDao = new GrupoDaoImpl();
 	}
-	
-	public void doGet(HttpServletRequest request,HttpServletResponse response) {
-		try {
-			request.getRequestDispatcher("/montarGruposParticipa").include(request, response);
-		} catch (ServletException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-//			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
-			response.sendRedirect("restrito/home.jsp");
-		} catch (IOException  e) {
-			// erro 404
-			e.printStackTrace();
-		}
-	}
-	
-//	public void doPost(HttpServletRequest request,HttpServletResponse response) {
-//		try {
-//			request.getRequestDispatcher("/montarGruposParticipa").include(request, response);
-//		} catch (ServletException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		
-//		try {
-////			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
-//			response.sendRedirect("restrito/home.jsp");
-//		} catch (IOException  e) {
-//			// erro 404
-//			e.printStackTrace();
-//		}
-//	}
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -79,13 +35,18 @@ public class GrupoController extends HttpServlet implements Command{
 			case "grupos":
 				grupos(request,response);
 				break;
-			case "gerarGrupos":
-				gerarGrupos(request, response);
-				break;
 			case "adicionarUsuario":
 				adicionarUsuario(request,response);
 				break;
+			case "removerUsuario":
+				removerUsuario(request,response);
+				break;
 		}
+	}
+
+	private void removerUsuario(HttpServletRequest request, HttpServletResponse response) {
+		
+		
 	}
 
 	private void adicionarUsuario(HttpServletRequest request, HttpServletResponse response) {
@@ -134,11 +95,6 @@ public class GrupoController extends HttpServlet implements Command{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private void gerarGrupos(HttpServletRequest request, HttpServletResponse response) {
-		
-		
 	}
 
 }
