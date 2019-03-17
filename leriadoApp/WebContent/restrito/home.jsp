@@ -34,14 +34,13 @@
     <!-- CONTEUDO -->
     <div class="row">
         <!-- PERFIL -->
-
         <div class="col s2 red lighten-1">
             <div class="row">
                 <div class="col s12">
                     <ul class="collection">
                         <!-- USUARIO -->
                         <li class="collection-item avatar">
-                            <img src="" class="circle">
+                            <img src="../userimg/${fotoPerfil.arquivo}" class="circle">
                             <p>${usuarioLogado.nome} ${usuarioLogado.sobrenome}</p>
                             <c:if test="${msg!=null}">
                                 <p class="red-text">${msg}</p>
@@ -55,18 +54,18 @@
         </div>
         <!-- FEED -->
         <div class="col s8 green lighten-5">
-            <!-- IAN FAZER PUBLICA��O -->
+            <!-- IAN FAZER PUBLICAÇÃO -->
             <div class="grey lighten-5" style="padding-bottom: 1px;">
 				<div class="container">
 					<div class="row">
 						<form method="post" action="/leriadoApp/Leriado?command=FeedController&acao=publicacao" enctype="multipart/form-data">
 							<div class="col s12">
 								<input type="text" name="titulo"
-									placeholder="Digite um titulo para sua publica��o"
+									placeholder="Digite um titulo para sua publicação"
 			 						class="center-align">
 							</div>
 							<div class="input-field col s12">
-								<textarea class="materialize-textarea" placeholder="Sua publica��o aqui" name="conteudo"></textarea>
+								<textarea class="materialize-textarea" placeholder="Sua publicação aqui" name="conteudo"></textarea>
 							</div>
 							<div class="col 5s file-field input-field">
 								<div class="col btn-floating">
