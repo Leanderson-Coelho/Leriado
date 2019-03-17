@@ -71,14 +71,18 @@ public class UsuarioController implements Command{
 			if(usuarioDao.login(login, senha)) {
 				usuario.setSenha("");
 				request.getSession(true).setAttribute("usuarioLogado", usuario);
-				Optional<Foto> fotoPerfil = fotoDao.buscarFotoPerfil(usuario);
+				Foto fotoPerfil = fotoDao.buscarFotoPerfil(usuario);
+				if(fotoPerfil==null) {
+					fotoPerfil = new Foto();
+					fotoPerfil.setArquivo(request.getServletContext().getInitParameter("FotoPerfilDefault"));
+				}
 				request.getSession(true).setAttribute("fotoPerfil",fotoPerfil);
 				response.sendRedirect("restrito/home.jsp");
 			}else {
 				request.setAttribute("erro", "Senha ou login inválido");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-		} catch (SQLException | IOException | ServletException | DataAccessException e) {
+		} catch (SQLException | IOException | ServletException | DataAccessException  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
