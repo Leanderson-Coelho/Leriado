@@ -98,16 +98,17 @@ public class GrupoDaoImpl implements GrupoDao{
 	}
 
 	@Override
-	public List<Grupo> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException {
-		List<Grupo> gruposUsuarioParticipa = new ArrayList<>();
+	public List<String> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException {
+		List<String> gruposUsuarioParticipa = new ArrayList<>();
 		try {
 			String query = "SELECT grupoid FROM participagrupo "
 					+ "WHERE usuarioid = ? ";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, idUsuario);
 			ResultSet rs = stm.executeQuery();
-			if (rs.next()) {
-				gruposUsuarioParticipa.add(busca(rs.getInt(1)));
+			while (rs.next()) {
+				gruposUsuarioParticipa.add(busca(rs.getInt(1)).getNome());
+				System.out.println(".");
 			}
 		}catch (Exception e) {
 			throw new DataAccessException("Fala ao buscar grupo");

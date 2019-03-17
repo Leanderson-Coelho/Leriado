@@ -2,26 +2,9 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script>
-	function mudarpagina(obj) {
-		location.href = obj.value;
-	};
-</script>
-<div>
-<select id="selecao" onchange="mudarpagina(this)">
-	<c:forEach var="i" begin="0" end="${feedQtd-1}">
-		<option <c:if test="${i==pag}">selected</c:if>
-		<c:if test="${i!=pag}">value="Leriado?command=PublicacaoController&acao=feed&pag=${i}"</c:if>
-		>Página	${i+1}</option>
-	</c:forEach>
-</select>
-</div>
-
-
-		
-<c:forEach var="feed" items="${feedPublicacao}">
+<c:forEach var="feed" items="${feedPublicacao}">	
  	<div class="divider"></div>
-	<div class="section grey lighten-3">			
+	<div class="section white">			
 		<h4>
 			<b>${feed.compartilha.usuario.nome}</b>
 			<c:if test="${!feed.seuConteudo}">
@@ -80,36 +63,37 @@
 			</c:if>
 			<button type="button">Compartilhar</button>
 		</p>
-		<form>		
-			<div class="row">
-				<div class="col s1"></div>
-				<div class="input-field col s8">
-					<textarea id="textarea1" class="materialize-textarea"></textarea>
-					<label for="textarea1">Comentar</label>
-				</div>
-				<div class="col s2">
-					<button class="waves-effect waves-teal btn-flat" type="submit" name="action">Comentar
-				</div>
-				<div class="col s1"></div>
-			</div>
+		
+		<!-- COMENTAR -->
+		<c:url value="./feed/comenta.jsp" var = "campoComenta">
+			<c:param name="action" value="${feed.compartilha.publicacao.id}"/>
+		</c:url>
+		<c:import url = "${campoComenta}"/>
+		<!-- COMENTÁRIOS -->
+		<div class = "row">
+			<div class = "col s1"></div>
+			<div class = "col s10">
+			<ul class = "listaComentario">
+				<c:forEach var="feedComentario"	items="${feed.feedComentarios}">
 				
-			</button>
-		</form>		
-		<ul>
-			<c:forEach var="feedComentario"	items="${feed.feedComentarios}">
-				<li><b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo} <c:if
+					<li>	
+						<b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo} <c:if
 						test="${feedComentario.quantCurtidas>0}">
-	 - ${feedComentario.quantCurtidas} curtidas. 
-	 </c:if> <br>
-				<c:if test="${!feedComentario.curtido}">
-				<button type="button">Curtir</button>
-			</c:if>
-			<c:if test="${feedComentario.curtido}">
-				<button type="button">Descurtir</button>
-			</c:if>
-				</li>
-			</c:forEach>
-		</ul>
+						- ${feedComentario.quantCurtidas} curtidas. 
+						</c:if> <br>
+						<c:if test="${!feedComentario.curtido}">
+						<button type="button">Curtir</button>
+						</c:if>
+						<c:if test="${feedComentario.curtido}">
+						<button type="button">Descurtir</button>
+						</c:if>
+						<div class="divider"></div>
+					</li>
+				</c:forEach>
+			</ul>
+			</div>
+			<div class = "col s1"></div>
+		</div>
 	</div>
 </c:forEach>
 <div class="row white">

@@ -14,6 +14,7 @@ public interface GrupoDao {
 	void removerUsuario(int idGrupo, int idUsuario) throws SQLException;
 	Grupo busca(int id)throws DataAccessException;
 	public int buscaIdPorNome(String nome) throws DataAccessException;
-	public List<Grupo> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException;
+	public List<String> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException;
 	
 }
+

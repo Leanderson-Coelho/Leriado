@@ -15,15 +15,15 @@ public class Noticia extends Publicacao {
 	}
 
 	public Noticia(int id, Boolean ativo, String titulo, String conteudo, LocalDateTime datahora, Usuario usuario,
-			int relevancia, int compartilhamentos, List<Foto> fotos) {
-		super(id, ativo, conteudo, datahora, usuario, relevancia, compartilhamentos);
+			int relevancia, List<Foto> fotos) {
+		super(id, ativo, conteudo, datahora, usuario, relevancia);
 		this.titulo = titulo;
 		this.fotos = fotos;
 	}
 
-	public Noticia(String titulo, String conteudo, Usuario usuario, int relevancia, int compartilhamentos,
+	public Noticia(String titulo, String conteudo, Usuario usuario, int relevancia,
 			List<Foto> fotos) {
-		super(conteudo, usuario, relevancia, compartilhamentos);
+		super(conteudo, usuario, relevancia);
 		this.titulo = titulo;
 		this.fotos = fotos;
 	}

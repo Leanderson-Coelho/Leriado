@@ -3,6 +3,7 @@ package com.ifpb.edu.model.dao.publicacao.impdb;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,27 @@ public class FotoDAOImpDB implements FotoDAO {
 	public FotoDAOImpDB() {
 		connection = ConnectionFactory.getInstance().getConnection();
 	}
+	
+	
+
+	@Override
+	public String nomeFoto() throws DataAccessException {
+		String chave =  String.valueOf((int)(Math.random() * 32000));
+		chave += LocalDateTime.now().toString();
+		try {
+			String query = "SELECT MD5(?)";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setString(1, chave);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next())
+				return rs.getString(1);
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao gerar o nome do arquivo");
+		}
+		return null;
+	}
+
+
 
 	@Override
 	public void cria(Foto foto) throws DataAccessException {
