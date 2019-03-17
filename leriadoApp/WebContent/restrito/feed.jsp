@@ -82,24 +82,26 @@
 				<c:forEach var="feedComentario"	items="${feed.feedComentarios}">
 				
 					<li>	
+						<!-- MOSTRAR COMENTÁRIOS-->
 						<div class="row">
 							<!-- COMENTÁRIO -->							
-							<b>${feedComentario.comentario.usuario.nome}</b>
-							${feedComentario.comentario.conteudo} 
-							<b>
-							<c:if test="${feedComentario.quantCurtidas == 1}"> - ${feedComentario.quantCurtidas} curtida.</c:if>
-							<c:if test="${feedComentario.quantCurtidas > 1}"> - ${feedComentario.quantCurtidas} curtidas.</c:if>
-							</b>
+							<b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo}
+							<small class="blue-text text-darken-2"> <fmt:parseDate
+								value="${feedComentario.comentario.datahora}" pattern="yyyy-MM-dd'T'HH:mm"
+								var="parsedDateTime" type="both" /> <fmt:formatDate
+								pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
+							</small>
 						</div>
 						<div class="row"> 
 							<!-- CURTIR COMENTÁRIO-->
 							<c:url value="./feed/curtir.jsp" var = "campoCurtir">
 							<c:param name="textoId" value="${feedComentario.comentario.id}"/>
 							<c:param name="textoCurtido" value="${feedComentario.curtido}"/>
+							<c:param name="qtdCurtidas" value="${feedComentario.quantCurtidas}"/>
+							
 							</c:url>
 							<c:import url = "${campoCurtir}"/>
-						</div>						
-						<div class="divider"></div>
+						</div>
 					</li>
 				</c:forEach>
 			</ul>
