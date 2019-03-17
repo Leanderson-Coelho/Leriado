@@ -21,5 +21,9 @@
   	<param-name>numPublicacoesPagina</param-name>
   	<param-value>5</param-value>
   </context-param>
+    <context-param>
+  	<param-name>FotoPerfilDefault</param-name>
+  	<param-value>perfilDefault.png</param-value>
+  </context-param>
   
 </web-app>
