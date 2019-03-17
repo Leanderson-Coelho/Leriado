@@ -146,12 +146,15 @@ public class FeedController implements Command {
 		}
 		PublicacaoDAOImpDB dao = new PublicacaoDAOImpDB();
 		Publicacao p = new Publicacao(conteudo, (Usuario)request.getSession().getAttribute("usuarioLogado"), 1);
+		
 		try {
 			dao.cria(p);
-		} catch (DataAccessException e) {
+			response.sendRedirect("restrito/home.jsp");
+		} catch (DataAccessException | IOException e) {
 			e.printStackTrace();
 		}
-		feed(request, response);
+		
+//		feed(request, response);
 	}
 
 	private void feed(HttpServletRequest request, HttpServletResponse response) throws CommandException {

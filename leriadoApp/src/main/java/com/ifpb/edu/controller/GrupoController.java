@@ -14,6 +14,7 @@ import com.ifpb.edu.model.dao.GrupoDao;
 import com.ifpb.edu.model.dao.GrupoDaoImpl;
 import com.ifpb.edu.model.dao.UsuarioDao;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
+import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.domain.Usuario;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
@@ -31,6 +32,7 @@ public class GrupoController implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		String acao = request.getParameter("acao");
+		log.info(acao);
 		switch(acao) {
 			case "grupos":
 				grupos(request,response);
@@ -41,7 +43,22 @@ public class GrupoController implements Command{
 			case "removerUsuario":
 				removerUsuario(request,response);
 				break;
+			case "gerenciarGrupos":
+				gerenciarGrupos(request,response);
 		}
+	}
+
+	private void gerenciarGrupos(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+			List<Grupo> gruposUsuarioAdministra = grupoDao.admsGrupo(usuario.getId());
+			request.setAttribute("gruposUsuarioAdministra", gruposUsuarioAdministra);
+			request.getServletContext().getRequestDispatcher("/restrito/grupos/gruposGerencia.jsp").include(request, response);
+		} catch (DataAccessException | ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void removerUsuario(HttpServletRequest request, HttpServletResponse response) {

@@ -1,5 +1,7 @@
 package com.ifpb.edu.controller;
 
+import java.util.logging.Logger;
+
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +18,12 @@ import com.ifpb.edu.controller.exception.CommandException;
 		)
 public class FrontController extends HttpServlet{
 	
+	private Logger log = Logger.getLogger("FrontController");
+	
 	private void execute(HttpServletRequest request,HttpServletResponse response) {
 		try {
 			String commandName = request.getParameter("command");
+			log.info(commandName);
 			Command command = (Command) Class.forName(this.getClass().getPackage().getName()+"."+commandName).newInstance();
 			command.execute(request, response);
 		} catch (InstantiationException e) {
