@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col s1"></div>
 		<div class="input-field col s8">
-			<textarea name="comentario" id="textarea1" class="materialize-textarea"></textarea>
+			<textarea name="comentario" id="textarea1" class="materialize-textarea" onKeyPress="return submitenter(this,event)"></textarea>
 			<label for="textarea1">Comentar</label>
 		</div>
 		<div class="col s2">
