@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="col s12 l8 blue">
-        	<h3>Seus grupos</h3>
+        	<h3>Seus Grupos:</h3>
             <c:import url="/Leriado?command=GrupoController&acao=gerenciarGrupos" />
         </div>
         <!-- AMIGOS -->
