@@ -1,10 +1,10 @@
 package com.ifpb.edu.leriadoApp;
 
+import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.ifpb.edu.model.dao.publicacao.ComentarioDAO;
 import com.ifpb.edu.model.dao.publicacao.impdb.ComentarioDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.TextoDAOImpDB;
 import com.ifpb.edu.model.domain.Usuario;
@@ -66,6 +66,16 @@ public class ComentarioDAOImpDBTeste {
 		comentario.setId(11);
 		try {
 			comentarioDAO.exclui(comentario);						
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void campinho() {		
+		try {
+			File dir1 = new File (".");
+			   System.out.println ("Current dir : " + dir1.getCanonicalPath());						
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

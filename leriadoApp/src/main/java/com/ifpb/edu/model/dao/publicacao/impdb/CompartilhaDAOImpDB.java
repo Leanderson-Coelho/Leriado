@@ -53,12 +53,19 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 
 	@Override
 	public void cria(Compartilha compartilha) throws DataAccessException {
+		cria(compartilha.getUsuario().getId(),
+				compartilha.getPublicacao().getId(),
+				compartilha.getGrupo().getId());
+	}	
+
+	@Override
+	public void cria(int usuarioId, int publicacaoId, int grupoId) throws DataAccessException {
 		try {
 			String query = "INSERT INTO compartilha (usuarioid,publicacaoid,grupoid) " + "VALUES (?,?,?) ";
 			PreparedStatement stm = connection.prepareStatement(query);
-			stm.setInt(1, compartilha.getUsuario().getId());
-			stm.setInt(2, compartilha.getPublicacao().getId());
-			stm.setInt(3, compartilha.getGrupo().getId());
+			stm.setInt(1, usuarioId);
+			stm.setInt(2, publicacaoId);
+			stm.setInt(3, grupoId);
 			stm.execute();
 		} catch (Exception e) {
 			throw new DataAccessException("Falha ao compartilhar publicação.");
@@ -78,6 +85,26 @@ public class CompartilhaDAOImpDB implements CompartilhaDAO {
 		} catch (Exception e) {
 			throw new DataAccessException("Falha ao remover compartilhamento");
 		}
+	}
+	
+	
+
+	@Override
+	public boolean existe(int usuarioId, int publicacaoId, int grupoId) throws DataAccessException {
+		try {
+			String query = "SELECT COUNT(*) FROM compartilha " +
+					"  WHERE (usuarioid = ?) AND (publicacaoid = ?) AND (grupoid = ?) ";
+			PreparedStatement stm = connection.prepareStatement(query);
+			stm.setInt(1, usuarioId);
+			stm.setInt(2, publicacaoId);
+			stm.setInt(3, grupoId);
+			ResultSet rs = stm.executeQuery();
+			if(rs.next())
+				return (rs.getInt(1) > 0);			
+		}catch (Exception e) {
+			throw new DataAccessException("Falha ao verificar se compartilhamento existe");
+		}
+		return false;
 	}
 
 	@Override

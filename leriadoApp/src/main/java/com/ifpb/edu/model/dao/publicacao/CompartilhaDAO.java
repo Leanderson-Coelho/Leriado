@@ -11,7 +11,9 @@ import com.ifpb.edu.model.jdbc.DataAccessException;
 public interface CompartilhaDAO {
 	
 	void cria(Compartilha compartilha) throws DataAccessException;
+	void cria(int usuarioId, int publicacaoId, int grupoId)throws DataAccessException;
 	void exclui(Compartilha compartilha) throws DataAccessException;
+	boolean existe(int usuarioId, int publicacaoId, int grupoId)throws DataAccessException;
 	int quant()throws DataAccessException;
 	int quant(Grupo grupo) throws DataAccessException;
 	int quant(Usuario usuario) throws DataAccessException;

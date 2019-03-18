@@ -10,7 +10,7 @@
 			<div class="container">
 				<div class="nav-wrapper">
 					<a href="/leriadoApp/restrito/home.jsp" class="brand-logo "><img
-						class="logo" src="../img/logo.png" /></a>
+						class="logo" src="../img/logobranco.png" /></a>
 					<ul class="right hide-on-med-and-down">
 						<li><a href="meusGrupos.jsp"><i
 								class="material-icons right">group</i>Meus Grupos</a></li>

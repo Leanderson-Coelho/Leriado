@@ -1,7 +1,6 @@
 /**
  * FUNÇÕES PERSONALIZADAS DE JAVASCRIPT
  */
-
 // SUBMETER FORMULÁRIO COM ENTER
 function submitenter(myfield, e) {
 	var keycode;

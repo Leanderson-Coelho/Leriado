@@ -2,9 +2,39 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!-- PUBLICAR -->
+<ul class="collapsible popout">
+	<li>
+		<!-- MENSAGEM -->
+		<div class="collapsible-header"><i class="material-icons">chat</i>Mensagem</div>
+		<div class="collapsible-body"><c:import url="compartilha/mensagem.jsp" /></div>
+	</li>
+	<li>
+		<!-- LINK -->
+		<div class="collapsible-header"><i class="material-icons">insert_link</i>Link</div>
+		<div class="collapsible-body"><c:import url="compartilha/link.jsp" /></div>
+	</li>
+	<li>
+		<!-- FOTO -->
+		<div class="collapsible-header"><i class="material-icons">image</i>Foto</div>
+		<div class="collapsible-body"><c:import url="compartilha/foto.jsp" /></div>
+	</li>
+	<li>
+		<!-- NOTICIA -->
+		<div class="collapsible-header"><i class="material-icons">whatshot</i>Noticia</div>
+		<div class="collapsible-body"><c:import url="compartilha/noticia.jsp" /></div>
+	</li>
+</ul>
+
+
+<!-- FEED -->
+<c:if test="${feedQtd==0}">
+	<div class = "row center-align"><h4>Você não tem publicações para visualizar</h4></div>
+</c:if>
+<c:if test="${feedQtd>0}">
 <c:forEach var="feed" items="${feedPublicacao}">	
- 	<div class="divider"></div>
-	<div class="section white">			
+ 	<div class="divider"></div>			
+	<div class="row">	
 		<h5>
 			<b>${feed.compartilha.usuario.nome}</b>
 			<c:if test="${!feed.seuConteudo}">
@@ -16,7 +46,7 @@
 					value="${feed.compartilha.dataHora}" pattern="yyyy-MM-dd'T'HH:mm"
 					var="parsedDateTime" type="both" /> <fmt:formatDate
 					pattern="dd.MM.yyyy HH:mm" value="${ parsedDateTime }" />
-			</small> <small> >> <a href="#">${feed.compartilha.grupo.nome}</a></small>
+			</small> <small> >> <a href="home.jsp?grp=${feed.compartilha.grupo.nome}">${feed.compartilha.grupo.nome}</a></small>
 		</p>
 		<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'NOTICIA'}">
 			<!-- NOTÍCIA -->
@@ -47,6 +77,7 @@
 		<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'LINK'}">
 			<!-- LINK -->
 			<p>${feed.compartilha.publicacao.conteudo}</p>
+			<a href="${feed.compartilha.publicacao.link}">${feed.compartilha.publicacao.link}</p>
 		</c:if>			
 			<p>
 			<small>
@@ -54,6 +85,7 @@
 				<c:if test="${feed.quantCompartilhamentos > 0}">${feed.quantCompartilhamentos} compartilhamentos</c:if>
 			</small>
 			</p>
+		</div>
 		<div class="row">
 			<div class="col">
 				<!-- CURTIR -->
@@ -65,10 +97,9 @@
 			</div>
 			<div class="col">
 				<!-- COMPARTILHA -->
-				<c:url value="./feed/compartilha.jsp" var = "campoCompartilha">
-					<c:param name="textoId" value="${feed.compartilha.publicacao.id}"/>					
-				</c:url>
-				<c:import url = "${campoCompartilha}"/>
+				<button data-target="modalCompartilha" 
+				class="btn modal-trigger" 
+				onclick="compartilharGrupo(${feed.compartilha.publicacao.id})">Compartilhar</button>			
 			</div>
 		</div>
 		<div class = "row">		
@@ -112,28 +143,65 @@
 			</div>
 			<div class = "col s1"></div>
 		</div>
-	</div>
 </c:forEach>
+
+<!-- TELA PARA COMPARTILAR -->
+<div class="row">
+	<div class="row">
+		<!-- Modal Structure -->
+		<div id="modalCompartilha" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<form id="formCompartilha"
+					action="/leriadoApp/Leriado?command=FeedController&acao=compartilha"
+					method="POST">
+					<h4>Compartilhar em grupos</h4>
+					<p>Selecione os grupos que deseja compartilhar a publicação.</p>
+					<input hidden name="usuarioid" type="text" value="${usuarioId}" readonly>
+					<input hidden id="compartilhaTextoid" name="textoid" type="text" value="">
+					<c:forEach var="nomeGrupo"	items="${gruposParticipa}">
+						<p><label> <input type="checkbox" name="grupo" value="${nomeGrupo}" /> <span>${nomeGrupo}</span></label></p>
+					</c:forEach>					
+					<button class="btn waves-effect waves-light" type="submit"
+						name="action">
+						Compartilhar <i class="material-icons right">send</i>
+					</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- PAGINAÇÃO -->
 <div class="row white">
 <ul class="pagination">
-
 	<c:if test="${pag==1}">
 		<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
 	</c:if>
 	<c:if test="${pag>1}">
-		<li class="waves-effect"><a href="home.jsp?pag=${pag-1}"><i class="material-icons">chevron_left</i></a></li>
+		<li class="waves-effect"><a href="home.jsp?pag=${pag-1}${grp}"><i class="material-icons">chevron_left</i></a></li>
 	</c:if>
 	
 	<c:forEach var="i" begin="1" end="${qtdPag}">
 		<c:if test="${pag==i}"><li class="active"><a>${i}</a></li></c:if>
-		<c:if test="${pag!=i}"><li class="waves-effect"><a href="home.jsp?pag=${i}">${i}</a></li></c:if>		
+		<c:if test="${pag!=i}"><li class="waves-effect"><a href="home.jsp?pag=${i}${grp}">${i}</a></li></c:if>		
 	</c:forEach>
 	<c:if test="${pag<qtdPag}">
-		<li class="waves-effect"><a href="home.jsp?pag=${pag+1}"><i class="material-icons">chevron_right</i></a></li>
+		<li class="waves-effect"><a href="home.jsp?pag=${pag+1}${grp}"><i class="material-icons">chevron_right</i></a></li>
 	</c:if>
 	<c:if test="${pag>=qtdPag}">
 		<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
 	</c:if>
 </ul>
 </div>
+
+</c:if>
+
+<script>
+function compartilharGrupo(e) {	  
+	document.getElementById("compartilhaTextoid").value = e;
+}
+</script>
 
