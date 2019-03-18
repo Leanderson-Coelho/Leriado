@@ -50,7 +50,7 @@
 				<div class="row">
 					<div class="col s6 input-field">
 						<input type="password" name="senha" id="senhaDesktop" required
-							pattern=".{8,}" /> <label for="senhaDesktop">Senha</label>
+							pattern=".{8,}" /> <label for="senhaDesktop">Senha(no mínimo 8 dígitos)</label>
 					</div>
 					<div class="col s6 input-field">
 						<input value="${usuarioLogado.telefone}" type="text"
@@ -76,13 +76,18 @@
 
 				</div>
 				<div class="row">
+					
+					
+					
 					<div class="col s6 input-field">
-						<c:set var = "now" value = "${usuarioLogado.datanasc}" />
-						
-						<input value = "${now[0]}" type="text" name="data"
-							id="data" required /> <label for="data">Data de
-							Nascimento</label>
+						<fmt:parseDate value="${usuarioLogado.datanasc}" pattern="yyyy-MM-dd" var="parsedDate" type="DATE"/> 					
+						<input value = "<fmt:formatDate pattern="dd-MM-yyyy" value="${ parsedDate }"/>" type="text" name="data" id="data" required /> 
+						<label for="data">Data de Nascimento</label>
 					</div>
+					
+					
+					
+					
 					<div class="col s6 input-field">
 						<input value="${usuarioLogado.numero}" type="text" name="numero"
 							id="numero" pattern="\d+" /> <label for="numero">Número
