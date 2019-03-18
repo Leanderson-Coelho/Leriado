@@ -60,8 +60,10 @@
 			</div>
 		</div>
 		<!-- FEED -->
-		<div class="col s8 green lighten-5">				
+		<div class="col s8 green lighten-5">
+			<div class="grey lighten-3"></div>				
 			<div class="grey lighten-3">
+				<!-- FEED -->
 				<c:import url="/Leriado?command=FeedController&acao=feed" />
 			</div> 
 		</div>
