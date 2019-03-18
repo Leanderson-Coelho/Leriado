@@ -1,23 +1,33 @@
 package com.ifpb.edu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.GrupoDao;
 import com.ifpb.edu.model.dao.GrupoDaoImpl;
 import com.ifpb.edu.model.dao.UsuarioDao;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
+import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.domain.Grupo;
 import com.ifpb.edu.model.domain.Usuario;
+import com.ifpb.edu.model.domain.publicacao.Foto;
 import com.ifpb.edu.model.jdbc.DataAccessException;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10,
+maxFileSize = 1024 * 1024 * 10,
+maxRequestSize = 1024 * 1024 * 10 * 10,
+location = "userimg")
 public class GrupoController implements Command{
 	
 	private UsuarioDao usuarioDao;
@@ -45,8 +55,65 @@ public class GrupoController implements Command{
 				break;
 			case "gerenciarGrupos":
 				gerenciarGrupos(request,response);
+			case "criarGrupo":
+				criarGrupo(request,response);
 		}
 	}
+
+	private void criarGrupo(HttpServletRequest request, HttpServletResponse response) {
+		Logger log = Logger.getLogger("GrupoController");
+		String initPath = "/home/leanderson/Dropbox/ADS/4º Período/PROGRAMAÇÃO PARA WEB I/workspace/Leriado/leriadoApp/WebContent/"; 
+		String pathDocLeriado = "userimg";
+		String nomeGrupo = (String) request.getParameter("nome");
+		String descricao = (String) request.getParameter("descricao");
+		try {
+			if (nomeGrupo == null) {
+				String msgErro = "Preencha todos os campos";
+				request.setAttribute("msgErro", msgErro);
+				response.sendRedirect(request.getHeader("Referer"));
+				return;
+			}
+
+			File file = new File(initPath + pathDocLeriado);
+			if (!file.exists()) {
+				file.mkdir();
+			}
+
+			GrupoDao grupoDao = new GrupoDaoImpl();
+			FotoDAOImpDB dao = new FotoDAOImpDB();
+			Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
+			String nomeFoto = "";
+			log.info(nomeGrupo);
+			for (Part part : request.getParts()) {
+				if (part.getContentType() != null) {// se ele tiver um tipo então é porque ele é um arquivo :)
+					nomeFoto = dao.nomeFoto();
+					// escreve a imagem no HD obs.: o split("/") é pra dividir o tipo do arquivo que
+					// vem desta forma image/png
+					part.write(initPath + pathDocLeriado + File.separator + nomeFoto);															
+					Foto f = new Foto();
+					f.setArquivo(nomeFoto);
+					grupoDao.criar(new Grupo(0,true,LocalDateTime.now(),nomeGrupo,descricao,f.getArquivo()));
+					grupoDao.adicionarAdministrador(usuarioLogado.getId(), grupoDao.buscaIdPorNome(nomeGrupo));
+					grupoDao.adicionarUsuario(grupoDao.buscaIdPorNome(nomeGrupo), usuarioLogado.getId());
+					response.sendRedirect("restrito/meusGrupos.jsp");
+					return;
+				}
+			}
+			if (nomeFoto.isEmpty()) {
+				String msgErro = "Imagem precisa ser enviada!";
+				request.setAttribute("msgErro", msgErro);
+			}
+			response.sendRedirect(request.getHeader("Referer"));
+		} catch (IOException | ServletException | DataAccessException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+//	private void criarGrupo(HttpServletRequest request, HttpServletResponse response) {
+//		GrupoDao grupoDao = new GrupoDaoImpl();
+//		Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioLogado");
+//		String nomeGrupo = (String) request.getPar
+//	}
 
 	private void gerenciarGrupos(HttpServletRequest request, HttpServletResponse response) {
 		try {
