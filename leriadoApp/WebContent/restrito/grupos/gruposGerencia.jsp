@@ -27,7 +27,7 @@
 								<b>SEM FOTO: </b><i class="material-icons">group</i>
 							</c:if>
 							<c:if test="${grupo.foto != null}">
-								<b>FOTO: </b><img src="../../userimg/${grupo.foto}"/>
+								<b>FOTO: </b><img class="circle imgGrupo" src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${grupo.foto}"/>
 							</c:if>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 						<form action="/leriadoApp/Leriado?command=GrupoController&acao=removerUsuario" method="post">
 							<input hidden type="text" value="${grupo.id}" name="idGrupo" />
 							<div class="col s8 l6 input-field">
-								<i class="material-icons prefix">account_circle</i> <input
+								<i class="material-icons prefix iconRed">account_circle</i> <input class="emailRemover"
 									type="email" name="emailRemover" id="emailRemover" /> <label
 									for="emailRemover">Email do usuário</label>
 							</div>

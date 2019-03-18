@@ -77,7 +77,7 @@
 		<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'LINK'}">
 			<!-- LINK -->
 			<p>${feed.compartilha.publicacao.conteudo}</p>
-			<a href="${feed.compartilha.publicacao.link}">${feed.compartilha.publicacao.link}</p>
+			<a href="${feed.compartilha.publicacao.link}">${feed.compartilha.publicacao.link}</a></p>
 		</c:if>			
 			<p>
 			<small>

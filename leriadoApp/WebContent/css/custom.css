@@ -29,6 +29,11 @@ html{
     height: 54px;
 }
 
+.imgGrupo{
+	width: 42px;
+	height: 42px;
+}
+
 .separador{
     margin-bottom: 0;
 }
@@ -122,3 +127,10 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
   background-color: #125205;
 }
 
+.emailRemover[type=email]:not(.browser-default):focus:not([readonly]) + label{
+	color: red;
+}
+
+.input-field .iconRed.active {
+  color: red;
+}
