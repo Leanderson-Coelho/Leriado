@@ -291,7 +291,7 @@ public class UsuarioController implements Command{
 		try {
 			for (Part part : request.getParts()) {
 				if (part.getContentType() != null) {// se ele tiver um tipo então é porque ele é um arquivo :)
-					nomeFoto = dao.nomeFoto()+"."+part.getContentType().split("/")[1];
+					nomeFoto = dao.nomeFoto();
 					part.write(initPath + pathDocLeriado + File.separator + nomeFoto);															
 					Foto f = new Foto("", usuarioLogado, 1, nomeFoto);
 					dao.criaFotoPerfil(usuarioLogado, f);

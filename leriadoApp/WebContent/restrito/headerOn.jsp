@@ -27,7 +27,9 @@
 	<li>
 		<div class="user-view">
 			<div class="background green"></div>
-			<form action="/leriadoApp/Leriado?command=UsuarioController&acao=fotoPerfil" method="post" enctype="multipart/form-data">
+			<form
+				action="/leriadoApp/Leriado?command=UsuarioController&acao=fotoPerfil"
+				method="post" enctype="multipart/form-data">
 				<div class="file-field input-field">
 					<img class="circle" src="../userimg/${fotoPerfil.arquivo}"> <input
 						type="file" name="file" onchange="this.form.submit()">
@@ -40,8 +42,8 @@
 	</li>
 	<li><a href="/leriadoApp/restrito/atualizar.jsp"><i
 			class="material-icons">edit</i>Atualizar Conta</a></li>
-	<li><a
-		href="/leriadoApp/Leriado?command=UsuarioController&acao=remover"><i
+	<li><a class="modal-trigger"
+		href="#modal1"><i
 			class="material-icons">remove</i>Remover Conta</a></li>
 	<li><div class="divider"></div></li>
 	<li><a
@@ -51,6 +53,17 @@
 </ul>
 
 
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+	<div class="modal-content">
+		<h4>APAGAR CONTA</h4>
+		<p>Você tem certeza que deseja apagar a conta</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+		<a href="/leriadoApp/Leriado?command=UsuarioController&acao=remover" class="modal-close waves-effect waves-green btn-flat">Apagar</a>
+	</div>
+</div>
 
 
 <!-- MENU MOBILE -->
