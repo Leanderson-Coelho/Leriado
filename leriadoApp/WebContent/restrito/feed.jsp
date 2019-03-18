@@ -33,12 +33,13 @@
 </c:if>
 <c:if test="${feedQtd>0}">
 <c:forEach var="feed" items="${feedPublicacao}">	
- 	<div class="divider"></div>			
-	<div class="row">	
+ 	<div class="divider"></div>	
+ 	<div class="white z-depth-2 publicacao">
+ 		<div class="row">	
 		<h5>
-			<b>${feed.compartilha.usuario.nome}</b>
+			<b class="blue-text">${feed.compartilha.usuario.nome}</b>
 			<c:if test="${!feed.seuConteudo}">
-				<small>compartilhou a publicação de</small> ${feed.compartilha.publicacao.usuario.nome}
+				<small>compartilhou a publicação de</small> <b class="blue-text">${feed.compartilha.publicacao.usuario.nome}</b>
 			</c:if> 
 		</h5>
 		<p>
@@ -119,8 +120,8 @@
 					<li>	
 						<!-- MOSTRAR COMENTÁRIOS-->
 						<div class="row">
-							<!-- COMENTÁRIO -->							
-							<b>${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo}
+							<!-- COMENTÁRI -->							
+							<b class="blue-text">${feedComentario.comentario.usuario.nome}</b> ${feedComentario.comentario.conteudo}
 							<small class="grey-text text-darken-2"> <fmt:parseDate
 								value="${feedComentario.comentario.datahora}" pattern="yyyy-MM-dd'T'HH:mm"
 								var="parsedDateTime" type="both" /> <fmt:formatDate
@@ -143,6 +144,8 @@
 			</div>
 			<div class = "col s1"></div>
 		</div>
+ 	</div>		
+	</br>
 </c:forEach>
 
 <!-- TELA PARA COMPARTILAR -->
