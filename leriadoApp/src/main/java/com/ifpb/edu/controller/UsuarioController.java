@@ -100,7 +100,7 @@ public class UsuarioController implements Command{
 
 	private void atualizar(HttpServletRequest request, HttpServletResponse response) {
 		Usuario usuario = new Usuario();
-		String email = request.getParameter("email");
+		String email = ((Usuario)request.getSession().getAttribute("usuarioLogado")).getEmail();
 		String senha = request.getParameter("senha");
 		String nome = request.getParameter("nome");
 		String sobrenome = request.getParameter("sobrenome");
@@ -114,21 +114,18 @@ public class UsuarioController implements Command{
 		String numero = request.getParameter("numero");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		
+		
 		List<String> msgsErro = Validator.validaTodos(nome, sobrenome, email, senha, sexo, data, telefone, numero, cep, formatter);
-		try {
-			if(usuarioDao.buscarPorEmail(email)!=null) {
-				msgsErro.add(2, "Email já cadastrado");
-			}
-		} catch (SQLException e1) {
-			//erro 501
-		}
 		for(String msgErro : msgsErro) {
-			if(!(msgErro==null)) {
-				request.setAttribute("msgsErro", msgsErro);
+			if(msgErro!=null) {
+				request.getSession().setAttribute("msgErro", msgErro);
+//				request.setAttribute("msgErro", msgErro);
 				try {
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+//					request.getRequestDispatcher("/restrito/atualizar.jsp").forward(request, response);
+					response.sendRedirect("restrito/atualizar.jsp");
 					return;
-				} catch (ServletException | IOException e) {
+				} catch (IOException e) {
+					e.printStackTrace();
 					//erro 501
 				}
 			}
@@ -143,7 +140,7 @@ public class UsuarioController implements Command{
 		try {
 			usuario.setDatanasc(LocalDate.parse(data, formatter));			
 		}catch(DateTimeParseException e) {
-			//formatação da data inválida
+			usuario.setDatanasc(null);
 		}
 		usuario.setCidade(cidade);
 		usuario.setRua(rua);
@@ -161,10 +158,12 @@ public class UsuarioController implements Command{
 			e.printStackTrace();
 		}
 		try {
+			request.getSession().setAttribute("msgErro", null);
+			request.getSession(true).setAttribute("usuarioLogado", usuario);
 			response.sendRedirect("restrito/home.jsp");
 		} catch (IOException e) {
 			// erro 401
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		
 	}
@@ -231,7 +230,7 @@ public class UsuarioController implements Command{
 		}
 		
 		for(String msgErro : msgsErro) {
-			if(!(msgErro==null)) {
+			if(msgErro!=null) {
 				request.setAttribute("msgErro", msgErro);
 				try {
 					request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -243,19 +242,6 @@ public class UsuarioController implements Command{
 			}
 		}
 		
-		/*
-		for(String msgErro : msgsErro) {
-			if(!(msgErro==null)) {
-				request.setAttribute("msgsErro", msgsErro);
-				try {
-					request.getRequestDispatcher("index.jsp").forward(request, response);
-					return;
-				} catch (ServletException | IOException e) {
-					//erro 501
-				}
-			}
-		}
-		*/
 		try {
 			usuarioDao.criar(usuario);
 			request.getSession().setAttribute("usuarioLogado", usuarioDao.buscarPorEmail(usuario.getEmail()));

@@ -1,5 +1,5 @@
 <%@ page language="java" isELIgnored="false"
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -53,11 +53,11 @@
 						</div>
 					</section>
 				</div>
-				<!-- FORMULÃRIO DE CADASTRO -->
+				<!-- FORMULÁRIO DE CADASTRO -->
 				<div class="col s6">
 					<section>
 						<h4>Comece um Leriado</h4>
-						<h5>Ã‰ na poÃ­va, e sempre serÃ¡.</h5>
+						<h5>É na poíva, e sempre será.</h5>
 						<c:if test="${msgErro != null}">
 							<h5 class="red-text">${msgErro}</h5>
 						</c:if>
@@ -111,7 +111,7 @@
 								</div>
 								<div class="col s6 input-field">
 									<input type="text" name="numero" id="numero" pattern="\d+" /> <label
-										for="numero">NÃºmero de casa</label>
+										for="numero">Número de casa</label>
 								</div>
 							</div>
 							<div class="row">
