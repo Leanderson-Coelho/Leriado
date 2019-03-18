@@ -2,8 +2,32 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- FEED -->
+<!-- PUBLICAR -->
+<ul class="collapsible popout">
+	<li>
+		<!-- MENSAGEM -->
+		<div class="collapsible-header"><i class="material-icons">chat</i>Mensagem</div>
+		<div class="collapsible-body"><c:import url="compartilha/mensagem.jsp" /></div>
+	</li>
+	<li>
+		<!-- LINK -->
+		<div class="collapsible-header"><i class="material-icons">insert_link</i>Link</div>
+		<div class="collapsible-body"><c:import url="compartilha/link.jsp" /></div>
+	</li>
+	<li>
+		<!-- FOTO -->
+		<div class="collapsible-header"><i class="material-icons">image</i>Foto</div>
+		<div class="collapsible-body"><c:import url="compartilha/foto.jsp" /></div>
+	</li>
+	<li>
+		<!-- NOTICIA -->
+		<div class="collapsible-header"><i class="material-icons">whatshot</i>Noticia</div>
+		<div class="collapsible-body"><c:import url="compartilha/noticia.jsp" /></div>
+	</li>
+</ul>
 
+
+<!-- FEED -->
 <c:if test="${feedQtd==0}">
 	<div class = "row center-align"><h4>Você não tem publicações para visualizar</h4></div>
 </c:if>
@@ -53,6 +77,7 @@
 		<c:if test="${feed.compartilha.publicacao.tipoTexto eq 'LINK'}">
 			<!-- LINK -->
 			<p>${feed.compartilha.publicacao.conteudo}</p>
+			<a href="${feed.compartilha.publicacao.link}">${feed.compartilha.publicacao.link}</p>
 		</c:if>			
 			<p>
 			<small>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.ifpb.edu.controller.exception.CommandException;
+import com.ifpb.edu.model.dao.GrupoDaoImpl;
+import com.ifpb.edu.model.dao.publicacao.impdb.CompartilhaDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.FotoDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.LinkDAOImpDB;
 import com.ifpb.edu.model.dao.publicacao.impdb.NoticiaDAOImpDB;
@@ -59,11 +61,13 @@ public class PublicacaoController implements Command {
 	}
 
 	private void foto(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		String initPath = "/home/ian/Projetos_Programas/Java/"; // define local onde será armazenado
-		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
+		String initPath = "/home/isleimar/Documentos/ADS/04 - Periodo - 2018.2/Programação Para Web I/Leriado/leriadoApp/WebContent/"; 
+		String pathDocLeriado = "userimg";
 		String conteudo = request.getParameter("conteudo");
-
+		
 		try {
+						   
+
 			if (conteudo == null) {
 				String msgErro = "Erro no envio!!";
 				request.setAttribute("msgErro", msgErro);
@@ -86,8 +90,11 @@ public class PublicacaoController implements Command {
 					// escreve a imagem no HD obs.: o split("/") é pra dividir o tipo do arquivo que
 					// vem desta forma image/png
 					part.write(initPath + pathDocLeriado + File.separator + nomeFoto + "."
-							+ part.getContentType().split("/")[1]);
-					dao.cria(new Foto(conteudo, usuarioLogado, 1, nomeFoto));
+							+ part.getContentType().split("/")[1]);															
+					Foto f = new Foto(conteudo, usuarioLogado, 1, nomeFoto);
+					dao.cria(f);					
+					compartilha(f.getId(),request,response);
+					
 				}
 			}
 			if (nomeFoto.isEmpty()) {
@@ -102,8 +109,8 @@ public class PublicacaoController implements Command {
 
 	private void noticia(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-		String initPath = "/home/ian/Projetos_Programas/Java/"; // define local onde será armazenado
-		String pathDocLeriado = "Leriado/leriadoApp/WebContent/userimg";
+		String initPath = "/home/isleimar/Documentos/ADS/04 - Periodo - 2018.2/Programação Para Web I/Leriado/leriadoApp/WebContent/";
+		String pathDocLeriado = "userimg";
 		String titulo = request.getParameter("titulo");
 		String conteudo = request.getParameter("conteudo");
 		try {
@@ -131,10 +138,14 @@ public class PublicacaoController implements Command {
 					// vem desta forma image/png
 					part.write(initPath + pathDocLeriado + File.separator + fotoDao.nomeFoto() + "."
 							+ part.getContentType().split("/")[1]);
-					fotos.add(new Foto("", usuarioLogado, 1, fotoNome));
+					Foto f = new Foto("", usuarioLogado, 1, fotoNome);
+					fotos.add(f);
+					//compartilha(f.getId(),request,response);
 				}
 			}
-			dao.cria(new Noticia(titulo, conteudo, usuarioLogado, 1, fotos));
+			Noticia n = new Noticia(titulo, conteudo, usuarioLogado, 1, fotos);
+			dao.cria(n);
+			compartilha(n.getId(),request,response);
 			response.sendRedirect(request.getHeader("Referer"));
 		} catch (IOException | ServletException | DataAccessException e) {
 			e.printStackTrace();
@@ -142,7 +153,6 @@ public class PublicacaoController implements Command {
 	}
 
 	private void link(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-
 		String conteudo = request.getParameter("conteudo");
 		String link = request.getParameter("link");
 		try {
@@ -151,11 +161,11 @@ public class PublicacaoController implements Command {
 				request.setAttribute("msgErro", msgErro);
 				response.sendRedirect(request.getHeader("Referer"));
 				return;
-			}
-
+			}			
 			Link l = new Link(conteudo, (Usuario) request.getSession().getAttribute("usuarioLogado"), 1, link);
-			LinkDAOImpDB dao = new LinkDAOImpDB();
-			dao.cria(l);
+			LinkDAOImpDB dao = new LinkDAOImpDB();			
+			dao.cria(l);			
+			compartilha(l.getId(),request,response);			
 			response.sendRedirect(request.getHeader("Referer"));
 		} catch (DataAccessException | IOException e) {
 			e.printStackTrace();
@@ -176,9 +186,32 @@ public class PublicacaoController implements Command {
 			PublicacaoDAOImpDB dao = new PublicacaoDAOImpDB();
 			Publicacao p = new Publicacao(conteudo, (Usuario) request.getSession().getAttribute("usuarioLogado"), 1);
 			dao.cria(p);
+			compartilha(p.getId(),request,response);
 			response.sendRedirect(request.getHeader("Referer"));
-		} catch (DataAccessException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void compartilha(int publicacaoId, HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		CompartilhaDAOImpDB compartilhaDAO = new CompartilhaDAOImpDB();
+		GrupoDaoImpl grupoDAO = new GrupoDaoImpl();
+		int usuarioId;
+			try {
+			if (request.getParameter("usuarioid") == null) {
+				response.sendRedirect("index.jsp");
+				return;
+			}			
+			usuarioId = Integer.parseInt(request.getParameter("usuarioid"));
+			String[] grupos = request.getParameterValues("grupo");
+			for (String grupo : grupos) {
+				int grupoId = grupoDAO.buscaIdPorNome(grupo);								
+				if(!compartilhaDAO.existe(usuarioId, publicacaoId, grupoId))
+					compartilhaDAO.cria(usuarioId, publicacaoId, grupoId);				
+			}	
+			
+		}catch (Exception e) {				
+			throw new CommandException(500, "Falha ao compartilhar publicação.");
 		}
 	}
 }
