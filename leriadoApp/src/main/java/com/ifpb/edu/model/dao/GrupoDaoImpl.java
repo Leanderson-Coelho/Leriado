@@ -29,6 +29,7 @@ public class GrupoDaoImpl implements GrupoDao{
 		statement.setString(3, novoGrupo.getDescricao());
 		statement.setString(4, novoGrupo.getFoto());
 		ResultSet rs = statement.executeQuery();
+		rs.next();
 		novoGrupo.setId(rs.getInt(1));
 	}
 
@@ -139,4 +140,19 @@ public class GrupoDaoImpl implements GrupoDao{
 		}
 		return gruposUsuarioAdministra;
 	}
+
+	@Override
+	public void adicionarAdministrador(int idUsuario, int idGrupo) throws DataAccessException {
+		try {
+			String sql = new String("INSERT INTO admgrupo (usuarioid,grupoid) VALUES (?,?)");
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, idUsuario);
+			statement.setInt(2,idGrupo);
+			statement.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

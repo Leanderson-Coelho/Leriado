@@ -16,6 +16,7 @@ public interface GrupoDao {
 	public int buscaIdPorNome(String nome) throws DataAccessException;
 	public List<String> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException;
 	public List<Grupo> admsGrupo(int idUsuario) throws DataAccessException;
+	public void adicionarAdministrador(int idUsuario,int idGrupo) throws DataAccessException;
 	
 }
 
