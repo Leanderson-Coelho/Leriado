@@ -183,7 +183,7 @@ public class FotoDAOImpDB implements FotoDAO {
 
 	@Override
 	public void criaFotoPerfil(Usuario usuario, Foto foto) throws DataAccessException {
-		cria(foto);
+		cria(foto);		
 		mudarFotoPerfil(usuario, foto);
 	}
 
@@ -196,6 +196,8 @@ public class FotoDAOImpDB implements FotoDAO {
 			stm.setInt(2, foto.getId());
 			stm.execute();
 		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("aqui");
 			throw new DataAccessException("Falha ao mudar a foto do perfil");
 		}
 	}
