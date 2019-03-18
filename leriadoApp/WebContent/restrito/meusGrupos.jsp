@@ -1,12 +1,11 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<meta charset="ISO-8859-1">
 <!-- JQUERY -->
 <script src="../js/JQuery.js"></script>
 <!-- MASCARAS JQUERY PLUGIN -->
@@ -51,9 +50,9 @@
 							</c:if></li>
 						<p class="grey-text text-darken-3">Feed</p>
 						<div class="divider"></div>
-						<a href="/leriadoApp/restrito/home.jsp" class="collection-item">Feed de NotÃ­cias</a>
+						<a href="/leriadoApp/restrito/home.jsp" class="collection-item">Feed de Notícias</a>
 						<div class="divider"></div>
-						<p class="grey-text text-darken-3">Grupos que vocÃª participa:</p>
+						<p class="grey-text text-darken-3">Grupos que você participa:</p>
 						<div class="divider"></div>
 						<c:import url="/Leriado?command=GrupoController&acao=grupos" />
 						<div class="divider"></div>
@@ -65,7 +64,34 @@
 		<div class="col s12 l8 white lighten-2">
 			<h3>Seus Grupos:</h3>
 			<c:import url="/Leriado?command=GrupoController&acao=gerenciarGrupos" />
+			<!-- ADICIONAR NOVO GRUPO -->
+			<h5>Crie um novo Grupo e adicione amigos!</h5>
+			<div class="col s12 l6 push-l3"">
+				<form action="/leriadoApp/Leriado?command=GrupoController&acao=criarGrupo" method="post" enctype="multipart/form-data">  
+					<div class="input-field">
+						<input type="text" name="nome" id="nome" required />
+						<label for="nome">Nome do Grupo</label>
+					</div>
+					<div class="input-field">
+						<input type="text" name="descricao" id="descricao" required />
+						<label for="descricao">Descrição do Grupo</label>
+					</div>
+					<div class="file-field input-field">
+						<div class="btn green">
+							<i class="material-icons">add</i><input type="file" name="file">
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text" placeholder="Imagem do grupo">
+						</div>
+					</div>
+					<div class="input-field">
+						<input type="submit" class="btn" />
+					</div>
+				</form>
+				
+			</div>
 		</div>
+		
 		<!-- AMIGOS -->
 		<div class="col s12 l2 grey lighten-3"></div>
 	</div>
