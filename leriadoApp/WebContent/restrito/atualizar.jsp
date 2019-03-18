@@ -38,21 +38,23 @@
 				class="col s12">
 				<div class="row">
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.nome}" type="text" name="nome" id="nome" required /> <label
-							for="nome">Nome</label>
+						<input value="${usuarioLogado.nome}" type="text" name="nome"
+							id="nome" required /> <label for="nome">Nome</label>
 					</div>
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.sobrenome}" type="text" name="sobrenome" id="sobrenome" required /> <label
+						<input value="${usuarioLogado.sobrenome}" type="text"
+							name="sobrenome" id="sobrenome" required /> <label
 							for="sobrenome">Sobrenome</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s6 input-field">
 						<input type="password" name="senha" id="senhaDesktop" required
-							pattern=".{8,}" /> <label for="senhaDesktop">Senha</label>
+							pattern=".{8,}" /> <label for="senhaDesktop">Senha(no mínimo 8 dígitos)</label>
 					</div>
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.telefone}" type="text" name="telefone" id="telefone"
+						<input value="${usuarioLogado.telefone}" type="text"
+							name="telefone" id="telefone"
 							pattern="^\(\d{2}\) \d{4}\d?-\d{4}$" /> <label for="telefone">Telefone</label>
 					</div>
 				</div>
@@ -60,11 +62,13 @@
 					<div class="col s6 input-field">
 						<p class="col s6">
 							<label> <input name="sexo" type="radio" value="M"
+								<c:if test="${usuarioLogado.sexo == 'M'}">checked</c:if>
 								required /> <span><b>Masculino</b></span>
 							</label>
 						</p>
 						<p>
 							<label> <input name="sexo" type="radio" value="F"
+								<c:if test="${usuarioLogado.sexo == 'F'}">checked</c:if>
 								required /> <span><b>Feminino</b></span>
 							</label>
 						</p>
@@ -72,32 +76,42 @@
 
 				</div>
 				<div class="row">
+					
+					
+					
 					<div class="col s6 input-field">
-						<input type="text" name="data" id="data" required /> <label
-							for="data">Data de Nascimento</label>
+						<fmt:parseDate value="${usuarioLogado.datanasc}" pattern="yyyy-MM-dd" var="parsedDate" type="DATE"/> 					
+						<input value = "<fmt:formatDate pattern="dd-MM-yyyy" value="${ parsedDate }"/>" type="text" name="data" id="data" required /> 
+						<label for="data">Data de Nascimento</label>
 					</div>
+					
+					
+					
+					
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.numero}" type="text" name="numero" id="numero" pattern="\d+" /> <label
-							for="numero">Número de casa</label>
+						<input value="${usuarioLogado.numero}" type="text" name="numero"
+							id="numero" pattern="\d+" /> <label for="numero">Número
+							de casa</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.rua}" type="text" name="rua" id="rua" /> <label for="rua">Rua</label>
+						<input value="${usuarioLogado.rua}" type="text" name="rua"
+							id="rua" /> <label for="rua">Rua</label>
 					</div>
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.cidade}" type="text" name="cidade" id="cidade" /> <label
-							for="Cidade">Cidade</label>
+						<input value="${usuarioLogado.cidade}" type="text" name="cidade"
+							id="cidade" /> <label for="Cidade">Cidade</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.cep}" type="text" name="cep" id="cep" pattern="\d{5}-\d{3}" /> <label
-							for="cep">CEP</label>
+						<input value="${usuarioLogado.cep}" type="text" name="cep"
+							id="cep" pattern="\d{5}-\d{3}" /> <label for="cep">CEP</label>
 					</div>
 					<div class="col s6 input-field">
-						<input value="${usuarioLogado.estado}" type="text" name="estado" id="estado" /> <label
-							for="estado">Estado</label>
+						<input value="${usuarioLogado.estado}" type="text" name="estado"
+							id="estado" /> <label for="estado">Estado</label>
 					</div>
 				</div>
 				<div class="input-field">

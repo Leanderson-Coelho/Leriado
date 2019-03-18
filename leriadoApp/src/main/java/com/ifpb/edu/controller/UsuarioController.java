@@ -1,5 +1,6 @@
 package com.ifpb.edu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.ifpb.edu.controller.exception.CommandException;
 import com.ifpb.edu.model.dao.UsuarioDao;
@@ -59,6 +61,9 @@ public class UsuarioController implements Command{
 			case "logout":
 				logout(request,response);
 				break;
+			case "fotoPerfil":
+				atualizarFotoPerfil(request, response);
+				break;
 		}
 	}
 
@@ -83,7 +88,7 @@ public class UsuarioController implements Command{
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 		} catch (SQLException | IOException | ServletException | DataAccessException  e) {
-			// TODO Auto-generated catch block
+			// TOD@importO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -243,11 +248,17 @@ public class UsuarioController implements Command{
 		}
 		
 		try {
+			Foto fotoPerfil = fotoDao.buscarFotoPerfil(usuario);
+			if(fotoPerfil==null) {
+				fotoPerfil = new Foto();
+				fotoPerfil.setArquivo(request.getServletContext().getInitParameter("FotoPerfilDefault"));
+			}
+			request.getSession(true).setAttribute("fotoPerfil",fotoPerfil);
 			usuarioDao.criar(usuario);
 			request.getSession().setAttribute("usuarioLogado", usuarioDao.buscarPorEmail(usuario.getEmail()));
-			request.getRequestDispatcher("restrito/home.jsp").forward(request, response);
+			response.sendRedirect("restrito/home.jsp");
 			return;
-		} catch (SQLException | IOException | ServletException e) {
+		} catch (SQLException | IOException | DataAccessException e) {
 			e.printStackTrace();
 			//erro 501
 		}
@@ -264,4 +275,32 @@ public class UsuarioController implements Command{
 		}
 		
 	}
+	private void atualizarFotoPerfil(HttpServletRequest request, HttpServletResponse response) {
+		String initPath = "/home/ian/Projetos_Programas/Java/"; 
+		String pathDocLeriado = "/Leriado/leriadoApp/WebContent/userimg";
+		
+		File file = new File(initPath + pathDocLeriado);
+		if (!file.exists()) {
+			file.mkdir();
+		}
+
+		FotoDAOImpDB dao = new FotoDAOImpDB();
+		Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
+		String nomeFoto = "";
+
+		try {
+			for (Part part : request.getParts()) {
+				if (part.getContentType() != null) {// se ele tiver um tipo então é porque ele é um arquivo :)
+					nomeFoto = dao.nomeFoto()+"."+part.getContentType().split("/")[1];
+					part.write(initPath + pathDocLeriado + File.separator + nomeFoto);															
+					Foto f = new Foto("", usuarioLogado, 1, nomeFoto);
+					dao.criaFotoPerfil(usuarioLogado, f);
+					request.getSession().setAttribute("fotoPerfil", nomeFoto);
+				}
+			}
+			response.sendRedirect(request.getHeader("Referer"));
+		} catch (IOException | ServletException | DataAccessException e) {
+			e.printStackTrace();
+		}
+	}	
 }
