@@ -14,7 +14,24 @@ p {
 	top:0px;
 	opacity: 10%;
 	margin: 50%;
-	
+}
+
+@media only screen and (min-width: 993px)
+.row .col.l2 {
+	margin-left: 20px;
+}
+
+/* ABA DE PERFIL TEM MARGEM DE 20px */
+.perfil{
+	margin-left: 20px;
+}
+
+.publicacao{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 10px;
 }
 
 label{
@@ -126,11 +143,35 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 [type="radio"].with-gap:checked + span:after {
   background-color: #125205;
 }
-
+/* DEIXAR CAMPO VERMELHO QUANDO É PRA REMOVER USUÁRIO DO GRUPO */
 .emailRemover[type=email]:not(.browser-default):focus:not([readonly]) + label{
 	color: red;
 }
 
+/* DEIXAR CAMPO VERMELHO QUANDO É PRA REMOVER USUÁRIO DO GRUPO */
 .input-field .iconRed.active {
   color: red;
 }
+
+.conteudo{
+	height: -webkit-fill-available;
+}
+
+/* CSS DOS GRUPOS QUE PARTICIPO --- INICIO */
+.collection .collection-item {
+    background-color: transparent;
+    border: none;
+}
+
+.collection .collection-item {
+    color: #000;
+}
+
+.collection {
+    border: none;
+}
+
+.collection a.collection-item{
+	color: #000;
+}
+

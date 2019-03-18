@@ -5,8 +5,8 @@
 	<ul class="collapsible">
 		<c:forEach var="grupo" items="${gruposUsuarioAdministra }">
 			<li>
-				<div class="collapsible-header">${grupo.nome}</div>
-				<div class="collapsible-body white">
+				<div class="collapsible-header grey lighten-3">${grupo.nome}</div>
+				<div class="collapsible-body grey lighten-3">
 					<div class="row" >
 						<div class="col s12 l6">
 							<b>NOME: ${grupo.nome}</b>
