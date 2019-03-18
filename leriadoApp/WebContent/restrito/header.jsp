@@ -6,8 +6,7 @@
 				<a href="#" class="brand-logo "><img class="logo"
 					src="img/logobranco.png" /></a>
 				<ul class="right hide-on-med-and-down">
-					<form method="post"
-						action="Leriado?command=UsuarioController&acao=login">
+					<form method="post" action="Leriado?command=UsuarioController&acao=login">
 						<div class="row">
 							<div class="input-field col l4">
 								<input class="validate camposLogin" type="text" id="emailLogin"

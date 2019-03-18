@@ -16,14 +16,10 @@ p {
 	margin: 50%;
 }
 
-@media only screen and (min-width: 993px)
-.row .col.l2 {
-	margin-left: 20px;
-}
-
-/* ABA DE PERFIL TEM MARGEM DE 20px */
 .perfil{
-	margin-left: 20px;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    padding-right: 20px !important;
 }
 
 .publicacao{
@@ -171,7 +167,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
     border: none;
 }
 
-.collection a.collection-item{
-	color: #000;
-}
+
+
+
 

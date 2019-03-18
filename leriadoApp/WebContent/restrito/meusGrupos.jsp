@@ -37,7 +37,7 @@
 	<jsp:include page="headerOn.jsp" />
 	<div class="row grey lighten-3 conteudo">
 		<!-- PERFIL -->
-		<div class="col s12 l2 grey lighten-5">
+		<div class="col s12 l2 grey lighten-5 perfil">
 			<div class="row">
 				<div class="col s12 l12">
 					<ul class="collection">
@@ -48,13 +48,13 @@
 								test="${msg!=null}">
 								<p class="red-text">${msg}</p>
 							</c:if></li>
-						<p class="grey-text text-darken-3">Feed</p>
+						<b class="grey-text text-darken-3">Feed</b>
 						<div class="divider"></div>
 						<a href="/leriadoApp/restrito/home.jsp" class="collection-item">Feed de Notícias</a>
-						<div class="divider"></div>
-						<p class="grey-text text-darken-3">Grupos que você participa:</p>
+						<b class="grey-text text-darken-3">Grupos que você participa:</b>
 						<div class="divider"></div>
 						<c:import url="/Leriado?command=GrupoController&acao=grupos" />
+						<b class="grey-text text-darken-3">Gerenciar seus grupos:</b>
 						<div class="divider"></div>
 						<a href="/leriadoApp/restrito/meusGrupos.jsp" class="collection-item">Meus Grupos</a>
 					</ul>
