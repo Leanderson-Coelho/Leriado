@@ -88,7 +88,7 @@ public class UsuarioController implements Command{
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 		} catch (SQLException | IOException | ServletException | DataAccessException  e) {
-			// TODO Auto-generated catch block
+			// TOD@importO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -248,11 +248,17 @@ public class UsuarioController implements Command{
 		}
 		
 		try {
+			Foto fotoPerfil = fotoDao.buscarFotoPerfil(usuario);
+			if(fotoPerfil==null) {
+				fotoPerfil = new Foto();
+				fotoPerfil.setArquivo(request.getServletContext().getInitParameter("FotoPerfilDefault"));
+			}
+			request.getSession(true).setAttribute("fotoPerfil",fotoPerfil);
 			usuarioDao.criar(usuario);
 			request.getSession().setAttribute("usuarioLogado", usuarioDao.buscarPorEmail(usuario.getEmail()));
 			response.sendRedirect("restrito/home.jsp");
 			return;
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException | DataAccessException e) {
 			e.printStackTrace();
 			//erro 501
 		}
