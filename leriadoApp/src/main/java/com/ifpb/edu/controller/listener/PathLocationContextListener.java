@@ -14,6 +14,7 @@ public class PathLocationContextListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent servletContextEvent) {		
 		ServletContext sc = servletContextEvent.getServletContext();		
 		String path = sc.getRealPath("");		
+		System.out.println(path);
 		String pathImg = sc.getInitParameter("pastaImagensUsuario");		
 		String pathSaveImg = path + pathImg + File.separator;
 		String urlImg = sc.getContextPath() + File.separator + pathImg + File.separator; 
@@ -23,7 +24,7 @@ public class PathLocationContextListener implements ServletContextListener{
 		}
 		sc.setAttribute("IMG_FILE", pathSaveImg);		
 		sc.setAttribute("pastaImagensUsuario", urlImg);
-		System.out.println(urlImg);
+//		System.out.println(urlImg);
 	}
 	
 	@Override

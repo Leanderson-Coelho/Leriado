@@ -80,8 +80,8 @@ public class GrupoController implements Command{
 
 	private void criarGrupo(HttpServletRequest request, HttpServletResponse response) {
 		Logger log = Logger.getLogger("GrupoController");
-		String initPath = "/home/leanderson/Dropbox/ADS/4º Período/PROGRAMAÇÃO PARA WEB I/workspace/Leriado/leriadoApp/WebContent/"; 
-		String pathDocLeriado = "userimg";
+		String initPath = (String) request.getServletContext().getAttribute("IMG_FILE");
+		System.out.println(initPath);
 		String nomeGrupo = (String) request.getParameter("nome");
 		String descricao = (String) request.getParameter("descricao");
 		try {
@@ -92,7 +92,7 @@ public class GrupoController implements Command{
 				return;
 			}
 
-			File file = new File(initPath + pathDocLeriado);
+			File file = new File(initPath);
 			if (!file.exists()) {
 				file.mkdir();
 			}
@@ -107,7 +107,7 @@ public class GrupoController implements Command{
 					nomeFoto = dao.nomeFoto();
 					// escreve a imagem no HD obs.: o split("/") é pra dividir o tipo do arquivo que
 					// vem desta forma image/png
-					part.write(initPath + pathDocLeriado + File.separator + nomeFoto);															
+					part.write(initPath + nomeFoto);															
 					Foto f = new Foto();
 					f.setArquivo(nomeFoto);
 					grupoDao.criar(new Grupo(0,true,LocalDateTime.now(),nomeGrupo,descricao,f.getArquivo()));
