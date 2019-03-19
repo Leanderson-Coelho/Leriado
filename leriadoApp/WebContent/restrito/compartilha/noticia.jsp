@@ -2,6 +2,7 @@
 <form method="post"
 	action="/leriadoApp/Leriado?command=PublicacaoController&acao=noticia"
 	enctype="multipart/form-data">
+	<input  hidden name="usuarioid" type="text" value="${usuarioId}" readonly>
 	<div class="col s12">
 		<input type="text" name="titulo"
 			placeholder="Digite um título para sua publicação"

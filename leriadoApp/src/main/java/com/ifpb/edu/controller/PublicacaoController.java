@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -61,8 +62,7 @@ public class PublicacaoController implements Command {
 	}
 
 	private void foto(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		String initPath = "/home/isleimar/Documentos/ADS/04 - Periodo - 2018.2/Programação Para Web I/Leriado/leriadoApp/WebContent/"; 
-		String pathDocLeriado = "userimg";
+		String imgPath = (String) request.getServletContext().getAttribute("IMG_FILE");		
 		String conteudo = request.getParameter("conteudo");
 		
 		try {
@@ -74,12 +74,7 @@ public class PublicacaoController implements Command {
 				response.sendRedirect(request.getHeader("Referer"));
 				return;
 			}
-
-			File file = new File(initPath + pathDocLeriado);
-			if (!file.exists()) {
-				file.mkdir();
-			}
-
+			
 			FotoDAOImpDB dao = new FotoDAOImpDB();
 			Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
 			String nomeFoto = "";
@@ -89,8 +84,7 @@ public class PublicacaoController implements Command {
 					nomeFoto = dao.nomeFoto();
 					// escreve a imagem no HD obs.: o split("/") é pra dividir o tipo do arquivo que
 					// vem desta forma image/png
-					part.write(initPath + pathDocLeriado + File.separator + nomeFoto + "."
-							+ part.getContentType().split("/")[1]);															
+					part.write(imgPath + nomeFoto);															
 					Foto f = new Foto(conteudo, usuarioLogado, 1, nomeFoto);
 					dao.cria(f);					
 					compartilha(f.getId(),request,response);
@@ -108,9 +102,7 @@ public class PublicacaoController implements Command {
 	}
 
 	private void noticia(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-
-		String initPath = "/home/isleimar/Documentos/ADS/04 - Periodo - 2018.2/Programação Para Web I/Leriado/leriadoApp/WebContent/";
-		String pathDocLeriado = "userimg";
+		String imgPath = (String) request.getServletContext().getAttribute("IMG_FILE");		
 		String titulo = request.getParameter("titulo");
 		String conteudo = request.getParameter("conteudo");
 		try {
@@ -120,24 +112,19 @@ public class PublicacaoController implements Command {
 				response.sendRedirect(request.getHeader("Referer"));
 				return;
 			}
-
-			File file = new File(initPath + pathDocLeriado);
-			if (!file.exists()) {
-				file.mkdir();
-			}
+			
 			NoticiaDAOImpDB dao = new NoticiaDAOImpDB();
 			FotoDAOImpDB fotoDao = new FotoDAOImpDB();
 			List<Foto> fotos = new ArrayList<>();
 			Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
 
 			String fotoNome = "";
-			for (Part part : request.getParts()) {
+			for (Part part : request.getParts()) {				
 				if (part.getContentType() != null) {// se ele tiver um tipo então é porque ele é um arquivo :)
 					fotoNome = fotoDao.nomeFoto();
 					// escreve a imagem no HD obs.: o split("/") é pra dividir o tipo do arquivo que
 					// vem desta forma image/png
-					part.write(initPath + pathDocLeriado + File.separator + fotoDao.nomeFoto() + "."
-							+ part.getContentType().split("/")[1]);
+					part.write(imgPath + fotoNome);					
 					Foto f = new Foto("", usuarioLogado, 1, fotoNome);
 					fotos.add(f);
 					//compartilha(f.getId(),request,response);
@@ -146,9 +133,10 @@ public class PublicacaoController implements Command {
 			Noticia n = new Noticia(titulo, conteudo, usuarioLogado, 1, fotos);
 			dao.cria(n);
 			compartilha(n.getId(),request,response);
-			response.sendRedirect(request.getHeader("Referer"));
-		} catch (IOException | ServletException | DataAccessException e) {
+			response.sendRedirect(request.getHeader("Referer"));			
+		} catch (Exception e) {
 			e.printStackTrace();
+			throw new CommandException(500,"Falha ao compartilhar notícia");
 		}
 	}
 
@@ -184,8 +172,8 @@ public class PublicacaoController implements Command {
 				return;
 			}
 			PublicacaoDAOImpDB dao = new PublicacaoDAOImpDB();
-			Publicacao p = new Publicacao(conteudo, (Usuario) request.getSession().getAttribute("usuarioLogado"), 1);
-			dao.cria(p);
+			Publicacao p = new Publicacao(conteudo, (Usuario) request.getSession().getAttribute("usuarioLogado"), 1);			
+			dao.cria(p);			
 			compartilha(p.getId(),request,response);
 			response.sendRedirect(request.getHeader("Referer"));
 		} catch (Exception e) {
@@ -210,7 +198,8 @@ public class PublicacaoController implements Command {
 					compartilhaDAO.cria(usuarioId, publicacaoId, grupoId);				
 			}	
 			
-		}catch (Exception e) {				
+		}catch (Exception e) {
+			e.printStackTrace();
 			throw new CommandException(500, "Falha ao compartilhar publicação.");
 		}
 	}

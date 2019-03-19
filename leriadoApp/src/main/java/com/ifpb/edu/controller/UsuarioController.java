@@ -276,14 +276,8 @@ public class UsuarioController implements Command{
 		
 	}
 	private void atualizarFotoPerfil(HttpServletRequest request, HttpServletResponse response) {
-		String initPath = "/home/ian/Projetos_Programas/Java/"; 
-		String pathDocLeriado = "/Leriado/leriadoApp/WebContent/userimg";
-		
-		File file = new File(initPath + pathDocLeriado);
-		if (!file.exists()) {
-			file.mkdir();
-		}
-
+		String imgPath = (String) request.getServletContext().getAttribute("IMG_FILE");
+		String voltar = request.getHeader("Referer");
 		FotoDAOImpDB dao = new FotoDAOImpDB();
 		Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuarioLogado");
 		String nomeFoto = "";
@@ -292,13 +286,14 @@ public class UsuarioController implements Command{
 			for (Part part : request.getParts()) {
 				if (part.getContentType() != null) {// se ele tiver um tipo então é porque ele é um arquivo :)
 					nomeFoto = dao.nomeFoto();
-					part.write(initPath + pathDocLeriado + File.separator + nomeFoto);															
-					Foto f = new Foto("", usuarioLogado, 1, nomeFoto);
-					dao.criaFotoPerfil(usuarioLogado, f);
-					request.getSession().setAttribute("fotoPerfil", nomeFoto);
+					part.write(imgPath + nomeFoto);															
+					Foto f = new Foto("", usuarioLogado, 1, nomeFoto);					
+					dao.criaFotoPerfil(usuarioLogado, f);					
+					request.getSession().setAttribute("fotoPerfil", f);
 				}
-			}
-			response.sendRedirect(request.getHeader("Referer"));
+			}			
+			System.out.println(voltar);
+			response.sendRedirect(voltar);
 		} catch (IOException | ServletException | DataAccessException e) {
 			e.printStackTrace();
 		}

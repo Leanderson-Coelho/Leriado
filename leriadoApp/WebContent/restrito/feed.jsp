@@ -56,8 +56,12 @@
 			</h3>
 			<p>${feed.compartilha.publicacao.conteudo}</p>
 			<c:forEach var="foto" items="${feed.compartilha.publicacao.fotos}">
-				<img alt="${foto.conteudo}"
-					src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${foto.arquivo}">
+				<div class="row s12">
+				<div class="col s1"></div>
+				<img class="col s10" alt="${foto.conteudo}"
+					src="<%=(String) request.getServletContext().getAttribute("pastaImagensUsuario")%>${foto.arquivo}">
+				<div class="col s1"></div>
+				</div>
 			</c:forEach>
 
 		</c:if>
@@ -70,7 +74,7 @@
 			<div class="row s12">
 			<div class="col s1"></div>
 			<img class="col s10" alt="${feed.compartilha.publicacao.conteudo}"
-				src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${feed.compartilha.publicacao.arquivo}">			
+				src="<%=(String) request.getServletContext().getAttribute("pastaImagensUsuario")%>${feed.compartilha.publicacao.arquivo}">			
 			<div class="col s1"></div>			
 			</div>
 			<p>${feed.compartilha.publicacao.conteudo}</p>
