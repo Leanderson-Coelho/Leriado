@@ -31,7 +31,7 @@
 								<b>SEM FOTO: </b>
 							</c:if>
 							<c:if test="${grupo.foto != null}">
-								<b>FOTO: </b><img class="circle imgGrupo" src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${grupo.foto}"/>
+								<b>FOTO: </b><img class="circle imgGrupo" src="<%=(String) request.getServletContext().getAttribute("pastaImagensUsuario")%>${grupo.foto}"/>
 							</c:if>
 						</div>
 					</div>
