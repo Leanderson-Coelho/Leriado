@@ -38,7 +38,7 @@ public class GrupoDaoImpl implements GrupoDao{
 		String query = "update grupo set ativo=false where id=?";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setInt(1, idGrupo);
-		statement.executeQuery();
+		statement.execute();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class GrupoDaoImpl implements GrupoDao{
 	public Grupo busca(int id) throws DataAccessException {
 		try {
 			String query = "SELECT * FROM grupo "
-					+ "WHERE id = ? ";
+					+ "WHERE id = ? and ativo = true";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, id);
 			ResultSet rs = stm.executeQuery();
@@ -102,8 +102,8 @@ public class GrupoDaoImpl implements GrupoDao{
 	public List<String> buscarGruposUsuarioParticipa(int idUsuario) throws DataAccessException {
 		List<String> gruposUsuarioParticipa = new ArrayList<>();
 		try {
-			String query = "SELECT grupoid FROM participagrupo "
-					+ "WHERE usuarioid = ? ";
+			String query = "SELECT g.id FROM participagrupo pg, grupo g "
+					+ "WHERE pg.grupoid = g.id and pg.usuarioid = ? and g.ativo = true";
 			PreparedStatement stm = connection.prepareStatement(query);
 			stm.setInt(1, idUsuario);
 			ResultSet rs = stm.executeQuery();
