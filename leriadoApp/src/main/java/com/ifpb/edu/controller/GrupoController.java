@@ -55,14 +55,32 @@ public class GrupoController implements Command{
 				break;
 			case "gerenciarGrupos":
 				gerenciarGrupos(request,response);
+				break;
 			case "criarGrupo":
 				criarGrupo(request,response);
+				break;
+			case "removerGrupo":
+				removerGrupo(request,response);
+				break;
 		}
+	}
+
+	private void removerGrupo(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			log.info("--->> IDGRUPO: "+request.getParameter("idGrupo"));
+			int idGrupo = Integer.parseInt(request.getParameter("idGrupo"));
+			grupoDao.excluir(idGrupo);		
+			response.sendRedirect("restrito/meusGrupos.jsp");
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void criarGrupo(HttpServletRequest request, HttpServletResponse response) {
 		Logger log = Logger.getLogger("GrupoController");
-		String initPath = "/home/ian/Projetos_Programas/Java/Leriado/leriadoApp/WebContent/"; 
+		String initPath = "/home/leanderson/Dropbox/ADS/4º Período/PROGRAMAÇÃO PARA WEB I/workspace/Leriado/leriadoApp/WebContent/"; 
 		String pathDocLeriado = "userimg";
 		String nomeGrupo = (String) request.getParameter("nome");
 		String descricao = (String) request.getParameter("descricao");
