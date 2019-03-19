@@ -31,6 +31,7 @@
 	<div class="row container">
 		<c:if test="${msgErro != null}">
 			<h5 class="red-text">${msgErro}</h5>
+			<c:remove var="msgErro" scope="session"/>
 		</c:if>
 		<div class="col s12 ">
 			<form method="POST"

@@ -102,7 +102,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	
 	@Override
 	public Usuario buscarPorEmail(String email) throws SQLException {
-		String sql = "select * from usuario where email=?";
+		String sql = "select * from usuario where email=? and ativo=true";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, email);
 		ResultSet result = statement.executeQuery();

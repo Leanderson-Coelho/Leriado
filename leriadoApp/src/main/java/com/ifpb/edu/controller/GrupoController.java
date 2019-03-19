@@ -146,6 +146,11 @@ public class GrupoController implements Command{
 		int idGrupo = Integer.parseInt(request.getParameter("idGrupo"));
 		try {
 			Usuario usuario = usuarioDao.buscarPorEmail(request.getParameter("emailRemover"));
+			if(usuario==null) {
+				request.getSession().setAttribute("msg1", new String("Email inválido"));
+				response.sendRedirect("restrito/meusGrupos.jsp");
+				return;
+			}
 			grupoDao.removerUsuario(idGrupo,usuario.getId());
 			response.sendRedirect("restrito/meusGrupos.jsp");
 		} catch (SQLException | IOException e) {
@@ -161,8 +166,8 @@ public class GrupoController implements Command{
 		try {
 			novoUsuarioDGrupo = usuarioDao.buscarPorEmail(request.getParameter("email"));
 			if(novoUsuarioDGrupo == null) {
-				response.sendRedirect("restrito/home.jsp");
-				request.setAttribute("msg", new String("Email inválido"));
+				request.getSession().setAttribute("msg1", new String("Email inválido"));
+				response.sendRedirect("restrito/meusGrupos.jsp");
 			}else {
 				try {
 					idGrupo = grupoDao.buscaIdPorNome(request.getParameter("nomeGrupo"));
