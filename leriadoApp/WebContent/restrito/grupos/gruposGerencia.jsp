@@ -4,9 +4,13 @@
 <c:if test="${gruposUsuarioAdministra ne null }">
 	<ul class="collapsible">
 		<c:forEach var="grupo" items="${gruposUsuarioAdministra }">
+		<c:if test="${grupo.id != null}">
 			<li>
 				<div class="collapsible-header grey lighten-3">${grupo.nome}</div>
 				<div class="collapsible-body grey lighten-3">
+					<div class="row">
+						<h5><b>Informações:</b></h5>
+					</div>
 					<div class="row" >
 						<div class="col s12 l6">
 							<b>NOME: ${grupo.nome}</b>
@@ -24,7 +28,7 @@
 						</div>
 						<div class="col s12 l6">
 							<c:if test="${grupo.foto == null}">
-								<b>SEM FOTO: </b><i class="material-icons">group</i>
+								<b>SEM FOTO: </b>
 							</c:if>
 							<c:if test="${grupo.foto != null}">
 								<b>FOTO: </b><img class="circle imgGrupo" src="<%=request.getServletContext().getInitParameter("pastaImagensUsuario")%>/${grupo.foto}"/>
@@ -65,8 +69,29 @@
 							</div>
 						</form>
 					</div>
+					<div class="row">
+						<h5><b class="red-text">Apagar grupo:</b></h5>
+						<a class="waves-effect waves-light btn modal-trigger rigth" href="#${grupo.nome }">REMOVER GRUPO</a>
+					</div>
+					<div id="${grupo.nome }" class="modal">
+					    <div class="modal-content">
+					      <h4>Deseja realmente Apagar o grupo:<i> ${grupo.nome }</i>?</h4>
+					    </div>
+					    <div class="modal-footer">
+				    		<form action="/leriadoApp/Leriado?command=GrupoController&acao=removerGrupo" method="post">
+				    			<div class="input-field">
+				      				<input hidden type="text" name="idGrupo" value="${grupo.id}" />
+				      			</div>
+				    			<div class="input-field">
+				    				<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+				    				<button class="btn modal-close red lighten-2 waves-effect" type="submit">REMOVER</button>
+				      			</div>
+				      		</form>
+					    </div>
+ 					</div>
 				</div>
 			</li>
+		</c:if>
 		</c:forEach>
 	</ul>
 </c:if>
