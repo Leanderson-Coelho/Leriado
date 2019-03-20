@@ -1,6 +1,7 @@
 package com.ifpb.edu.controller.listener;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -9,12 +10,13 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class PathLocationContextListener implements ServletContextListener{
+	
+	private static Logger log = Logger.getLogger("PathLocationContextListener");
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {		
 		ServletContext sc = servletContextEvent.getServletContext();		
 		String path = sc.getRealPath("");		
-		System.out.println(path);
 		String pathImg = sc.getInitParameter("pastaImagensUsuario");		
 		String pathSaveImg = path + pathImg + File.separator;
 		String urlImg = sc.getContextPath() + File.separator + pathImg + File.separator; 
@@ -24,7 +26,8 @@ public class PathLocationContextListener implements ServletContextListener{
 		}
 		sc.setAttribute("IMG_FILE", pathSaveImg);		
 		sc.setAttribute("pastaImagensUsuario", urlImg);
-//		System.out.println(urlImg);
+		log.info(" DIRETORIO DE IMAGENS "+ pathSaveImg);
+		log.info(" URL DE IMAGENS "+ urlImg);
 	}
 	
 	@Override
