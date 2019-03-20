@@ -10,12 +10,12 @@
 
 	<name>leriadoApp</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<repositories>
-	<repository>
-		<id>central</id>
-		<url>http://central.maven.org/maven2/</url>
-	</repository>
+		<repository>
+			<id>central</id>
+			<url>http://central.maven.org/maven2/</url>
+		</repository>
 	</repositories>
 
 	<properties>
@@ -50,19 +50,25 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>8.5.35</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.2</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <webappDirectory>webapp</webappDirectory>
-        </configuration>
-      </plugin>
-    </plugins>
-</build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webappDirectory>webapp</webappDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+		</plugins>
+	</build>
 </project>
