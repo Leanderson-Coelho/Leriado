@@ -41,86 +41,82 @@
 					</div>
 				</h:form>
 			</div>
-			<!-- ---------------------------------------------------------------------------------- -->
 			<div class="row">
 				<h:form>
 					<div class="row">
 						<div class="col s6">
-							<label>Login</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Nome</label>
+							<h:inputText value="#{usuarioBean.usuario.nome}"/>
 						</div>
 						<div class="col s6">
-							<label>Senha</label>
-							<h:inputText value="#{}"></h:inputText>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col s6">
-							<label>Login</label>
-							<h:inputText value="#{}"></h:inputText>
-						</div>
-						<div class="col s6">
-							<label>Senha</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Sobrenome</label>
+							<h:inputText value="#{usuarioBean.usuario.sobrenome}"/>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
-							<label>Login</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Email</label>
+							<h:inputText value="#{usuarioBean.usuario.email}"/>
 						</div>
 						<div class="col s6">
 							<label>Senha</label>
-							<h:inputText value="#{}"></h:inputText>
+							<h:inputText value="#{usuarioBean.usuario.senha}"/>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
-							<label>Login</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Sexo</label>
+							<h:inputText value="#{usuarioBean.usuario.sexo}"/>
 						</div>
 						<div class="col s6">
-							<label>Senha</label>
-							<h:inputText value="#{}"></h:inputText>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col s6">
-							<label>Login</label>
-							<h:inputText value="#{}"></h:inputText>
-						</div>
-						<div class="col s6">
-							<label>Senha</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Nascimento</label>
+							<h:inputText value="#{usuarioBean.usuario.datanasc}"/>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
-							<label>Login</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Telefone</label>
+							<h:inputText value="#{usuarioBean.usuario.telefone}"/>
 						</div>
 						<div class="col s6">
-							<label>Senha</label>
-							<h:inputText value="#{}"></h:inputText>
+							<label>Rua</label>
+							<h:inputText value="#{usuarioBean.usuario.rua}"/>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Cidade</label>
+							<h:inputText value="#{usuarioBean.usuario.cidade}"/>
+						</div>
+						<div class="col s6">
+							<label>Estado</label>
+							<h:inputText value="#{usuarioBean.usuario.estado}"/>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Numero</label>
+							<h:inputText value="#{usuarioBean.usuario.numero}"/>
+						</div>
+						<div class="col s6">
+							<label>CEP</label>
+							<h:inputText value="#{usuarioBean.usuario.cep}"/>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s12">
-							<h:commandButton action="#{}" value="Logar">
-								<f:attribute name="tipoForm" value="Cadastrar"></f:attribute>
-							</h:commandButton>
+							<h:commandButton action="#{usuarioBean.cadastrar}" value="Cadastrar"/>
 						</div>
 					</div>
 				</h:form>
 			</div>
 		</div>
-
 	</f:view>
 </h:body>
 </html>

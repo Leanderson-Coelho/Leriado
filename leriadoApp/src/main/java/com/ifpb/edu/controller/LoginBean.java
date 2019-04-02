@@ -1,5 +1,4 @@
 package com.ifpb.edu.controller;
-import java.sql.SQLException;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,12 +11,12 @@ import com.ifpb.edu.model.domain.Usuario;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
-	UsuarioDao usuarioDao;
+	private UsuarioDao usuarioDao;
 	
-	Usuario usuarioLogado;
+	private Usuario usuarioLogado;
 	
-	String login;
-	String senha;
+	private String login;
+	private String senha;
 	
 	@PostConstruct
 	public void init() {
