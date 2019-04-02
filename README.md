@@ -1,4 +1,4 @@
-# Leriado
+# Leriado II
 Uma rede social voltada a integrar as comunidades de docência a discência!
 
 ## Motivação
