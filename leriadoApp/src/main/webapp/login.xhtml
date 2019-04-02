@@ -3,17 +3,124 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- JQUERY -->
+	<script src="js/JQuery.js"></script>
+	<!-- MATERIALIZE CSS-->
+	<link rel="stylesheet" href="css/materialize.css" />
+	<!-- MATERIALIZE JS -->
+	<script src="js/materialize.js"></script>
+	<!-- ICONS MATERIALIZA -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" />
+	<!-- CSS DEFAULT -->
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<!-- CUSTOM -->
+	<link rel="stylesheet" href="css/customMaterialize.css" />
+</h:head>
 <h:body>
-<f:view>
-	<h:form>
-		<label>Login</label>
-		<h:inputText value="#{LoginBean.login}"></h:inputText>
-		<label>Senha</label>
-		<h:inputText value="#{LoginBean.senha}"></h:inputText>
-		<h:commandButton action="#{LoginBean.verificacaoLogin}" value="Logar">
-			<f:attribute name="tipoForm" value="Login"></f:attribute>
-		</h:commandButton>
-	</h:form>
-</f:view>
+	<f:view>
+		<div class="container">
+			<div class="row">
+				<h:form>
+					<div class="col s5">
+						<label>Login</label>
+						<h:inputText value="#{loginBean.login}"></h:inputText>
+					</div>
+
+					<div class="col s5">
+						<label>Senha</label>
+						<h:inputText value="#{loginBean.senha}"></h:inputText>
+					</div>
+
+					<div class="col s2">
+						<h:commandButton action="#{loginBean.verificacaoLogin}"
+							value="Logar">
+							<f:attribute name="tipoForm" value="Login"></f:attribute>
+						</h:commandButton>
+					</div>
+				</h:form>
+			</div>
+			<!-- ---------------------------------------------------------------------------------- -->
+			<div class="row">
+				<h:form>
+					<div class="row">
+						<div class="col s6">
+							<label>Login</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Login</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Login</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Login</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Login</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Login</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<h:inputText value="#{}"></h:inputText>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s12">
+							<h:commandButton action="#{}" value="Logar">
+								<f:attribute name="tipoForm" value="Cadastrar"></f:attribute>
+							</h:commandButton>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+
+	</f:view>
 </h:body>
 </html>

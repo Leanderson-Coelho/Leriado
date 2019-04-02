@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15542124468260" configfile="/leriadoApp/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15542124468260" configfile="/leriadoApp/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf15542335595360" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15542335595361 pf15542335716124" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="inicio.xhtml" id="pf15542335595373" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15542335595361" path="/inicio.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf15542335716125" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15542335716124" path="/login.xhtml"/>
+  <links id="pf15542335595361" target="pf15542335595373" source="pf15542335595360" outcome="inicio"/>
+  <links id="pf15542335716124" target="pf15542335716125" source="pf15542335595360" outcome="login"/>
+</pageflow:Pageflow>
