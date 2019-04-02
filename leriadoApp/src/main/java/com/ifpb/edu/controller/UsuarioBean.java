@@ -15,7 +15,7 @@ import com.ifpb.edu.model.domain.Usuario;
 public class UsuarioBean {
 	private Usuario usuario;
 	private UsuarioDao usuarioDao;
-	
+	private String teste = "TESTE DE BEAN";
 	@PostConstruct
 	public void init() {
 		usuarioDao = new UsuarioDaoImpl();
@@ -23,6 +23,7 @@ public class UsuarioBean {
 	}
 	
 	public String cadastrar() throws SQLException {
+		System.out.println(usuario);
 		usuario.setAcesso(1);
 		usuario.setAtivo(true);
 		usuarioDao.criar(usuario);
