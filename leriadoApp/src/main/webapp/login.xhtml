@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+<f:view>
+	<h:form>
+		<label>Login</label>
+		<h:inputText value="#{LoginBean.login}"></h:inputText>
+		<label>Senha</label>
+		<h:inputText value="#{LoginBean.senha}"></h:inputText>
+		<h:commandButton action="#{LoginBean.verificacaoLogin}" value="Logar">
+			<f:attribute name="tipoForm" value="Login"></f:attribute>
+		</h:commandButton>
+	</h:form>
+</f:view>
+</h:body>
+</html>
