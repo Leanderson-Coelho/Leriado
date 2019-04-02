@@ -16,7 +16,16 @@
 			<id>central</id>
 			<url>http://central.maven.org/maven2/</url>
 		</repository>
+		<repository>
+		<id>mvn-repository</id>
+		<url>http://mvnrepository.com/</url>
+	</repository>
+	<repository>
+		<id>primefaces-themes</id>
+		<url>http://repository.primefaces.org/</url>
+	</repository>
 	</repositories>
+	
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,33 +34,58 @@
 	</properties>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.12</version>
+	<scope>test</scope>
+</dependency>
 
-		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.1-901.jdbc4</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-catalina</artifactId>
-			<version>8.5.35</version>
-			<scope>provided</scope>
-		</dependency>
+<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+<dependency>
+	<groupId>postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<version>9.1-901.jdbc4</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/jstl/jstl -->
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>jstl</artifactId>
+	<version>1.2</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+<dependency>
+	<groupId>org.apache.tomcat</groupId>
+	<artifactId>tomcat-catalina</artifactId>
+	<version>8.5.35</version>
+	<scope>provided</scope>
+</dependency>
+<dependency>
+	<groupId>com.sun.faces</groupId>
+	<artifactId>jsf-api</artifactId>
+	<version>2.2.18</version>
+</dependency>
+<dependency>
+	<groupId>javax.el</groupId>
+	<artifactId>javax.el-api</artifactId>
+	<version>3.0.0</version>
+</dependency>
+<dependency>
+	<groupId>com.sun.faces</groupId>
+	<artifactId>jsf-impl</artifactId>
+	<version>2.2.18</version>
+</dependency>
+<dependency>
+	<groupId>org.primefaces</groupId>
+	<artifactId>primefaces</artifactId>
+	<version>6.2</version>
+</dependency>
+<!-- PRIMEFACES ALL THEMES -->
+<dependency>
+	<groupId>org.primefaces.themes</groupId>
+	<artifactId>all-themes</artifactId>
+	<version>1.0.10</version>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>
