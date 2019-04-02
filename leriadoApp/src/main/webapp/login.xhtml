@@ -6,13 +6,14 @@
 <h:body>
 <f:view>
 	<h:form>
-		<label>Login</label>
-		<h:inputText value="#{LoginBean.login}"></h:inputText>
-		<label>Senha</label>
-		<h:inputText value="#{LoginBean.senha}"></h:inputText>
-		<h:commandButton action="#{LoginBean.verificacaoLogin}" value="Logar">
+		<div></div>
+		<label>Login</label><br/>
+		<p:inputText id="idInput" value="#{loginBean.login}"></p:inputText>
+		<label>Senha</label><br/>
+		<p:inputText value="#{loginBean.senha}"></p:inputText>
+		<p:commandButton action="#{loginBean.verificacaoLogin}" value="Logar">
 			<f:attribute name="tipoForm" value="Login"></f:attribute>
-		</h:commandButton>
+		</p:commandButton>
 	</h:form>
 </f:view>
 </h:body>
