@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import com.ifpb.edu.model.dao.UsuarioDao;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
@@ -63,6 +64,7 @@ public class LoginBean {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
 	
 	
 }
