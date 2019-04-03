@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
@@ -24,7 +25,9 @@ public class UsuarioBean {
 	private UsuarioDao usuarioDao;
 	private String dataNasc;
 	
-
+	@ManagedProperty("#{loginBean}")
+	private LoginBean loginBean;
+	
 	@PostConstruct
 	public void init() {
 		usuarioDao = new UsuarioDaoImpl();
@@ -62,6 +65,11 @@ public class UsuarioBean {
 		
 		return "inicio";
 	}
+	
+	public String excluirConta() throws SQLException {
+		usuarioDao.remover(loginBean.getUsuarioLogado().getId());
+		return "login";
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -76,5 +84,12 @@ public class UsuarioBean {
 
 	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
+	}
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
 	}
 }
