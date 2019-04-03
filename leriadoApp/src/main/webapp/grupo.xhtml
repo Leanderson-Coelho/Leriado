@@ -19,14 +19,32 @@
 	<link rel="stylesheet" href="css/customMaterialize.css" />
 </h:head>
 <h:body>
-<f:view>
-	<h1>Seja bem vindo <h:outputText value="#{loginBean.usuarioLogado.nome}" ></h:outputText> </h1>
-	<h:form>
-		<p:commandButton action="#{usuarioBean.excluirConta}"  value="Excluir conta"/>
-		<p:commandButton action="atualizar.xhtml"  value="Atualizar conta"/>
-		<p:commandButton action="#{loginBean.sair}" value="Sair" />
-		<p:commandButton action="listarGrupos.xhtml" value="Listar Grupos" />
-	</h:form>
-</f:view>
+	<f:view>
+		<div class="container">
+			<div class="row">
+				<h:form enctype="multipart/form-data">
+					<div class="col s4">
+						<label>Nome</label>
+						<p:inputText value="#{grupoBean.grupo.nome}"></p:inputText>
+					</div>
+
+					<div class="col s4">
+						<label>Descrição</label>
+						<p:inputText value="#{grupoBean.grupo.descricao}"></p:inputText>
+					</div>
+					<div class="col s4">
+						<label>Imagem</label>
+						<h:inputFile value="#{grupoBean.foto}" />
+					</div>
+
+					<div class="col s2">
+						<h:commandButton action="#{grupoBean.cadastrarGrupo}"
+							value="Cadastrar">
+						</h:commandButton>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</f:view>
 </h:body>
 </html>

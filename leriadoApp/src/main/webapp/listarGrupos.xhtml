@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- JQUERY -->
+	<script src="js/JQuery.js"></script>
+	<!-- MATERIALIZE CSS-->
+	<link rel="stylesheet" href="css/materialize.css" />
+	<!-- MATERIALIZE JS -->
+	<script src="js/materialize.js"></script>
+	<!-- ICONS MATERIALIZA -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" />
+	<!-- CSS DEFAULT -->
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<!-- CUSTOM -->
+	<link rel="stylesheet" href="css/customMaterialize.css" />
+</h:head>
+<h:body>
+	<f:view>
+		<div class="row">
+			<div class="col l4">
+				<form>
+					<p:commandButton value="Listar" action="grupoBean.listar" />
+					<p:commandButton action="login.xhtml" value="Volar" />
+				</form>
+			</div>
+			<div class="col l4 container">
+				<p:dataTable var="ItemGrupo" value="#{grupoBean.grupos}"
+					styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-even-row">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+
+						<h:outputText value="#{ItemGrupo.nome}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+
+						<h:outputText value="#{ItemGrupo.descricao}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Imagem" />
+						</f:facet>
+
+						<h:graphicImage height="50" url="/imagem?idGrupo=#{ItemGrupo.id}" />
+
+					</p:column>
+				</p:dataTable>
+			</div>
+		</div>
+
+	</f:view>
+</h:body>
+</html>

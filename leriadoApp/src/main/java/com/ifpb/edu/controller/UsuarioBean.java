@@ -71,8 +71,6 @@ public class UsuarioBean {
 		loginBean.getUsuarioLogado().setAtivo(true);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		try {
-			System.out.println(loginBean.getNascimentoToString());
-			
 			loginBean.getUsuarioLogado().setDatanasc(LocalDate.parse(loginBean.getNascimentoToString(), formatter));
 			
 		}catch(DateTimeParseException e) {
@@ -92,7 +90,7 @@ public class UsuarioBean {
 			if(msgErro!=null) {
 //				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErro, msgErro));
 				System.out.println(msgErro);
-				return "login";
+				return "atualizarConta";
 			}
 		}
 		

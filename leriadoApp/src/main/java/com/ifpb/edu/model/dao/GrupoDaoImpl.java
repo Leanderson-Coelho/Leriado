@@ -155,4 +155,20 @@ public class GrupoDaoImpl implements GrupoDao{
 		}
 	}
 	
+	public List<Grupo> listar(){
+		List<Grupo> grupos = new ArrayList<>();
+		String sql = new String("SELECT * FROM grupo");
+		try {
+			PreparedStatement statemet = connection.prepareStatement(sql);
+			ResultSet result = statemet.executeQuery();
+			while(result.next()) {
+				grupos.add(new Grupo(result.getInt(1),result.getBoolean(2),result.getTimestamp(3).toLocalDateTime(),result.getString(4),result.getString(5),result.getString(6)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return grupos;
+	}
+	
 }
