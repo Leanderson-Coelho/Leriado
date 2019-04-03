@@ -8,6 +8,7 @@
 	<h1>Seja bem vindo <h:outputText value="#{loginBean.usuarioLogado.nome}" ></h:outputText> </h1>
 	<h:form>
 		<p:commandButton action="#{usuarioBean.excluirConta}"  value="Excluir conta"  />
+		<p:commandButton action="#{loginBean.sair}" value="Sair" />
 	</h:form>
 </f:view>
 </h:body>
