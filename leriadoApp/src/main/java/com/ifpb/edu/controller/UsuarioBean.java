@@ -1,21 +1,30 @@
 package com.ifpb.edu.controller;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import com.ifpb.edu.model.dao.UsuarioDao;
 import com.ifpb.edu.model.dao.UsuarioDaoImpl;
 import com.ifpb.edu.model.domain.Usuario;
+import com.ifpb.edu.validadores.Validator;
 
 @ManagedBean
 @RequestScoped
 public class UsuarioBean {
 	private Usuario usuario;
 	private UsuarioDao usuarioDao;
-	private String teste = "TESTE DE BEAN";
+	private String dataNasc;
+	
+
 	@PostConstruct
 	public void init() {
 		usuarioDao = new UsuarioDaoImpl();
@@ -23,10 +32,34 @@ public class UsuarioBean {
 	}
 	
 	public String cadastrar() throws SQLException {
-		System.out.println(usuario);
 		usuario.setAcesso(1);
 		usuario.setAtivo(true);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		try {
+			usuario.setDatanasc(LocalDate.parse(dataNasc, formatter));			
+		}catch(DateTimeParseException e) {
+			usuario.setDatanasc(null);
+		}
+		List<String> msgsErro = Validator.validaTodos(usuario.getNome(), usuario.getSobrenome(), usuario.getEmail(), usuario.getSenha(), usuario.getSexo(), dataNasc, usuario.getTelefone(), usuario.getNumero(), usuario.getCep(), formatter);
+		try {
+			if(usuarioDao.buscarPorEmail(usuario.getEmail())!=null) {
+				msgsErro.add(2, "Email já cadastrado");
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			//erro 501
+		}
+		
+		for(String msgErro : msgsErro) {
+			if(msgErro!=null) {
+//				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErro, msgErro));
+				System.out.println(msgErro);
+				return "login";
+			}
+		}
+		
 		usuarioDao.criar(usuario);
+		
 		return "inicio";
 	}
 
@@ -36,5 +69,12 @@ public class UsuarioBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public String getDataNasc() {
+		return dataNasc;
+	}
+
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
 	}
 }
