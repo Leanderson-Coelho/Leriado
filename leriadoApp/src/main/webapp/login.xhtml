@@ -35,86 +35,85 @@
 
 					<div class="col s2">
 						<h:commandButton action="#{loginBean.verificacaoLogin}"
-							value="Logar">
-							<f:attribute name="tipoForm" value="Login"></f:attribute>
-						</h:commandButton>
+							value="Logar" />
 					</div>
 				</h:form>
 			</div>
-			<br/>
-			<hr/>
-			<br/>
+			<br />
+			<hr />
+			<br />
 			<div class="row">
 				<h:form>
 					<div class="row">
 						<div class="col s6">
 							<label>Nome</label>
-							<p:inputText value="#{usuarioBean.usuario.nome}"/>
+							<p:inputText value="#{usuarioBean.usuario.nome}" />
 						</div>
 						<div class="col s6">
 							<label>Sobrenome</label>
-							<p:inputText value="#{usuarioBean.usuario.sobrenome}"/>
+							<p:inputText value="#{usuarioBean.usuario.sobrenome}" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
 							<label>Email</label>
-							<p:inputText value="#{usuarioBean.usuario.email}"/>
+							<p:inputText value="#{usuarioBean.usuario.email}" />
 						</div>
 						<div class="col s6">
 							<label>Senha</label>
-							<p:inputText value="#{usuarioBean.usuario.senha}"/>
+							<p:inputText value="#{usuarioBean.usuario.senha}" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
 							<label>Sexo</label>
-							<p:inputText value="#{usuarioBean.usuario.sexo}"/>
+							<p:inputText value="#{usuarioBean.usuario.sexo}" />
 						</div>
 						<div class="col s6">
 							<label>Nascimento</label>
-							<!--  <p:inputText value="#{usuarioBean.usuario.datanasc}"/>-->
+							<p:inputText value="#{usuarioBean.dataNasc}" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
 							<label>Telefone</label>
-							<p:inputText value="#{usuarioBean.usuario.telefone}"/>
+							<p:inputText value="#{usuarioBean.usuario.telefone}" />
 						</div>
 						<div class="col s6">
 							<label>Rua</label>
-							<p:inputText value="#{usuarioBean.usuario.rua}"/>
+							<p:inputText value="#{usuarioBean.usuario.rua}" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
 							<label>Cidade</label>
-							<p:inputText value="#{usuarioBean.usuario.cidade}"/>
+							<p:inputText value="#{usuarioBean.usuario.cidade}" />
 						</div>
 						<div class="col s6">
 							<label>Estado</label>
-							<p:inputText value="#{usuarioBean.usuario.estado}"/>
+							<p:inputText value="#{usuarioBean.usuario.estado}" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s6">
 							<label>Numero</label>
-							<p:inputText value="#{usuarioBean.usuario.numero}"/>
+							<p:inputText value="#{usuarioBean.usuario.numero}" />
 						</div>
 						<div class="col s6">
 							<label>CEP</label>
-							<p:inputText value="#{usuarioBean.usuario.cep}"/>
+							<p:inputText value="#{usuarioBean.usuario.cep}" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col s12">
-							<p:commandButton class="btn" action="#{usuarioBean.cadastrar}" value="Cadastrar"/>
+							<h:commandButton action="#{usuarioBean.cadastrar}"
+								value="Cadastrar" />
 						</div>
 					</div>
 				</h:form>
