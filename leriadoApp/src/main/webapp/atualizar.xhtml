@@ -1,0 +1,103 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- JQUERY -->
+	<script src="js/JQuery.js"></script>
+	<!-- MATERIALIZE CSS-->
+	<link rel="stylesheet" href="css/materialize.css" />
+	<!-- MATERIALIZE JS -->
+	<script src="js/materialize.js"></script>
+	<!-- ICONS MATERIALIZA -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" />
+	<!-- CSS DEFAULT -->
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<!-- CUSTOM -->
+	<link rel="stylesheet" href="css/customMaterialize.css" />
+</h:head>
+<h:body>
+	<f:view>
+		<div class="container">
+			<div class="row">
+				<h:form>
+					<div class="row">
+						<div class="col s6">
+							<label>Nome</label>
+							<p:inputText value="#{loginBean.usuarioLogado.nome}" />
+						</div>
+						<div class="col s6">
+							<label>Sobrenome</label>
+							<p:inputText value="#{loginBean.usuarioLogado.sobrenome}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Email</label>
+							<p:inputText value="#{loginBean.usuarioLogado.email}" />
+						</div>
+						<div class="col s6">
+							<label>Senha</label>
+							<p:inputText value="#{loginBean.usuarioLogado.senha}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Sexo</label>
+							<p:inputText value="#{loginBean.usuarioLogado.sexo}" />
+						</div>
+						<div class="col s6">
+							<label>Nascimento</label>
+							<p:inputText value="#{loginBean.nascimentoToString}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Telefone</label>
+							<p:inputText value="#{loginBean.usuarioLogado.telefone}" />
+						</div>
+						<div class="col s6">
+							<label>Rua</label>
+							<p:inputText value="#{loginBean.usuarioLogado.rua}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Cidade</label>
+							<p:inputText value="#{loginBean.usuarioLogado.cidade}" />
+						</div>
+						<div class="col s6">
+							<label>Estado</label>
+							<p:inputText value="#{loginBean.usuarioLogado.estado}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s6">
+							<label>Numero</label>
+							<p:inputText value="#{loginBean.usuarioLogado.numero}" />
+						</div>
+						<div class="col s6">
+							<label>CEP</label>
+							<p:inputText value="#{loginBean.usuarioLogado.cep}" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col s12">
+							<h:commandButton action="#{usuarioBean.atualizarConta}"
+								value="Cadastrar" />
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</f:view>
+</h:body>
+</html>

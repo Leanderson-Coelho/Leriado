@@ -66,6 +66,41 @@ public class UsuarioBean {
 		return "inicio";
 	}
 	
+	public String atualizarConta() throws SQLException {
+		loginBean.getUsuarioLogado().setAcesso(1);
+		loginBean.getUsuarioLogado().setAtivo(true);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		try {
+			System.out.println(loginBean.getNascimentoToString());
+			
+			loginBean.getUsuarioLogado().setDatanasc(LocalDate.parse(loginBean.getNascimentoToString(), formatter));
+			
+		}catch(DateTimeParseException e) {
+			loginBean.getUsuarioLogado().setDatanasc(null);
+		}
+		List<String> msgsErro = Validator.validaTodos(loginBean.getUsuarioLogado().getNome(), loginBean.getUsuarioLogado().getSobrenome(), loginBean.getUsuarioLogado().getEmail(), loginBean.getUsuarioLogado().getSenha(), loginBean.getUsuarioLogado().getSexo(), loginBean.getNascimentoToString(), loginBean.getUsuarioLogado().getTelefone(), loginBean.getUsuarioLogado().getNumero(), loginBean.getUsuarioLogado().getCep(), formatter);
+		try {
+			if(usuarioDao.buscarPorEmail(usuario.getEmail())!=null) {
+				msgsErro.add(2, "Email já cadastrado");
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			//erro 501
+		}
+		
+		for(String msgErro : msgsErro) {
+			if(msgErro!=null) {
+//				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msgErro, msgErro));
+				System.out.println(msgErro);
+				return "login";
+			}
+		}
+		
+		usuarioDao.atualizar(loginBean.getUsuarioLogado(), loginBean.getUsuarioLogado().getId());
+		
+		return "inicio";
+	}
+	
 	public String excluirConta() throws SQLException {
 		usuarioDao.remover(loginBean.getUsuarioLogado().getId());
 		return "login";

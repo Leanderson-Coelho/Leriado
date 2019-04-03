@@ -1,5 +1,7 @@
 package com.ifpb.edu.controller;
 
+import java.time.format.DateTimeFormatter;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,9 +18,11 @@ public class LoginBean {
 	private UsuarioDao usuarioDao;
 	
 	private Usuario usuarioLogado;
+	private String nascimentoToString;
 	
 	private String login;
 	private String senha;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -28,6 +32,8 @@ public class LoginBean {
 	public String verificacaoLogin() throws Exception {
 		if(usuarioDao.login(login, senha)) {
 			usuarioLogado = usuarioDao.buscarPorEmail(login);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			nascimentoToString = usuarioLogado.getDatanasc().format(formatter);
 			return "inicio";
 		}else {
 			return "login";
@@ -63,6 +69,13 @@ public class LoginBean {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
+	public String getNascimentoToString() {
+		return nascimentoToString;
+	}
+
+	public void setNascimentoToString(String nascimentoToString) {
+		this.nascimentoToString = nascimentoToString;
+	}
 	
 }
