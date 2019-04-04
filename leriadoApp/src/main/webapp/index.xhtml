@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<f:view>
+		<h:dataTable var="itemMsg" value="#{mensagemBean.msgs}" id="table">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{itemMsg.conteudo}" />
+			</p:column>
+		</h:dataTable>
+		<h:form>
+			<p:inputText value="#{mensagemBean.msg}"></p:inputText>
+			<h:commandButton action="#{mensagemBean.criarMensagem}"
+				value="enviar"></h:commandButton>
+			<p:poll interval="1" listener="#{mensagemBean.listarMensagens}" update="table" />
+		</h:form>
+	</f:view>
+</h:body>
+</html>
